@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Snippets - Paolo Alborno</title>
+    <meta name="description" content="Una collezione di snippet di codice Python di Paolo Alborno.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .code-snippet {
+            background: #fdf6e3; /* Solarized Light background */
+            color: #657b83; /* Solarized Light text */
+            border: 1px solid #eee8d5;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .code-snippet pre {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Paolo Alborno</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Chi Sono</a></li>
+                <li><a href="projects.html">Progetti</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="hobbies.html">Hobby</a></li>
+                <li><a href="contact.html">Contattami</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="python-snippets" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title">Python Code Snippets</h2>
+                <p class="section-subtitle">Una raccolta di esempi di codice e piccoli script che ho scritto.</p>
+
+                <div class="snippet-container">
+                    <h3>Esempio 1: Data Cleaning con Pandas</h3>
+                    <div class="code-snippet">
+<pre><code>
+import pandas as pd
+
+def clean_data(df):
+    # Rimuove duplicati
+    df.drop_duplicates(inplace=True)
+    # Gestisce valori mancanti
+    df.fillna(method='ffill', inplace=True)
+    return df
+
+# Esempio di utilizzo
+# data = {'col1': [1, 2, 2, 3, None], 'col2': ['A', 'B', 'B', 'C', 'D']}
+# df = pd.DataFrame(data)
+# df_cleaned = clean_data(df)
+# print(df_cleaned)
+</code></pre>
+                    </div>
+
+                    <h3>Esempio 2: Chiamata API Semplice</h3>
+                    <div class="code-snippet">
+<pre><code>
+import requests
+
+def get_json_from_api(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Lancia un'eccezione per errori HTTP
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Errore durante la chiamata API: {e}")
+        return None
+
+# Esempio di utilizzo
+# api_url = "https://api.github.com/users/paoloalborno"
+# user_data = get_json_from_api(api_url)
+# if user_data:
+#     print(user_data)
+</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2024 Paolo Alborno. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Paolo Alborno</title>
-    <meta name="description" content="Scarica il CV di Paolo Alborno, Software Engineer.">
+    <meta name="description" content="CV di Paolo Alborno, Senior Software & Data Engineer.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .cv-section { padding-top: 120px; padding-bottom: 60px; }
+        .cv-container { max-width: 900px; margin: 0 auto; background: var(--bg-card); padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); }
+        .cv-header { text-align: center; margin-bottom: 3rem; }
+        .lang-switcher { text-align: center; margin-bottom: 2rem; }
+        .lang-switcher button { background: none; border: 2px solid var(--primary); color: var(--primary); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .lang-switcher button.active { background: var(--primary); color: white; }
+        .cv-content h3 { font-size: 1.8rem; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        .cv-entry { margin-bottom: 2rem; }
+        .cv-entry h4 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+        .cv-entry .meta { font-size: 0.95rem; color: var(--text-light); margin-bottom: 0.8rem; }
+        .cv-entry ul { list-style-position: inside; padding-left: 1rem; }
+        .cv-entry li { margin-bottom: 0.5rem; }
+        .cv-pills { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
+        .cv-pill { background: var(--bg-alt); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 500; }
+        #cv-en { display: none; }
+    </style>
 </head>
 <body>
     <header>
@@ -19,32 +36,129 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">Chi Sono</a></li>
                 <li><a href="projects.html">Progetti</a></li>
-                <li><a href="python_projects.html">Progetti Python</a></li>
-                <li><a href="hobbies.html">Hobby</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="game.html">Gioco</a></li>
                 <li><a href="cv.html">CV</a></li>
+                <li><a href="hobbies.html">Hobby</a></li>
                 <li><a href="contact.html">Contattami</a></li>
             </ul>
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="mobile-menu"><span></span><span></span><span></span></div>
         </nav>
     </header>
 
     <main>
-        <section class="cv-section" style="padding-top: 120px; text-align: center; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <section class="cv-section">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Il Mio CV</h2>
-                <p class="section-subtitle animate-on-scroll" style="margin-bottom: 2rem;">Puoi scaricare il mio curriculum vitae completo per avere maggiori dettagli sul mio percorso professionale e sulle mie competenze.</p>
+                <div class="lang-switcher">
+                    <button id="btn-it" class="active">Italiano</button>
+                    <button id="btn-en">English</button>
+                </div>
 
-                <div class="animate-on-scroll">
-                    <a href="cv/paolo_alborno_cv.pdf" class="btn btn-primary" download>
-                        <i class="fas fa-download"></i>
-                        Scarica il CV
-                    </a>
+                <div id="cv-it" class="cv-container">
+                    <!-- CV Italiano -->
+                    <div class="cv-header">
+                        <h2 class="section-title">Curriculum Vitae</h2>
+                    </div>
+                    <div class="cv-content">
+                        <h3>Chi Sono</h3>
+                        <p>Senior Software & Data Engineer con oltre 5 anni di esperienza in soluzioni software per e-commerce B2B. Il mio focus è la creazione di pipeline cloud scalabili per trasformare dati grezzi e ad alto volume in insight, utilizzando NLP, ML e LLM. Come uno dei primi dipendenti di una startup in rapida crescita, ho assunto responsabilità interfunzionali in ambito ingegneristico, dati e prodotto. Questa esposizione ha rafforzato la mia adattabilità e mi ha permesso di contribuire efficacemente all'intero stack di dati e al ciclo di vita del prodotto. Prospettive future: sono desideroso di unirmi a un'azienda di medie o grandi dimensioni nel settore Data e AI Engineering, dove posso espandere le mie competenze e contribuire a sviluppare soluzioni resilienti e orientate al prodotto su larga scala.</p>
+
+                        <h3>Esperienze Lavorative</h3>
+                        <div class="cv-entry">
+                            <h4>SENIOR SOFTWARE, DATA ENGINEER - PARTNER</h4>
+                            <p class="meta">MASSIVE DATA HEIGHTS | Varazze, Italia (Remoto) | Feb 2019 - Oggi</p>
+                            <ul>
+                                <li>Sviluppato un'architettura cloud scalabile su AWS (EC2, ELB, RDS, Auto Scaling, ecc.) per processare oltre 1 miliardo di recensioni di consumatori in più di 15 categorie di prodotti.</li>
+                                <li>Applicato tecniche di NLP come clustering, estrazione di topic (sklearn, BERT) e analisi del sentiment per identificare insight sui prodotti e trend di consumo.</li>
+                                <li>Progettato pipeline di dati integrando API Java e microservizi Python (Flask, Lambda) e database.</li>
+                                <li>Integrato capacità LLM (LangGraph, agenti, prompt engineering) per abilitare l'esplorazione dei dati basata su chat.</li>
+                                <li>Supportato attivamente il management nello sviluppo del prodotto e nell'ottimizzazione dell'infrastruttura: contribuendo a ottenere oltre 10 clienti enterprise e a ridurre i costi operativi di AWS del 30%.</li>
+                            </ul>
+                            <div class="cv-pills"><span class="cv-pill">AWS</span><span class="cv-pill">NiFi</span><span class="cv-pill">Java</span><span class="cv-pill">Python</span><span class="cv-pill">Angular</span><span class="cv-pill">MySQL</span><span class="cv-pill">PostgreSQL</span></div>
+                        </div>
+                        <div class="cv-entry">
+                            <h4>DOTTORANDO, ASSEGNISTA DI RICERCA</h4>
+                            <p class="meta">UNIVERSITÀ DI GENOVA - DIBRIS | Genova, Italia | Set 2014 – Feb 2019</p>
+                            <ul>
+                                <li>Sviluppato moduli software/app per supportare le attività di ricerca, principalmente per l'acquisizione di dati da sensori in tempo reale.</li>
+                                <li>Competente nella stesura di report tecnici e nel coordinamento di deliverable in progetti di ricerca finanziati dall'UE (H2020).</li>
+                                <li>Co-organizzato MOCO 2018 (150+ partecipanti), curando il programma e gestendo la logistica.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Istruzione e Formazione</h3>
+                        <div class="cv-entry">
+                            <h4>Dottorato di Ricerca in Informatica e Ingegneria dei Sistemi</h4>
+                            <p class="meta">Università di Genova | Set 2014 – Mag 2018</p>
+                        </div>
+                        <div class="cv-entry">
+                            <h4>Laurea Magistrale in Ingegneria Informatica, con lode</h4>
+                            <p class="meta">Università di Genova | Set 2011 - Giu 2014</p>
+                        </div>
+
+                        <h3>Certificazioni IT</h3>
+                        <div class="cv-pills">
+                            <span class="cv-pill">AWS Certified Solutions Architect (Associate)</span>
+                            <span class="cv-pill">Professional Scrum Master™ (PSM I)</span>
+                            <span class="cv-pill">Google PM Certificate V1</span>
+                        </div>
+
+                        <h3>Competenze Linguistiche</h3>
+                        <p>Italiano (Madrelingua), Inglese (Competenza professionale)</p>
+                    </div>
+                </div>
+
+                <div id="cv-en" class="cv-container">
+                    <!-- CV Inglese -->
+                    <div class="cv-header">
+                        <h2 class="section-title">Curriculum Vitae</h2>
+                    </div>
+                    <div class="cv-content">
+                        <h3>About Me</h3>
+                        <p>Senior Software & Data Engineer with 5+ years in B2B e-commerce software solutions. My focus is on building scalable cloud pipelines to transform raw, high-volume data into insights - using NLP, ML, and LLMs. As an early employee at a fast-growing startup, I took on cross-functional responsibilities across engineering, data, and product. This exposure strengthened my adaptability and enabled me to contribute effectively across the entire data stack and product lifecycle. Looking ahead: I am eager to join a mid-to-large company in the Data and AI Engineering domain, where I can expand my expertise and help develop resilient, product-driven, solutions at scale.</p>
+
+                        <h3>Work Experience</h3>
+                        <div class="cv-entry">
+                            <h4>SENIOR SOFTWARE, DATA ENGINEER - PARTNER</h4>
+                            <p class="meta">MASSIVE DATA HEIGHTS | Varazze, Italy (Remote) | Feb 2019 - Current</p>
+                            <ul>
+                                <li>Developed a scalable cloud architecture on AWS (EC2, ELB, RDS, Auto Scaling, etc.) to process 1B+ consumer reviews across 15+ product categories.</li>
+                                <li>Applied NLP techniques such as clustering, topic extraction (sklearn, BERT), and sentiment analysis, to identify products insights and consumer trends.</li>
+                                <li>Designed data pipelines with integrating Java APIs and Python microservices (Flask, Lambda) and databases.</li>
+                                <li>Integrated LLM capabilities (LangGraph, agents, prompt engineering) to enable chat-based data exploration.</li>
+                                <li>Actively supported management for product development and infrastructure optimization: helping secure 10+ enterprise clients and reducing AWS operational costs by 30%.</li>
+                            </ul>
+                             <div class="cv-pills"><span class="cv-pill">AWS</span><span class="cv-pill">NiFi</span><span class="cv-pill">Java</span><span class="cv-pill">Python</span><span class="cv-pill">Angular</span><span class="cv-pill">MySQL</span><span class="cv-pill">PostgreSQL</span></div>
+                        </div>
+                        <div class="cv-entry">
+                            <h4>PHD, POSTDOC FELLOW</h4>
+                            <p class="meta">UNIVERSITY OF GENOVA - DIBRIS | Genova, Italy | Sept 2014 – Feb 2019</p>
+                            <ul>
+                                <li>Developed software modules/apps to support research activities mainly enabling real-time sensors data acquisition.</li>
+                                <li>Skilled in writing technical reports and deliverables coordination in EU-funded H2020 research projects.</li>
+                                <li>Co-organized MOCO 2018 (150+ attendees), curating the program and managing logistics.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Education and Training</h3>
+                        <div class="cv-entry">
+                            <h4>PhD in Computer Science and System Engineering</h4>
+                            <p class="meta">University of Genova | Sept 2014 – May 2018</p>
+                        </div>
+                        <div class="cv-entry">
+                            <h4>Master’s Degree in Computer Engineering, with honors</h4>
+                            <p class="meta">University of Genova | Sep 2011 - Jun 2014</p>
+                        </div>
+
+                        <h3>IT Certifications</h3>
+                        <div class="cv-pills">
+                            <span class="cv-pill">AWS Certified Solutions Architect (Associate)</span>
+                            <span class="cv-pill">Professional Scrum Master™ (PSM I)</span>
+                            <span class="cv-pill">Google PM Certificate V1</span>
+                        </div>
+
+                        <h3>Language Skills</h3>
+                        <p>Italian (Native speaker), English (Proficient)</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -60,5 +174,27 @@
         </div>
     </footer>
     <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnIt = document.getElementById('btn-it');
+            const btnEn = document.getElementById('btn-en');
+            const cvIt = document.getElementById('cv-it');
+            const cvEn = document.getElementById('cv-en');
+
+            btnIt.addEventListener('click', () => {
+                cvIt.style.display = 'block';
+                cvEn.style.display = 'none';
+                btnIt.classList.add('active');
+                btnEn.classList.remove('active');
+            });
+
+            btnEn.addEventListener('click', () => {
+                cvIt.style.display = 'none';
+                cvEn.style.display = 'block';
+                btnIt.classList.remove('active');
+                btnEn.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

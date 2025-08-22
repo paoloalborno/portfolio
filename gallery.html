@@ -3,13 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contattami - Paolo Alborno</title>
-    <meta name="description" content="Contatta Paolo Alborno per collaborazioni, progetti o opportunità di lavoro.">
+    <title>Galleria - Paolo Alborno</title>
+    <meta name="description" content="Una galleria di foto di Paolo Alborno.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -33,32 +52,28 @@
     </header>
 
     <main>
-        <section class="contact" style="padding-top: 120px;">
-            <div class="container contact-container">
-                <h2 class="section-title animate-on-scroll">Contattami</h2>
-                <p class="section-subtitle animate-on-scroll">Sono disponibile per nuove opportunità e collaborazioni. Scrivimi per discutere di un progetto o semplicemente per un saluto.</p>
+        <section class="gallery" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title">Galleria Fotografica</h2>
+                <p class="section-subtitle">Una piccola collezione di momenti e luoghi che mi hanno ispirato.</p>
 
-                <form class="contact-form animate-on-scroll" action="#" method="POST">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Nome</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/ecommerce-detail.jpg" alt="Galleria Immagine 1">
                     </div>
-                    <div class="form-group">
-                        <label for="subject">Oggetto</label>
-                        <input type="text" id="subject" name="subject" required>
+                    <div class="gallery-item">
+                        <img src="images/nlp-detail.jpg" alt="Galleria Immagine 2">
                     </div>
-                    <div class="form-group">
-                        <label for="message">Messaggio</label>
-                        <textarea id="message" name="message" required></textarea>
+                    <div class="gallery-item">
+                        <img src="images/placeholder.jpg" alt="Galleria Immagine 3">
                     </div>
-                    <button type="submit" class="submit-btn">Invia Messaggio</button>
-                </form>
+                    <div class="gallery-item">
+                        <img src="images/ecommerce-preview.jpg" alt="Galleria Immagine 4">
+                    </div>
+                     <div class="gallery-item">
+                        <img src="images/nlp-preview.jpg" alt="Galleria Immagine 5">
+                    </div>
+                </div>
             </div>
         </section>
     </main>
