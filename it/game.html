@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paolo - Gioco</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0;
+            background: var(--bg-alt);
+        }
+        #gameCanvas {
+            border: 1px solid #000;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Paolo</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Chi Sono</a></li>
+                <li><a href="projects.html">Progetti</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="hobbies.html">Hobby</a></li>
+                <li><a href="contact.html">Contattami</a></li>
+            </ul>
+            <div class="lang-switcher-desktop">
+                <a href="game.html" class="lang-option active">IT</a>
+                <span class="lang-separator">|</span>
+                <a href="../en/game.html" class="lang-option">EN</a>
+            </div>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="game-container">
+            <h1 class="section-title">Snake</h1>
+            <p class="section-subtitle">Un piccolo gioco per passare il tempo. Usa i tasti freccia per muoverti.</p>
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2024 Paolo. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+    <script src="../js/main.js"></script>
+    <script src="../js/game.js"></script>
+</body>
+</html>

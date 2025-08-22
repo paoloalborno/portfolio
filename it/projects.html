@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progetti - Paolo Alborno</title>
+    <meta name="description" content="Esplora i progetti di Paolo Alborno, includendo analisi di infrastrutture e-commerce e NLP.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Paolo Alborno</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Chi Sono</a></li>
+                <li><a href="projects.html">Progetti</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="hobbies.html">Hobby</a></li>
+                <li><a href="contact.html">Contattami</a></li>
+            </ul>
+            <div class="lang-switcher-desktop">
+                <a href="projects.html" class="lang-option active">IT</a>
+                <span class="lang-separator">|</span>
+                <a href="../en/projects.html" class="lang-option">EN</a>
+            </div>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="projects" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">I Miei Progetti</h2>
+                <p class="section-subtitle animate-on-scroll">Una selezione di progetti che dimostrano le mie competenze tecniche e di gestione.</p>
+
+                <div class="tabs-container animate-on-scroll">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="ecommerce">Analisi Infrastruttura E-commerce</button>
+                        <button class="tab-btn" data-tab="nlp">NLP con BERT</button>
+                        <button class="tab-btn" data-tab="python">Progetti Python</button>
+                        <button class="tab-btn" data-tab="game">Gioco Snake</button>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="ecommerce">
+                            <div class="project-preview">
+                                <img src="../images/ecommerce-preview.jpg" alt="E-commerce Project Preview" class="project-preview-image">
+                                <div class="project-preview-text">
+                                    <h3>Analisi e Ottimizzazione di Infrastruttura Cloud per E-commerce</h3>
+                                    <p class="project-preview-description">Un'analisi approfondita di un'infrastruttura e-commerce su AWS, finalizzata a migliorare performance, scalabilità e costi. Il progetto ha incluso la revisione dell'architettura, l'identificazione di colli di bottiglia e la proposta di soluzioni ottimizzate.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">AWS</span>
+                                        <span class="tech-tag">Cloud Architecture</span>
+                                        <span class="tech-tag">E-commerce</span>
+                                        <span class="tech-tag">Performance Tuning</span>
+                                    </div>
+                                    <a href="project-ecommerce.html" class="btn btn-primary">Dettagli del Progetto</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="nlp">
+                            <div class="project-preview">
+                                <img src="../images/nlp-preview.jpg" alt="NLP Project Preview" class="project-preview-image">
+                                <div class="project-preview-text">
+                                    <h3>Sistema di Analisi del Sentimento con BERT</h3>
+                                    <p class="project-preview-description">Sviluppo di un sistema di Natural Language Processing per l'analisi del sentimento di recensioni di prodotti. Il modello, basato su BERT, è stato addestrato e fine-tuned per classificare il testo con alta precisione, supportando decisioni di business strategiche.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">NLP</span>
+                                        <span class="tech-tag">BERT</span>
+                                        <span class="tech-tag">Python</span>
+                                        <span class="tech-tag">Machine Learning</span>
+                                        <span class="tech-tag">FastAPI</span>
+                                    </div>
+                                    <a href="project-nlp.html" class="btn btn-primary">Dettagli del Progetto</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="python">
+                            <div class="project-preview">
+                                <img src="../images/placeholder.jpg" alt="Python Project Preview" class="project-preview-image">
+                                <div class="project-preview-text">
+                                    <h3>Code Snippets in Python</h3>
+                                    <p class="project-preview-description">Una raccolta di snippet di codice e piccoli script che ho scritto in Python per vari scopi, dall'analisi dei dati a semplici utility.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">Python</span>
+                                        <span class="tech-tag">Pandas</span>
+                                        <span class="tech-tag">Requests</span>
+                                        <span class="tech-tag">Scripting</span>
+                                    </div>
+                                    <a href="python_snippets.html" class="btn btn-primary">Vedi gli Snippet</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="game">
+                            <div class="project-preview">
+                                <img src="../images/placeholder.jpg" alt="Game Preview" class="project-preview-image">
+                                <div class="project-preview-text">
+                                    <h3>Gioco Snake</h3>
+                                    <p class="project-preview-description">Una semplice implementazione del classico gioco Snake, realizzato con HTML5 Canvas e JavaScript. Un piccolo progetto per divertimento e per rinfrescare le basi della logica di gioco.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">HTML5</span>
+                                        <span class="tech-tag">CSS</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="game.html" class="btn btn-primary">Gioca</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2024 Paolo Alborno. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+    <script src="../js/main.js"></script>
+</body>
+</html>

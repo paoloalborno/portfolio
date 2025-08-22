@@ -118,26 +118,15 @@ nav {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     padding-top: 80px;
     position: relative;
     overflow: hidden;
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23f0f0f0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.5;
-}
-
 .hero-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 4rem;
     align-items: center;
     position: relative;
@@ -149,7 +138,7 @@ nav {
 }
 
 .hero-text h1 {
-    font-size: 3.8rem;
+    font-size: 4.2rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--text);
@@ -282,9 +271,9 @@ nav {
 }
 
 .hero-image-container {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
+    width: 350px;
+    height: 350px;
+    border-radius: 30px;
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     border: 8px solid white;
@@ -635,6 +624,37 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Language Switcher */
+.lang-switcher-desktop {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.lang-switcher-desktop .lang-option {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+.lang-switcher-desktop .lang-option:hover {
+    color: var(--primary);
+    background-color: var(--bg-alt);
+}
+
+.lang-switcher-desktop .lang-option.active {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.lang-switcher-desktop .lang-separator {
+    color: var(--text-muted);
+}
+
 /* Animations */
 @keyframes slideInLeft {
     from {
@@ -684,10 +704,34 @@ footer {
 @media (max-width: 768px) {
     .nav-links {
         display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        gap: 1rem;
+        z-index: 100;
+    }
+
+    .nav-links.active {
+        display: flex !important;
     }
 
     .mobile-menu {
         display: flex;
+    }
+
+    .mobile-menu.is-active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .mobile-menu.is-active span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu.is-active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
     }
 
     .hero-content {

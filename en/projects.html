@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progetti - Paolo Alborno</title>
-    <meta name="description" content="Esplora i progetti di Paolo Alborno, includendo analisi di infrastrutture e-commerce e NLP.">
+    <title>Projects - Paolo Alborno</title>
+    <meta name="description" content="Explore Paolo Alborno's projects, including e-commerce infrastructure analysis and NLP.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <header>
@@ -17,13 +17,18 @@
             <div class="logo">Paolo Alborno</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">Chi Sono</a></li>
-                <li><a href="projects.html">Progetti</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="projects.html">Projects</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="cv.html">CV</a></li>
-                <li><a href="hobbies.html">Hobby</a></li>
-                <li><a href="contact.html">Contattami</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+                <li><a href="contact.html">Contact Me</a></li>
             </ul>
+            <div class="lang-switcher-desktop">
+                <a href="../it/projects.html" class="lang-option">IT</a>
+                <span class="lang-separator">|</span>
+                <a href="projects.html" class="lang-option active">EN</a>
+            </div>
             <div class="mobile-menu">
                 <span></span>
                 <span></span>
@@ -35,39 +40,39 @@
     <main>
         <section class="projects" style="padding-top: 120px;">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">I Miei Progetti</h2>
-                <p class="section-subtitle animate-on-scroll">Una selezione di progetti che dimostrano le mie competenze tecniche e di gestione.</p>
+                <h2 class="section-title animate-on-scroll">My Projects</h2>
+                <p class="section-subtitle animate-on-scroll">A selection of projects that demonstrate my technical and management skills.</p>
 
                 <div class="tabs-container animate-on-scroll">
                     <div class="tab-buttons">
-                        <button class="tab-btn active" data-tab="ecommerce">Analisi Infrastruttura E-commerce</button>
-                        <button class="tab-btn" data-tab="nlp">NLP con BERT</button>
-                        <button class="tab-btn" data-tab="python">Progetti Python</button>
-                        <button class="tab-btn" data-tab="game">Gioco Snake</button>
+                        <button class="tab-btn active" data-tab="ecommerce">E-commerce Infrastructure Analysis</button>
+                        <button class="tab-btn" data-tab="nlp">NLP with BERT</button>
+                        <button class="tab-btn" data-tab="python">Python Projects</button>
+                        <button class="tab-btn" data-tab="game">Snake Game</button>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane active" id="ecommerce">
                             <div class="project-preview">
-                                <img src="images/ecommerce-preview.jpg" alt="E-commerce Project Preview" class="project-preview-image">
+                                <img src="../images/ecommerce-preview.jpg" alt="E-commerce Project Preview" class="project-preview-image">
                                 <div class="project-preview-text">
-                                    <h3>Analisi e Ottimizzazione di Infrastruttura Cloud per E-commerce</h3>
-                                    <p class="project-preview-description">Un'analisi approfondita di un'infrastruttura e-commerce su AWS, finalizzata a migliorare performance, scalabilità e costi. Il progetto ha incluso la revisione dell'architettura, l'identificazione di colli di bottiglia e la proposta di soluzioni ottimizzate.</p>
+                                    <h3>E-commerce Cloud Infrastructure Analysis and Optimization</h3>
+                                    <p class="project-preview-description">An in-depth analysis of an e-commerce infrastructure on AWS, aimed at improving performance, scalability, and costs. The project included reviewing the architecture, identifying bottlenecks, and proposing optimized solutions.</p>
                                     <div class="project-tech">
                                         <span class="tech-tag">AWS</span>
                                         <span class="tech-tag">Cloud Architecture</span>
                                         <span class="tech-tag">E-commerce</span>
                                         <span class="tech-tag">Performance Tuning</span>
                                     </div>
-                                    <a href="project-ecommerce.html" class="btn btn-primary">Dettagli del Progetto</a>
+                                    <a href="project-ecommerce.html" class="btn btn-primary">Project Details</a>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="nlp">
                             <div class="project-preview">
-                                <img src="images/nlp-preview.jpg" alt="NLP Project Preview" class="project-preview-image">
+                                <img src="../images/nlp-preview.jpg" alt="NLP Project Preview" class="project-preview-image">
                                 <div class="project-preview-text">
-                                    <h3>Sistema di Analisi del Sentimento con BERT</h3>
-                                    <p class="project-preview-description">Sviluppo di un sistema di Natural Language Processing per l'analisi del sentimento di recensioni di prodotti. Il modello, basato su BERT, è stato addestrato e fine-tuned per classificare il testo con alta precisione, supportando decisioni di business strategiche.</p>
+                                    <h3>Sentiment Analysis System with BERT</h3>
+                                    <p class="project-preview-description">Development of a Natural Language Processing system for sentiment analysis of product reviews. The model, based on BERT, was trained and fine-tuned to classify text with high accuracy, supporting strategic business decisions.</p>
                                     <div class="project-tech">
                                         <span class="tech-tag">NLP</span>
                                         <span class="tech-tag">BERT</span>
@@ -75,39 +80,39 @@
                                         <span class="tech-tag">Machine Learning</span>
                                         <span class="tech-tag">FastAPI</span>
                                     </div>
-                                    <a href="project-nlp.html" class="btn btn-primary">Dettagli del Progetto</a>
+                                    <a href="project-nlp.html" class="btn btn-primary">Project Details</a>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="python">
                             <div class="project-preview">
-                                <img src="images/placeholder.jpg" alt="Python Project Preview" class="project-preview-image">
+                                <img src="../images/placeholder.jpg" alt="Python Project Preview" class="project-preview-image">
                                 <div class="project-preview-text">
                                     <h3>Code Snippets in Python</h3>
-                                    <p class="project-preview-description">Una raccolta di snippet di codice e piccoli script che ho scritto in Python per vari scopi, dall'analisi dei dati a semplici utility.</p>
+                                    <p class="project-preview-description">A collection of code snippets and small scripts I've written in Python for various purposes, from data analysis to simple utilities.</p>
                                     <div class="project-tech">
                                         <span class="tech-tag">Python</span>
                                         <span class="tech-tag">Pandas</span>
                                         <span class="tech-tag">Requests</span>
                                         <span class="tech-tag">Scripting</span>
                                     </div>
-                                    <a href="python_snippets.html" class="btn btn-primary">Vedi gli Snippet</a>
+                                    <a href="python_snippets.html" class="btn btn-primary">View Snippets</a>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="game">
                             <div class="project-preview">
-                                <img src="images/placeholder.jpg" alt="Game Preview" class="project-preview-image">
+                                <img src="../images/placeholder.jpg" alt="Game Preview" class="project-preview-image">
                                 <div class="project-preview-text">
-                                    <h3>Gioco Snake</h3>
-                                    <p class="project-preview-description">Una semplice implementazione del classico gioco Snake, realizzato con HTML5 Canvas e JavaScript. Un piccolo progetto per divertimento e per rinfrescare le basi della logica di gioco.</p>
+                                    <h3>Snake Game</h3>
+                                    <p class="project-preview-description">A simple implementation of the classic Snake game, created with HTML5 Canvas and JavaScript. A small project for fun and to refresh the basics of game logic.</p>
                                     <div class="project-tech">
                                         <span class="tech-tag">HTML5</span>
                                         <span class="tech-tag">CSS</span>
                                         <span class="tech-tag">JavaScript</span>
                                         <span class="tech-tag">Canvas</span>
                                     </div>
-                                    <a href="game.html" class="btn btn-primary">Gioca</a>
+                                    <a href="game.html" class="btn btn-primary">Play Game</a>
                                 </div>
                             </div>
                         </div>
@@ -123,9 +128,9 @@
                 <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="footer-text">&copy; 2024 Paolo Alborno. Tutti i diritti riservati.</p>
+            <p class="footer-text">&copy; 2024 Paolo Alborno. All rights reserved.</p>
         </div>
     </footer>
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
