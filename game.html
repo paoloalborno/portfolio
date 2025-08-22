@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paolo - Gioco</title>
+    <title data-translate-key="game.title"></title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,14 +29,15 @@
         <nav class="container">
             <div class="logo">Paolo</div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">Chi Sono</a></li>
-                <li><a href="projects.html">Progetti</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="cv.html">CV</a></li>
-                <li><a href="hobbies.html">Hobby</a></li>
-                <li><a href="contact.html">Contattami</a></li>
+                <li><a href="index.html" data-translate-key="nav.home"></a></li>
+                <li><a href="about.html" data-translate-key="nav.about"></a></li>
+                <li><a href="projects.html" data-translate-key="nav.projects"></a></li>
+                <li><a href="blog.html" data-translate-key="nav.blog"></a></li>
+                <li><a href="cv.html" data-translate-key="nav.cv"></a></li>
+                <li><a href="hobbies.html" data-translate-key="nav.hobbies"></a></li>
+                <li><a href="contact.html" data-translate-key="nav.contact"></a></li>
             </ul>
+            <div class="lang-switcher-desktop"></div>
             <div class="mobile-menu">
                 <span></span>
                 <span></span>
@@ -47,8 +48,8 @@
 
     <main>
         <section class="game-container">
-            <h1 class="section-title">Snake</h1>
-            <p class="section-subtitle">Un piccolo gioco per passare il tempo. Usa i tasti freccia per muoverti.</p>
+            <h1 class="section-title" data-translate-key="game.h1"></h1>
+            <p class="section-subtitle" data-translate-key="game.section_subtitle"></p>
             <canvas id="gameCanvas" width="400" height="400"></canvas>
         </section>
     </main>
@@ -59,97 +60,11 @@
                 <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="footer-text">&copy; 2024 Paolo. Tutti i diritti riservati.</p>
+            <p class="footer-text" data-translate-key="footer.rights"></p>
         </div>
     </footer>
+    <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-
-        const box = 20;
-        let snake = [];
-        snake[0] = { x: 10 * box, y: 10 * box };
-
-        let food = {
-            x: Math.floor(Math.random() * 20) * box,
-            y: Math.floor(Math.random() * 20) * box
-        };
-
-        let score = 0;
-        let d;
-
-        document.addEventListener('keydown', direction);
-
-        function direction(event) {
-            if (event.keyCode === 37 && d !== 'RIGHT') {
-                d = 'LEFT';
-            } else if (event.keyCode === 38 && d !== 'DOWN') {
-                d = 'UP';
-            } else if (event.keyCode === 39 && d !== 'LEFT') {
-                d = 'RIGHT';
-            } else if (event.keyCode === 40 && d !== 'UP') {
-                d = 'DOWN';
-            }
-        }
-
-        function collision(head, array) {
-            for (let i = 0; i < array.length; i++) {
-                if (head.x === array[i].x && head.y === array[i].y) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i === 0) ? 'green' : 'white';
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
-                ctx.strokeStyle = 'red';
-                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-            }
-
-            ctx.fillStyle = 'red';
-            ctx.fillRect(food.x, food.y, box, box);
-
-            let snakeX = snake[0].x;
-            let snakeY = snake[0].y;
-
-            if (d === 'LEFT') snakeX -= box;
-            if (d === 'UP') snakeY -= box;
-            if (d === 'RIGHT') snakeX += box;
-            if (d === 'DOWN') snakeY += box;
-
-            if (snakeX === food.x && snakeY === food.y) {
-                score++;
-                food = {
-                    x: Math.floor(Math.random() * 20) * box,
-                    y: Math.floor(Math.random() * 20) * box
-                };
-            } else {
-                snake.pop();
-            }
-
-            let newHead = {
-                x: snakeX,
-                y: snakeY
-            };
-
-            if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
-                clearInterval(game);
-            }
-
-            snake.unshift(newHead);
-
-            ctx.fillStyle = 'black';
-            ctx.font = '20px Arial';
-            ctx.fillText('Punteggio: ' + score, box, box);
-        }
-
-        let game = setInterval(draw, 100);
-    </script>
+    <script src="js/game.js"></script>
 </body>
 </html>
