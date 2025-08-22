@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progetto: Analisi Infrastruttura E-commerce - Paolo Alborno</title>
+    <meta name="description" content="Dettagli del progetto di analisi e ottimizzazione di un'infrastruttura cloud per e-commerce su AWS.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Paolo Alborno</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Chi Sono</a></li>
+                <li><a href="projects.html">Progetti</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="contact.html">Contattami</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="project-detail" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Analisi Infrastruttura E-commerce</h2>
+                <p class="section-subtitle animate-on-scroll">Ottimizzazione di performance, scalabilità e costi su AWS.</p>
+
+                <div class="project-detail-content animate-on-scroll">
+                    <img src="images/ecommerce-detail.jpg" alt="Dettaglio Progetto E-commerce" class="project-detail-image">
+
+                    <h3>Obiettivo del Progetto</h3>
+                    <p>L'obiettivo principale era analizzare l'infrastruttura cloud di una piattaforma e-commerce di medie dimensioni per identificare aree di miglioramento. Le metriche chiave erano il tempo di caricamento delle pagine, la capacità di gestire picchi di traffico durante le campagne promozionali e l'ottimizzazione dei costi operativi su AWS.</p>
+
+                    <h3>La Mia Soluzione</h3>
+                    <p>Ho condotto un'analisi architetturale completa, utilizzando strumenti come AWS Cost Explorer, CloudWatch e X-Ray. Ho identificato che il database era un collo di bottiglia e che l'uso delle istanze EC2 non era ottimizzato. La mia proposta ha incluso:</p>
+                    <ul>
+                        <li>Migrazione del database a un'istanza Amazon Aurora con read replicas per migliorare la scalabilità in lettura.</li>
+                        <li>Implementazione di una strategia di Auto Scaling per le istanze EC2, per adattarsi dinamicamente al carico.</li>
+                        <li>Utilizzo di una CDN (Amazon CloudFront) per servire i contenuti statici e ridurre la latenza per gli utenti finali.</li>
+                        <li>Introduzione di un sistema di caching con ElastiCache (Redis) per le query più frequenti.</li>
+                    </ul>
+
+                    <h3>Risultati</h3>
+                    <p>Le modifiche implementate hanno portato a una riduzione del 35% del tempo di caricamento medio delle pagine, a un aumento della capacità di gestire utenti concorrenti del 200% e a una riduzione dei costi mensili di AWS del 22% grazie a un uso più efficiente delle risorse.</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">AWS Aurora</span>
+                        <span class="tech-tag">EC2 Auto Scaling</span>
+                        <span class="tech-tag">CloudFront</span>
+                        <span class="tech-tag">ElastiCache</span>
+                        <span class="tech-tag">CloudWatch</span>
+                        <span class="tech-tag">Performance Tuning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2024 Paolo Alborno. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

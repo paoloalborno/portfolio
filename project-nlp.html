@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progetto: Sistema di Analisi del Sentimento con BERT - Paolo Alborno</title>
+    <meta name="description" content="Dettagli del progetto di sviluppo di un sistema di NLP per l'analisi del sentimento basato su BERT.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Paolo Alborno</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Chi Sono</a></li>
+                <li><a href="projects.html">Progetti</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="contact.html">Contattami</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="project-detail" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Sistema di Analisi del Sentimento con BERT</h2>
+                <p class="section-subtitle animate-on-scroll">Applicazione del Natural Language Processing per insight di business.</p>
+
+                <div class="project-detail-content animate-on-scroll">
+                    <img src="images/nlp-detail.jpg" alt="Dettaglio Progetto NLP" class="project-detail-image">
+
+                    <h3>Obiettivo del Progetto</h3>
+                    <p>L'obiettivo era sviluppare un modello di machine learning capace di analizzare grandi volumi di recensioni di prodotti e classificarle accuratamente come positive, negative o neutre. Questo strumento doveva fornire al team di marketing insight azionabili per migliorare i prodotti e la comunicazione.</p>
+
+                    <h3>La Mia Soluzione</h3>
+                    <p>Ho progettato e implementato una pipeline di NLP completa. Il cuore del sistema è un modello basato su BERT (Bidirectional Encoder Representations from Transformers), che ho fine-tuned su un dataset specifico di recensioni del dominio di interesse. La soluzione includeva:</p>
+                    <ul>
+                        <li>Preprocessing dei dati testuali per pulire e normalizzare il testo.</li>
+                        <li>Fine-tuning del modello BERT pre-addestrato per il compito di classificazione del sentimento.</li>
+                        <li>Sviluppo di un'API RESTful con FastAPI per esporre il modello e permettere l'analisi del testo in tempo reale.</li>
+                        <li>Containerizzazione dell'applicazione con Docker per garantire la portabilità e una facile messa in produzione.</li>
+                        <li>Creazione di una dashboard interattiva per visualizzare i risultati dell'analisi.</li>
+                    </ul>
+
+                    <h3>Risultati</h3>
+                    <p>Il modello ha raggiunto un'accuratezza del 92% sul dataset di test, superando le soluzioni basate su approcci più tradizionali. L'API ha permesso di integrare l'analisi del sentimento in altri sistemi aziendali, fornendo dati preziosi che hanno contribuito a orientare due campagne di marketing e a identificare tre aree di miglioramento del prodotto.</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">BERT</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2024 Paolo Alborno. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
