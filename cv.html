@@ -16,6 +16,7 @@
             width: 100%;
             height: calc(100vh - 80px); /* Full viewport height minus header */
             position: relative;
+            background-color: #1a202c;
         }
         #cv-graph {
             width: 100%;
@@ -69,7 +70,7 @@
 
         // --- 1. Generate Graph Data ---
         const gData = { nodes: [], links: [] };
-        const mainNode = { id: 'Paolo Alborno', group: 'core', val: 5 };
+        const mainNode = { id: 'Paolo Alborno', group: 'core', val: 12 };
         gData.nodes.push(mainNode);
 
         const categories = {
@@ -78,19 +79,19 @@
         };
 
         Object.entries(categories).forEach(([key, title]) => {
-            gData.nodes.push({ id: title, group: 'category', val: 4 });
+            gData.nodes.push({ id: title, group: 'category', val: 8 });
             gData.links.push({ source: mainNode.id, target: title });
         });
 
         Object.entries(cvData).forEach(([key, items]) => {
             if (key === 'skills' || key === 'future_goals') {
                 items.forEach(item => {
-                    gData.nodes.push(item);
+                    gData.nodes.push({ ...item, val: item.val * 2 }); // Double skill/goal values
                     gData.links.push({ source: categories[key], target: item.id });
                 });
             } else {
                 items.forEach(item => {
-                    gData.nodes.push({ ...item, group: key, val: 3 });
+                    gData.nodes.push({ ...item, group: key, val: 6 });
                     gData.links.push({ source: categories[key], target: item.title });
                     if (item.skills) {
                         item.skills.forEach(skillName => {
@@ -137,7 +138,7 @@
             .nodeVal('val')
             .nodeLabel(node => `${node.group}: ${node.id}`)
             .nodeAutoColorBy('group')
-            .linkColor(() => 'rgba(45, 55, 72, 0.2)')
+            .linkColor(() => 'rgba(255, 255, 255, 0.2)')
             .linkWidth(1)
             .enableZoomInteraction(false)
             .enablePanInteraction(false)
@@ -174,28 +175,25 @@
             })
             .nodeCanvasObject((node, ctx, globalScale) => {
                 const label = node.id;
-                const fontSize = 12 / globalScale;
+                const fontSize = (node.val / 10) * 5; // Scale font size with node value
                 ctx.font = `600 ${fontSize}px Sans-Serif`;
 
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillStyle = graphColors[node.group] || '#2d3748';
 
-                const r = Math.sqrt(node.val) * 4 / globalScale;
+                const r = Math.sqrt(node.val) * 2.5;
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, r, 0, 2 * Math.PI, false);
+                ctx.fillStyle = graphColors[node.group] || '#2d3748';
                 ctx.fill();
 
-                // Add text label if node is large enough
-                if (node.val > 2) {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.fillText(label, node.x, node.y);
-                }
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.fillText(label, node.x, node.y);
             });
 
         // Stabilize graph
-        Graph.d3Force('charge').strength(-120);
-        Graph.d3Force('link').distance(40);
+        Graph.d3Force('charge').strength(-250);
+        Graph.d3Force('link').distance(80);
         Graph.d3Force('center', d3.forceCenter());
     });
     </script>
