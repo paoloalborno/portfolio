@@ -118,7 +118,7 @@ nav {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
     padding-top: 80px;
     position: relative;
     overflow: hidden;
@@ -177,11 +177,10 @@ nav {
     line-height: 1.7;
 }
 
-.hero-cta {
+.hero-buttons {
     display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .btn {
@@ -277,64 +276,70 @@ nav {
 .hero-visual {
     display: flex;
     justify-content: center;
+    align-items: center;
     animation: slideInRight 1s ease-out;
 }
 
-.code-showcase {
-    background: #1a202c;
-    color: #e2e8f0;
-    padding: 2rem;
-    border-radius: 16px;
-    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-    box-shadow: var(--shadow-lg);
-    position: relative;
+.hero-image-container {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
     overflow: hidden;
-    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+    border: 8px solid white;
 }
 
-.code-showcase::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: #2d3748;
-    border-radius: 16px 16px 0 0;
-}
-
-.code-showcase::after {
-    content: '● ● ●';
-    position: absolute;
-    top: 12px;
-    left: 15px;
-    color: #718096;
-    font-size: 14px;
-}
-
-.code-showcase pre {
-    margin-top: 25px;
-    line-height: 1.5;
-    font-size: 0.9rem;
-}
-
-.code-highlight {
-    color: #63b3ed;
-}
-
-.code-string {
-    color: #68d391;
-}
-
-.code-function {
-    color: #fbb6ce;
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* About Section */
-.about {
+.about, .hobbies, .blog, .python-projects {
     padding: 120px 0;
     background: var(--bg-alt);
     position: relative;
+}
+
+.github-link {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.blog-posts {
+    margin-top: 4rem;
+}
+
+.blog-post {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.blog-post h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.hobbies-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.hobby-item {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.hobby-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .section-title {
