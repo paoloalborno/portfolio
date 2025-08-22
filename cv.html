@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD:it/hobbies.html
-    <title>Paolo - Hobbies</title>
-    <link rel="stylesheet" href="../css/style.css">
-=======
-    <title data-translate-key="hobbies.title"></title>
-    <link rel="stylesheet" href="css/style.css">
->>>>>>> remotes/origin/feature/website-revamp:hobbies.html
+    <title>CV - Paolo Alborno</title>
+    <meta name="description" content="CV di Paolo Alborno, Senior Software & Data Engineer.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" title="timeline-styles" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 </head>
 <body>
     <header>
         <nav class="container">
-            <div class="logo">Paolo</div>
+            <div class="logo">Paolo Alborno</div>
             <ul class="nav-links">
                 <li><a href="index.html" data-translate-key="nav.home"></a></li>
                 <li><a href="about.html" data-translate-key="nav.about"></a></li>
@@ -28,41 +25,14 @@
                 <li><a href="hobbies.html" data-translate-key="nav.hobbies"></a></li>
                 <li><a href="contact.html" data-translate-key="nav.contact"></a></li>
             </ul>
-<<<<<<< HEAD:it/hobbies.html
-            <div class="lang-switcher-desktop">
-                <a href="hobbies.html" class="lang-option active">IT</a>
-                <span class="lang-separator">|</span>
-                <a href="../en/hobbies.html" class="lang-option">EN</a>
-            </div>
-=======
             <div class="lang-switcher-desktop"></div>
->>>>>>> remotes/origin/feature/website-revamp:hobbies.html
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="mobile-menu"><span></span><span></span><span></span></div>
         </nav>
     </header>
 
     <main>
-        <section class="hobbies about">
-            <div class="container">
-                <h1 class="section-title" data-translate-key="hobbies.h1"></h1>
-                <p class="section-subtitle" data-translate-key="hobbies.section_subtitle"></p>
-
-                <div class="hobbies-content">
-                    <div class="hobby-item">
-                        <h3 data-translate-key="hobbies.gallery_h3"></h3>
-                        <p data-translate-key="hobbies.gallery_p"></p>
-                        <a href="gallery.html" class="btn btn-primary" data-translate-key="hobbies.gallery_btn"></a>
-                    </div>
-                    <div class="hobby-item">
-                        <h3 data-translate-key="hobbies.passions_h3"></h3>
-                        <p data-translate-key="hobbies.passions_p"></p>
-                    </div>
-                </div>
-            </div>
+        <section class="cv-section" style="padding-top: 120px;">
+            <div id='timeline-embed' style="width: 100%; height: 600px; padding: 20px;"></div>
         </section>
     </main>
 
@@ -75,11 +45,22 @@
             <p class="footer-text" data-translate-key="footer.rights"></p>
         </div>
     </footer>
-<<<<<<< HEAD:it/hobbies.html
-    <script src="../js/main.js"></script>
-=======
     <script src="js/translations.js"></script>
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+    <script src="js/cv_data.js"></script>
     <script src="js/main.js"></script>
->>>>>>> remotes/origin/feature/website-revamp:hobbies.html
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let lang = urlParams.get('lang') || 'it';
+            var timeline_json = (lang === 'it') ? timeline_data_it : timeline_data_en;
+            var options = {
+                hash_bookmark: true,
+                initial_zoom: 2,
+                language: lang
+            }
+            var timeline = new TL.Timeline('timeline-embed', timeline_json, options);
+        });
+    </script>
 </body>
 </html>

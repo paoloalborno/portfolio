@@ -85,7 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.font = '20px Arial';
 
         // Check language to display the correct score text
+<<<<<<< HEAD
         const scoreText = (document.documentElement.lang === 'it') ? 'Punteggio: ' : 'Score: ';
+=======
+        const urlParams = new URLSearchParams(window.location.search);
+        let lang = urlParams.get('lang') || 'it';
+        const scoreText = (lang === 'it') ? 'Punteggio: ' : 'Score: ';
+>>>>>>> remotes/origin/feature/website-revamp
         ctx.fillText(scoreText + score, box, box);
     }
 

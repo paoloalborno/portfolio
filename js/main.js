@@ -1,4 +1,54 @@
 document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
+=======
+
+    function setLanguage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let lang = urlParams.get('lang') || 'it'; // Default to Italian
+
+        // Set the lang attribute on the html tag
+        document.documentElement.lang = lang;
+
+        // Translate the page
+        const elements = document.querySelectorAll('[data-translate-key]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-translate-key');
+            const [page, string] = key.split('.');
+            if (translations[page] && translations[page][string] && translations[page][string][lang]) {
+                el.innerHTML = translations[page][string][lang];
+            }
+        });
+
+        // Translate meta description
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            const page = window.location.pathname.split('/').pop().split('.').shift() || 'index';
+            if (translations[page] && translations[page]['meta_description'] && translations[page]['meta_description'][lang]) {
+                metaDescription.content = translations[page]['meta_description'][lang];
+            }
+        }
+
+        // Translate title
+        const page = window.location.pathname.split('/').pop().split('.').shift() || 'index';
+        if (translations[page] && translations[page]['title'] && translations[page]['title'][lang]) {
+            document.title = translations[page]['title'][lang];
+        }
+
+        // Update language switcher
+        const langSwitcher = document.querySelector('.lang-switcher-desktop');
+        if (langSwitcher) {
+            const currentPath = window.location.pathname;
+            langSwitcher.innerHTML = `
+                <a href="${currentPath}?lang=it" class="lang-option ${lang === 'it' ? 'active' : ''}">IT</a>
+                <span class="lang-separator">|</span>
+                <a href="${currentPath}?lang=en" class="lang-option ${lang === 'en' ? 'active' : ''}">EN</a>
+            `;
+        }
+    }
+
+    setLanguage();
+
+>>>>>>> remotes/origin/feature/website-revamp
     // Mobile menu toggle
     const mobileMenu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelector('.nav-links');
