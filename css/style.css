@@ -305,7 +305,7 @@ nav {
 
 /* About Section */
 .about, .hobbies, .blog, .python-projects {
-    padding: 120px 0;
+    padding: 120px 0 0;
     background: var(--bg-alt);
     position: relative;
 }
@@ -431,7 +431,7 @@ nav {
 
 /* Projects Section */
 .projects {
-    padding: 120px 0;
+    padding: 120px 0 0;
     background: var(--bg);
 }
 
@@ -531,7 +531,7 @@ nav {
 
 /* Contact Section */
 .contact {
-    padding: 120px 0;
+    padding: 120px 0 0;
     background: var(--bg-alt);
 }
 
@@ -885,16 +885,34 @@ footer {
     color: var(--text-light);
 }
 
+.sub-tab-pane-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.code-block {
+    background: #2d3748; /* Dark background for code */
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    height: 100%;
+}
+
 
 /* CV Page Styles */
 .cv-page {
     background: var(--bg);
-    padding-bottom: 60px; /* To avoid overlap with footer */
+    padding-bottom: 0;
 }
 
 .cv-grid-container {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: start;
 }

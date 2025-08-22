@@ -62,26 +62,68 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="python">
-                            <div class="sub-tabs-container">
-                                <div class="sub-tab-buttons">
-                                    <button class="sub-tab-btn active" data-sub-tab="tasklist" data-translate-key="projects.py_subtab_tasklist"></button>
-                                    <button class="sub-tab-btn" data-sub-tab="ai-agent" data-translate-key="projects.py_subtab_ai_agent"></button>
-                                </div>
-                                <div class="sub-tab-content">
-                                    <div class="sub-tab-pane active" id="tasklist">
-                                        <h3 data-translate-key="projects.py_tasklist_h3"></h3>
-                                        <p data-translate-key="projects.py_tasklist_p"></p>
-                                    </div>
-                                    <div class="sub-tab-pane" id="ai-agent">
-                                        <h3 data-translate-key="projects.py_ai_agent_h3"></h3>
-                                        <p data-translate-key="projects.py_ai_agent_p"></p>
+                            <div class="project-preview">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/free-python-icon-svg-png-download-226051.png" alt="Python Projects Icon" class="project-preview-image" style="object-fit: contain; padding: 2rem;">
+                                <div class="project-preview-text">
+                                    <div class="sub-tabs-container">
+                                        <div class="sub-tab-buttons">
+                                            <button class="sub-tab-btn active" data-sub-tab="tasklist" data-translate-key="projects.py_subtab_tasklist"></button>
+                                            <button class="sub-tab-btn" data-sub-tab="ai-agent" data-translate-key="projects.py_subtab_ai_agent"></button>
+                                        </div>
+                                        <div class="sub-tab-content">
+                                            <div class="sub-tab-pane active" id="tasklist">
+                                                <div class="sub-tab-pane-grid">
+                                                    <div class="sub-tab-description">
+                                                        <h3 data-translate-key="projects.py_tasklist_h3"></h3>
+                                                        <p data-translate-key="projects.py_tasklist_p"></p>
+                                                    </div>
+                                                    <div class="code-block">
+<pre><code>
+class Task:
+    def __init__(self, name):
+        self.name = name
+        self.done = False
+
+    def complete(self):
+        self.done = True
+
+# Example Usage
+# task = Task("Finish project")
+# task.complete()
+</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sub-tab-pane" id="ai-agent">
+                                                <div class="sub-tab-pane-grid">
+                                                    <div class="sub-tab-description">
+                                                        <h3 data-translate-key="projects.py_ai_agent_h3"></h3>
+                                                        <p data-translate-key="projects.py_ai_agent_p"></p>
+                                                    </div>
+                                                    <div class="code-block">
+<pre><code>
+from langchain_community.llms import Ollama
+
+# Initialize the model
+llm = Ollama(model="llama2")
+
+# Run a query
+response = llm.invoke(
+    "Why is the sky blue?"
+)
+print(response)
+</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="game">
                             <div class="project-preview">
-                                <img src="images/placeholder.jpg" alt="Game Preview" class="project-preview-image">
+                                <img src="https://placehold.co/600x400/81C784/FFFFFF?text=Snake+Game" alt="Game Preview" class="project-preview-image">
                                 <div class="project-preview-text">
                                     <h3 data-translate-key="projects.game_h3"></h3>
                                     <p class="project-preview-description" data-translate-key="projects.game_p"></p>
