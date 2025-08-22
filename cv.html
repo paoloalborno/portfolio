@@ -3,56 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV</title>
-    <meta name="description" content="CV di Paolo Alborno, Senior Software & Data Engineer.">
+    <title data-translate-key="cv.title"></title>
+    <meta name="description" content="" data-translate-key="cv.meta_description">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" title="timeline-styles" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo"></div>
-            <div id="menu"></div>
-            <div class="lang-switcher-desktop"></div>
-            </div>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main>
-        <section class="cv-section" style="padding-top: 120px;">
-            <div id='timeline-embed' style="width: 100%; height: 600px; padding: 20px;"></div>
+        <section class="cv-page" style="padding-top: 120px;">
+            <div class="container">
+                <div class="cv-header">
+                    <h1 class="cv-title" data-translate-key="cv.main_title">Curriculum Vitae</h1>
+                    <p class="cv-subtitle" data-translate-key="cv.main_subtitle">Un percorso professionale nel mondo del software e dei dati.</p>
+                </div>
+
+                <!-- Esperienze Lavorative -->
+                <div class="cv-section">
+                    <h2 class="cv-section-title" data-translate-key="cv.work_experience_title">Esperienze Lavorative</h2>
+                    <div class="cv-entry">
+                        <div class="cv-entry-header">
+                            <h3 class="cv-entry-title">SENIOR SOFTWARE, DATA ENGINEER - PARTNER</h3>
+                            <span class="cv-entry-date">Feb 2019 - Presente</span>
+                        </div>
+                        <p class="cv-entry-company">MASSIVE DATA HEIGHTS | Varazze, Italia (Remoto)</p>
+                        <div class="cv-entry-details">
+                            <ul>
+                                <li>Sviluppato un'architettura cloud scalabile su AWS (EC2, ELB, RDS, Auto Scaling, ecc.) per processare oltre 1 miliardo di recensioni di consumatori in più di 15 categorie di prodotti.</li>
+                                <li>Applicato tecniche di NLP come clustering, estrazione di topic (sklearn, BERT) e analisi del sentiment per identificare insight sui prodotti e trend di consumo.</li>
+                                <li>Progettato pipeline di dati integrando API Java e microservizi Python (Flask, Lambda) e database.</li>
+                                <li>Integrato capacità LLM (LangGraph, agenti, prompt engineering) per abilitare l'esplorazione dei dati basata su chat.</li>
+                                <li>Supportato attivamente il management nello sviluppo del prodotto e nell'ottimizzazione dell'infrastruttura: contribuendo a ottenere oltre 10 clienti enterprise e a ridurre i costi operativi di AWS del 30%.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cv-entry">
+                        <div class="cv-entry-header">
+                            <h3 class="cv-entry-title">DOTTORANDO, ASSEGNISTA DI RICERCA</h3>
+                            <span class="cv-entry-date">Set 2014 - Feb 2019</span>
+                        </div>
+                        <p class="cv-entry-company">UNIVERSITÀ DI GENOVA - DIBRIS | Genova, Italia</p>
+                        <div class="cv-entry-details">
+                            <ul>
+                                <li>Sviluppato moduli software/app per supportare le attività di ricerca, principalmente per l'acquisizione di dati da sensori in tempo reale.</li>
+                                <li>Competente nella stesura di report tecnici e nel coordinamento di deliverable in progetti di ricerca finanziati dall'UE (H2020).</li>
+                                <li>Co-organizzato MOCO 2018 (150+ partecipanti), curando il programma e gestendo la logistica.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Istruzione e Formazione -->
+                <div class="cv-section">
+                    <h2 class="cv-section-title" data-translate-key="cv.education_title">Istruzione e Formazione</h2>
+                    <div class="cv-entry">
+                        <div class="cv-entry-header">
+                            <h3 class="cv-entry-title">Dottorato di Ricerca in Informatica e Ingegneria dei Sistemi</h3>
+                            <span class="cv-entry-date">Set 2014 - Mag 2018</span>
+                        </div>
+                        <p class="cv-entry-company">Università di Genova</p>
+                    </div>
+                    <div class="cv-entry">
+                        <div class="cv-entry-header">
+                            <h3 class="cv-entry-title">Laurea Magistrale in Ingegneria Informatica, con lode</h3>
+                            <span class="cv-entry-date">Set 2011 - Giu 2014</span>
+                        </div>
+                        <p class="cv-entry-company">Università di Genova</p>
+                    </div>
+                </div>
+
+                <!-- Certificazioni -->
+                <div class="cv-section">
+                    <h2 class="cv-section-title" data-translate-key="cv.certifications_title">Certificazioni</h2>
+                    <div class="cv-entry">
+                         <div class="cv-entry-details">
+                            <ul>
+                                <li>AWS Certified Solutions Architect (Associate)</li>
+                                <li>Professional Scrum Master™ (PSM I)</li>
+                                <li>Google PM Certificate V1</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-social">
-                <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p class="footer-text" data-translate-key="footer.rights"></p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
     <script src="js/translations.js"></script>
-    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
-    <script src="js/cv_data.js"></script>
+    <script src="js/cv_data.js"></script> <!-- This can be removed later if not needed -->
     <script src="js/main.js"></script>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let lang = urlParams.get('lang') || 'it';
-            var timeline_json = (lang === 'it') ? timeline_data_it : timeline_data_en;
-            var options = {
-                hash_bookmark: true,
-                initial_zoom: 2,
-                language: lang
-            }
-            var timeline = new TL.Timeline('timeline-embed', timeline_json, options);
-        });
-    </script>
 </body>
 </html>
