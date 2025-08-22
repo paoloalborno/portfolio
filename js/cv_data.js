@@ -27,7 +27,8 @@ const cvData = {
                 "Integrato capacità LLM (LangChain, agenti, prompt engineering) per abilitare l'esplorazione dei dati basata su chat.",
                 "Supportato attivamente il management nello sviluppo del prodotto e nell'ottimizzazione dell'infrastruttura: contribuendo a ottenere oltre 10 clienti enterprise e a ridurre i costi operativi di AWS del 30%."
             ],
-            skills: ['AWS', 'Python', 'NLP', 'BERT', 'Java', 'Docker', 'LangChain']
+            skills: ['AWS', 'Python', 'NLP', 'BERT', 'Java', 'Docker', 'LangChain'],
+            link: 'projects.html'
         },
         {
             id: 'exp_phd',
