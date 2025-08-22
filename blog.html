@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paolo - Blog</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title data-translate-key="blog.title"></title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,19 +15,15 @@
         <nav class="container">
             <div class="logo">Paolo</div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="cv.html">CV</a></li>
-                <li><a href="hobbies.html">Hobbies</a></li>
-                <li><a href="contact.html">Contact Me</a></li>
+                <li><a href="index.html" data-translate-key="nav.home"></a></li>
+                <li><a href="about.html" data-translate-key="nav.about"></a></li>
+                <li><a href="projects.html" data-translate-key="nav.projects"></a></li>
+                <li><a href="blog.html" data-translate-key="nav.blog"></a></li>
+                <li><a href="cv.html" data-translate-key="nav.cv"></a></li>
+                <li><a href="hobbies.html" data-translate-key="nav.hobbies"></a></li>
+                <li><a href="contact.html" data-translate-key="nav.contact"></a></li>
             </ul>
-            <div class="lang-switcher-desktop">
-                <a href="../it/blog.html" class="lang-option">IT</a>
-                <span class="lang-separator">|</span>
-                <a href="blog.html" class="lang-option active">EN</a>
-            </div>
+            <div class="lang-switcher-desktop"></div>
             <div class="mobile-menu">
                 <span></span>
                 <span></span>
@@ -39,13 +35,13 @@
     <main>
         <section class="blog about">
             <div class="container">
-                <h1 class="section-title">My Blog</h1>
-                <p class="section-subtitle">Thoughts, articles, and personal notes on the world of technology and beyond.</p>
+                <h1 class="section-title" data-translate-key="blog.h1"></h1>
+                <p class="section-subtitle" data-translate-key="blog.section_subtitle"></p>
 
                 <div class="blog-posts">
                     <div class="blog-post">
-                        <h3>Coming soon...</h3>
-                        <p>I'm working on creating interesting content. Check back soon!</p>
+                        <h3 data-translate-key="blog.coming_soon_h3"></h3>
+                        <p data-translate-key="blog.coming_soon_p"></p>
                     </div>
                 </div>
             </div>
@@ -58,9 +54,10 @@
                 <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="footer-text">&copy; 2024 Paolo. All rights reserved.</p>
+            <p class="footer-text" data-translate-key="footer.rights"></p>
         </div>
     </footer>
-    <script src="../js/main.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

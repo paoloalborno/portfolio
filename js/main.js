@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-<<<<<<< HEAD
-=======
 
     function setLanguage() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -48,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setLanguage();
 
->>>>>>> remotes/origin/feature/website-revamp
     // Mobile menu toggle
     const mobileMenu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelector('.nav-links');

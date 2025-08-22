@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Snippets - Paolo Alborno</title>
-    <meta name="description" content="A collection of Python code snippets by Paolo Alborno.">
+    <title data-translate-key="python_snippets.title"></title>
+    <meta name="description" content="Una collezione di snippet di codice Python di Paolo Alborno.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         .code-snippet {
             background: #fdf6e3; /* Solarized Light background */
@@ -32,19 +32,15 @@
         <nav class="container">
             <div class="logo">Paolo Alborno</div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="cv.html">CV</a></li>
-                <li><a href="hobbies.html">Hobbies</a></li>
-                <li><a href="contact.html">Contact Me</a></li>
+                <li><a href="index.html" data-translate-key="nav.home"></a></li>
+                <li><a href="about.html" data-translate-key="nav.about"></a></li>
+                <li><a href="projects.html" data-translate-key="nav.projects"></a></li>
+                <li><a href="blog.html" data-translate-key="nav.blog"></a></li>
+                <li><a href="cv.html" data-translate-key="nav.cv"></a></li>
+                <li><a href="hobbies.html" data-translate-key="nav.hobbies"></a></li>
+                <li><a href="contact.html" data-translate-key="nav.contact"></a></li>
             </ul>
-            <div class="lang-switcher-desktop">
-                <a href="../it/python_snippets.html" class="lang-option">IT</a>
-                <span class="lang-separator">|</span>
-                <a href="python_snippets.html" class="lang-option active">EN</a>
-            </div>
+            <div class="lang-switcher-desktop"></div>
             <div class="mobile-menu">
                 <span></span>
                 <span></span>
@@ -56,23 +52,23 @@
     <main>
         <section class="python-snippets" style="padding-top: 120px;">
             <div class="container">
-                <h2 class="section-title">Python Code Snippets</h2>
-                <p class="section-subtitle">A collection of code examples and small scripts I have written.</p>
+                <h2 class="section-title" data-translate-key="python_snippets.h2"></h2>
+                <p class="section-subtitle" data-translate-key="python_snippets.section_subtitle"></p>
 
                 <div class="snippet-container">
-                    <h3>Example 1: Data Cleaning with Pandas</h3>
+                    <h3 data-translate-key="python_snippets.example1_h3"></h3>
                     <div class="code-snippet">
 <pre><code>
 import pandas as pd
 
 def clean_data(df):
-    # Remove duplicates
+    # Rimuove duplicati
     df.drop_duplicates(inplace=True)
-    # Handle missing values
+    # Gestisce valori mancanti
     df.fillna(method='ffill', inplace=True)
     return df
 
-# Example usage
+# Esempio di utilizzo
 # data = {'col1': [1, 2, 2, 3, None], 'col2': ['A', 'B', 'B', 'C', 'D']}
 # df = pd.DataFrame(data)
 # df_cleaned = clean_data(df)
@@ -80,7 +76,7 @@ def clean_data(df):
 </code></pre>
                     </div>
 
-                    <h3>Example 2: Simple API Call</h3>
+                    <h3 data-translate-key="python_snippets.example2_h3"></h3>
                     <div class="code-snippet">
 <pre><code>
 import requests
@@ -88,13 +84,13 @@ import requests
 def get_json_from_api(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raise an exception for HTTP errors
+        response.raise_for_status()  # Lancia un'eccezione per errori HTTP
         return response.json()
     except requests.exceptions.RequestException as e:
-        print(f"Error during API call: {e}")
+        print(f"Errore durante la chiamata API: {e}")
         return None
 
-# Example usage
+# Esempio di utilizzo
 # api_url = "https://api.github.com/users/paoloalborno"
 # user_data = get_json_from_api(api_url)
 # if user_data:
@@ -112,9 +108,10 @@ def get_json_from_api(url):
                 <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="footer-text">&copy; 2024 Paolo Alborno. All rights reserved.</p>
+            <p class="footer-text" data-translate-key="footer.rights"></p>
         </div>
     </footer>
-    <script src="../js/main.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
