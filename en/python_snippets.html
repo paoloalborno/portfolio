@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Snippets - Paolo Alborno</title>
-    <meta name="description" content="Una collezione di snippet di codice Python di Paolo Alborno.">
+    <meta name="description" content="A collection of Python code snippets by Paolo Alborno.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         .code-snippet {
             background: #fdf6e3; /* Solarized Light background */
@@ -33,13 +33,18 @@
             <div class="logo">Paolo Alborno</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">Chi Sono</a></li>
-                <li><a href="projects.html">Progetti</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="projects.html">Projects</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="cv.html">CV</a></li>
-                <li><a href="hobbies.html">Hobby</a></li>
-                <li><a href="contact.html">Contattami</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+                <li><a href="contact.html">Contact Me</a></li>
             </ul>
+            <div class="lang-switcher-desktop">
+                <a href="../it/python_snippets.html" class="lang-option">IT</a>
+                <span class="lang-separator">|</span>
+                <a href="python_snippets.html" class="lang-option active">EN</a>
+            </div>
             <div class="mobile-menu">
                 <span></span>
                 <span></span>
@@ -52,22 +57,22 @@
         <section class="python-snippets" style="padding-top: 120px;">
             <div class="container">
                 <h2 class="section-title">Python Code Snippets</h2>
-                <p class="section-subtitle">Una raccolta di esempi di codice e piccoli script che ho scritto.</p>
+                <p class="section-subtitle">A collection of code examples and small scripts I have written.</p>
 
                 <div class="snippet-container">
-                    <h3>Esempio 1: Data Cleaning con Pandas</h3>
+                    <h3>Example 1: Data Cleaning with Pandas</h3>
                     <div class="code-snippet">
 <pre><code>
 import pandas as pd
 
 def clean_data(df):
-    # Rimuove duplicati
+    # Remove duplicates
     df.drop_duplicates(inplace=True)
-    # Gestisce valori mancanti
+    # Handle missing values
     df.fillna(method='ffill', inplace=True)
     return df
 
-# Esempio di utilizzo
+# Example usage
 # data = {'col1': [1, 2, 2, 3, None], 'col2': ['A', 'B', 'B', 'C', 'D']}
 # df = pd.DataFrame(data)
 # df_cleaned = clean_data(df)
@@ -75,7 +80,7 @@ def clean_data(df):
 </code></pre>
                     </div>
 
-                    <h3>Esempio 2: Chiamata API Semplice</h3>
+                    <h3>Example 2: Simple API Call</h3>
                     <div class="code-snippet">
 <pre><code>
 import requests
@@ -83,13 +88,13 @@ import requests
 def get_json_from_api(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Lancia un'eccezione per errori HTTP
+        response.raise_for_status()  # Raise an exception for HTTP errors
         return response.json()
     except requests.exceptions.RequestException as e:
-        print(f"Errore durante la chiamata API: {e}")
+        print(f"Error during API call: {e}")
         return None
 
-# Esempio di utilizzo
+# Example usage
 # api_url = "https://api.github.com/users/paoloalborno"
 # user_data = get_json_from_api(api_url)
 # if user_data:
@@ -107,9 +112,9 @@ def get_json_from_api(url):
                 <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="footer-text">&copy; 2024 Paolo Alborno. Tutti i diritti riservati.</p>
+            <p class="footer-text">&copy; 2024 Paolo Alborno. All rights reserved.</p>
         </div>
     </footer>
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>

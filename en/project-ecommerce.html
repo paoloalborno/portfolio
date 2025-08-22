@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: E-commerce Infrastructure Analysis - Paolo Alborno</title>
+    <meta name="description" content="Details of the project for analyzing and optimizing an e-commerce cloud infrastructure on AWS.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Paolo Alborno</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+                <li><a href="contact.html">Contact Me</a></li>
+            </ul>
+            <div class="lang-switcher-desktop">
+                <a href="../it/project-ecommerce.html" class="lang-option">IT</a>
+                <span class="lang-separator">|</span>
+                <a href="project-ecommerce.html" class="lang-option active">EN</a>
+            </div>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="project-detail" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">E-commerce Infrastructure Analysis</h2>
+                <p class="section-subtitle animate-on-scroll">Optimizing performance, scalability, and costs on AWS.</p>
+
+                <div class="project-detail-content animate-on-scroll">
+                    <img src="../images/ecommerce-detail.jpg" alt="E-commerce Project Detail" class="project-detail-image">
+
+                    <h3>Project Goal</h3>
+                    <p>The main objective was to analyze the cloud infrastructure of a medium-sized e-commerce platform to identify areas for improvement. The key metrics were page load time, the ability to handle traffic spikes during promotional campaigns, and the optimization of operational costs on AWS.</p>
+
+                    <h3>My Solution</h3>
+                    <p>I conducted a complete architectural analysis, using tools like AWS Cost Explorer, CloudWatch, and X-Ray. I identified that the database was a bottleneck and that the use of EC2 instances was not optimized. My proposal included:</p>
+                    <ul>
+                        <li>Migration of the database to an Amazon Aurora instance with read replicas to improve read scalability.</li>
+                        <li>Implementation of an Auto Scaling strategy for EC2 instances to dynamically adapt to the load.</li>
+                        <li>Use of a CDN (Amazon CloudFront) to serve static content and reduce latency for end users.</li>
+                        <li>Introduction of a caching system with ElastiCache (Redis) for the most frequent queries.</li>
+                    </ul>
+
+                    <h3>Results</h3>
+                    <p>The implemented changes led to a 35% reduction in average page load time, a 200% increase in the capacity to handle concurrent users, and a 22% reduction in monthly AWS costs thanks to more efficient use of resources.</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">AWS Aurora</span>
+                        <span class="tech-tag">EC2 Auto Scaling</span>
+                        <span class="tech-tag">CloudFront</span>
+                        <span class="tech-tag">ElastiCache</span>
+                        <span class="tech-tag">CloudWatch</span>
+                        <span class="tech-tag">Performance Tuning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2024 Paolo Alborno. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="../js/main.js"></script>
+</body>
+</html>
