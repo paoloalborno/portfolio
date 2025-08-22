@@ -28,6 +28,13 @@ body {
     color: var(--text);
     background: var(--bg);
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
 }
 
 .container {
