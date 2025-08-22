@@ -54,7 +54,6 @@
 
             // --- 1. Generate CV Text from Data ---
             const cvContainer = document.getElementById('cv-text-container');
-
             const sections = {
                 experience: { title: 'Esperienze Lavorative', 'data-translate-key': 'cv.work_experience_title' },
                 education: { title: 'Istruzione e Formazione', 'data-translate-key': 'cv.education_title' },
@@ -104,23 +103,42 @@
 
             // --- 2. Generate Graph Data from CV Data ---
             const gData = { nodes: [], links: [] };
-            const mainNode = { id: 'Paolo Alborno', group: 'core', val: 4 };
+            const mainNode = { id: 'Paolo Alborno', group: 'core', val: 5 };
             gData.nodes.push(mainNode);
 
-            // Add categories
-            for (const sectionKey in sections) {
-                const node = { id: sections[sectionKey].title, group: 'category', val: 3 };
-                gData.nodes.push(node);
-                gData.links.push({ source: mainNode.id, target: node.id });
+            const allSections = {
+                ...sections,
+                skills: { title: 'Competenze' },
+                future_goals: { title: 'Obiettivi Futuri' }
+            };
+
+            for (const sectionKey in allSections) {
+                const sectionTitle = allSections[sectionKey].title;
+                gData.nodes.push({ id: sectionTitle, group: 'category', val: 4 });
+                gData.links.push({ source: mainNode.id, target: sectionTitle });
             }
 
-            // Add items and link to categories
-            for (const sectionKey in cvData) {
+            ['experience', 'education', 'certifications'].forEach(sectionKey => {
                 cvData[sectionKey].forEach(item => {
-                    gData.nodes.push({ id: item.title, group: sectionKey, val: 2, refId: item.id });
-                    gData.links.push({ source: sections[sectionKey].title, target: item.title });
+                    gData.nodes.push({ id: item.title, group: sectionKey, val: 3, refId: item.id });
+                    gData.links.push({ source: allSections[sectionKey].title, target: item.title });
+                    if (item.skills) {
+                        item.skills.forEach(skillName => {
+                            gData.links.push({ source: item.title, target: skillName });
+                        });
+                    }
                 });
-            }
+            });
+
+            cvData.skills.forEach(skill => {
+                gData.nodes.push(skill);
+                gData.links.push({ source: allSections.skills.title, target: skill.id });
+            });
+
+            cvData.future_goals.forEach(goal => {
+                gData.nodes.push(goal);
+                gData.links.push({ source: allSections.future_goals.title, target: goal.id });
+            });
 
             // --- 3. Initialize Graph with Interactivity ---
             const graphColors = {
@@ -129,9 +147,10 @@
                 experience: '#764ba2',
                 education: '#764ba2',
                 certs: '#f5576c',
+                skill: '#4facfe',
+                future: '#00f2fe'
             };
 
-            let highlightedNode = null;
             let highlightedElement = null;
 
             const Graph = ForceGraph()
@@ -141,20 +160,17 @@
                 .nodeVal('val')
                 .nodeLabel('id')
                 .nodeAutoColorBy('group')
-                .linkSource('source')
-                .linkTarget('target')
-                .width(document.getElementById('cv-graph').offsetWidth)
-                .height(document.getElementById('cv-graph').offsetHeight)
-                .backgroundColor('rgba(0,0,0,0)')
+                .linkColor(() => 'rgba(45, 55, 72, 0.2)')
+                .linkWidth(1)
                 .onNodeHover(node => {
                     if (highlightedElement) {
                         highlightedElement.classList.remove('highlight-entry');
+                        highlightedElement = null;
                     }
                     if (node && node.refId) {
                         const el = document.getElementById(node.refId);
                         if (el) {
                             el.classList.add('highlight-entry');
-                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             highlightedElement = el;
                         }
                     }
@@ -162,7 +178,37 @@
                 .nodeCanvasObject((node, ctx, globalScale) => {
                     const label = node.id;
                     const fontSize = 12 / globalScale;
-                    ctx.font = `${fontSize}px Sans-Serif`;
+                    ctx.font = `600 ${fontSize}px Sans-Serif`;
+
+                    const textWidth = ctx.measureText(label).width;
+                    const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.4); // padding
+
+                    // Draw background rectangle
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    ctx.strokeStyle = graphColors[node.group] || '#2d3748';
+                    ctx.lineWidth = 2 / globalScale;
+
+                    // Rounded rectangle
+                    const r = 4 / globalScale;
+                    const x = node.x - bckgDimensions[0] / 2;
+                    const y = node.y - bckgDimensions[1] / 2;
+                    const w = bckgDimensions[0];
+                    const h = bckgDimensions[1];
+                    ctx.beginPath();
+                    ctx.moveTo(x + r, y);
+                    ctx.lineTo(x + w - r, y);
+                    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+                    ctx.lineTo(x + w, y + h - r);
+                    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+                    ctx.lineTo(x + r, y + h);
+                    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+                    ctx.lineTo(x, y + r);
+                    ctx.quadraticCurveTo(x, y, x + r, y);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // Draw text
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillStyle = graphColors[node.group] || '#2d3748';
