@@ -1,5 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    const menuItems = [
+      { href: "index.html", key: "nav.home" },
+      { href: "about.html", key: "nav.about" },
+      { href: "projects.html", key: "nav.projects" },
+      { href: "blog.html", key: "nav.blog" },
+      { href: "cv.html", key: "nav.cv" },
+      { href: "hobbies.html", key: "nav.hobbies" },
+    ];
+
+    function printMenu(containerSelector) {
+      const html = `
+        <ul class="nav-links">
+          ${menuItems.map(item => 
+            `<li><a href="${item.href}" data-translate-key="${item.key}"></a></li>`
+          ).join("")}
+        </ul>
+      `;
+      document.querySelector(containerSelector).innerHTML = html;
+    }
+
+    printMenu("#menu");
+
     function setLanguage() {
         const urlParams = new URLSearchParams(window.location.search);
         let lang = urlParams.get('lang') || 'it'; // Default to Italian
