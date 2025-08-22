@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,13 +18,13 @@
     <main>
         <section class="cv-page" style="padding-top: 120px;">
             <div class="container">
-                <div class="cv-header">
+                <div class="cv-header" data-aos="fade-in">
                     <h1 class="cv-title" data-translate-key="cv.main_title">Curriculum Vitae</h1>
                     <p class="cv-subtitle" data-translate-key="cv.main_subtitle">Un percorso professionale nel mondo del software e dei dati.</p>
                 </div>
 
                 <!-- Esperienze Lavorative -->
-                <div class="cv-section">
+                <div class="cv-section" data-aos="fade-up">
                     <h2 class="cv-section-title" data-translate-key="cv.work_experience_title">Esperienze Lavorative</h2>
                     <div class="cv-entry">
                         <div class="cv-entry-header">
@@ -58,7 +59,7 @@
                 </div>
 
                 <!-- Istruzione e Formazione -->
-                <div class="cv-section">
+                <div class="cv-section" data-aos="fade-up">
                     <h2 class="cv-section-title" data-translate-key="cv.education_title">Istruzione e Formazione</h2>
                     <div class="cv-entry">
                         <div class="cv-entry-header">
@@ -77,7 +78,7 @@
                 </div>
 
                 <!-- Certificazioni -->
-                <div class="cv-section">
+                <div class="cv-section" data-aos="fade-up">
                     <h2 class="cv-section-title" data-translate-key="cv.certifications_title">Certificazioni</h2>
                     <div class="cv-entry">
                          <div class="cv-entry-details">
@@ -95,6 +96,13 @@
     </main>
 
     <div id="footer-placeholder"></div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true
+      });
+    </script>
     <script src="js/translations.js"></script>
     <script src="js/cv_data.js"></script> <!-- This can be removed later if not needed -->
     <script src="js/main.js"></script>

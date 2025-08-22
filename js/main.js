@@ -159,4 +159,21 @@ document.addEventListener('DOMContentLoaded', function() {
             konamiIndex = 0;
         }
     });
+
+    // Sub-tabs functionality for Python Projects
+    const subTabButtons = document.querySelectorAll('.sub-tab-btn');
+    subTabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const subTabContainer = button.closest('.sub-tabs-container');
+            const targetSubTab = button.getAttribute('data-sub-tab');
+
+            // Deactivate all sub-tab buttons and panes within this container
+            subTabContainer.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+            subTabContainer.querySelectorAll('.sub-tab-pane').forEach(pane => pane.classList.remove('active'));
+
+            // Activate the clicked button and corresponding pane
+            button.classList.add('active');
+            subTabContainer.querySelector(`#${targetSubTab}`).classList.add('active');
+        });
+    });
 });

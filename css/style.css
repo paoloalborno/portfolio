@@ -606,22 +606,18 @@ nav {
 
 /* Footer */
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #111; /* colore di sfondo */
-    color: #fff;      /* colore testo */
-    padding: 10px 0;
+    background: #1a202c; /* Darker background */
+    color: #a0aec0; /* Lighter text */
+    padding: 3rem 0;
     text-align: center;
-    z-index: 1000;
+    margin-top: 4rem; /* Add some space above the footer */
 }
 
 .footer-social {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .footer-social a {
@@ -831,6 +827,57 @@ footer {
     line-height: 1.7;
     color: var(--text-light);
 }
+
+/* Sub-tabs for Python Projects */
+.sub-tabs-container {
+    padding: 1.5rem;
+    background-color: var(--bg-alt);
+    border-radius: 12px;
+}
+
+.sub-tab-buttons {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 1.5rem;
+}
+
+.sub-tab-btn {
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    position: relative;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.sub-tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.sub-tab-pane {
+    display: none;
+}
+
+.sub-tab-pane.active {
+    display: block;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.sub-tab-pane h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.sub-tab-pane p {
+    color: var(--text-light);
+}
+
 
 /* CV Page Styles */
 .cv-page {
