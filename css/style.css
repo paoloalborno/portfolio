@@ -606,10 +606,15 @@ nav {
 
 /* Footer */
 footer {
-    background: var(--text);
-    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #111; /* colore di sfondo */
+    color: #fff;      /* colore testo */
+    padding: 10px 0;
     text-align: center;
-    padding: 3rem 0;
+    z-index: 1000;
 }
 
 .footer-social {
