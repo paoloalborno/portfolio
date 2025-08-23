@@ -51,7 +51,7 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="//unpkg.com/force-graph"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script src="js/cv_data.js"></script>
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
@@ -63,171 +63,164 @@
         function renderDocumentView() {
             const cvContainer = document.getElementById('cv-text-container');
             cvContainer.innerHTML = ''; // Clear previous content
+
             const sections = {
-                experience: 'Esperienze Lavorative',
-                education: 'Istruzione e Formazione',
-                certifications: 'Certificazioni'
+                experience: { title: 'Esperienze Lavorative', icon: 'fa-briefcase' },
+                education: { title: 'Istruzione e Formazione', icon: 'fa-graduation-cap' },
+                certifications: { title: 'Certificazioni', icon: 'fa-certificate' }
             };
 
             for (const sectionKey in sections) {
+                const sectionInfo = sections[sectionKey];
                 const sectionData = cvData[sectionKey];
-                if (sectionData && sectionData.length > 0) {
-                    const sectionDiv = document.createElement('div');
-                    sectionDiv.className = 'cv-section';
 
-                    const title = document.createElement('h2');
-                    title.className = 'cv-section-title';
-                    title.textContent = sections[sectionKey];
-                    sectionDiv.appendChild(title);
+                if (sectionData && sectionData.length > 0) {
+                    let sectionHTML = `
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">
+                                <i class="fas ${sectionInfo.icon}"></i> ${sectionInfo.title}
+                            </h2>
+                            <div class="timeline">
+                    `;
 
                     sectionData.forEach(item => {
-                        const entryDiv = document.createElement('div');
-                        entryDiv.className = 'cv-entry';
-                        entryDiv.id = `doc-${item.id}`;
-
-                        let entryHTML = `
-                            <div class="cv-entry-header">
-                                <h3 class="cv-entry-title">${item.title}</h3>
-                                ${item.date ? `<span class="cv-entry-date">${item.date}</span>` : ''}
+                        sectionHTML += `
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3 class="timeline-title">${item.title}</h3>
+                                    <p class="timeline-date">${item.date || ''}</p>
+                                    <p class="timeline-company">${item.company || ''}</p>
+                                    <div class="timeline-details">
+                                        <ul>
+                                            ${item.details.map(detail => `<li>${detail}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            ${item.company ? `<p class="cv-entry-company">${item.company}</p>` : ''}
                         `;
-
-                        if (item.details && item.details.length > 0) {
-                            entryHTML += `<div class="cv-entry-details"><ul>`;
-                            item.details.forEach(detail => {
-                                entryHTML += `<li>${detail}</li>`;
-                            });
-                            entryHTML += `</ul></div>`;
-                        }
-
-                        entryDiv.innerHTML = entryHTML;
-                        sectionDiv.appendChild(entryDiv);
                     });
-                    cvContainer.appendChild(sectionDiv);
+
+                    sectionHTML += `</div></div>`;
+                    cvContainer.innerHTML += sectionHTML;
                 }
             }
         }
 
-        // --- RENDER GRAPH VIEW ---
+        // --- RENDER GRAPH VIEW (D3 Tree) ---
         function renderGraphView() {
-            // This function is the same as the previous implementation
-            // It sets up the graph data, modal, legend, and initializes the ForceGraph
-            const graphColors = {
-                core: '#667eea', category: '#764ba2', area: '#f5576c', skill: '#a0aec0',
-                experience: '#4facfe', education: '#00f2fe', certs: '#f093fb', future: '#f5b041'
-            };
-            const FONT_FAMILY = 'Inter, Sans-Serif';
-            const gData = { nodes: [], links: [] };
-            const nodeMap = new Map();
-            const mainNode = { id: "PA's Skill Web", group: 'core', val: 14 };
-            gData.nodes.push(mainNode);
-            nodeMap.set(mainNode.id, mainNode);
-            const categories = {
-                experience: 'Esperienze', education: 'Istruzione', certifications: 'Certificazioni',
-                competency_areas: 'Aree di Competenza', future_goals: 'Obiettivi Futuri'
-            };
-            Object.values(categories).forEach(title => {
-                gData.nodes.push({ id: title, group: 'category', val: 10 });
-                gData.links.push({ source: mainNode.id, target: title });
-            });
-            Object.entries(cvData.competency_areas).forEach(([areaName, areaData]) => {
-                gData.nodes.push({ id: areaName, group: 'area', val: 8 });
-                gData.links.push({ source: categories.competency_areas, target: areaName });
-                areaData.skills.forEach(skillName => {
-                    if (!nodeMap.has(skillName)) {
-                        gData.nodes.push({ id: skillName, group: 'skill', val: 4 });
-                        nodeMap.set(skillName, skillName);
-                    }
-                    gData.links.push({ source: areaName, target: skillName });
+            const container = document.getElementById('cv-graph');
+            container.innerHTML = ''; // Clear previous graph
+
+            // 1. Data Transformation
+            function transformData(data) {
+                const root = { name: "Paolo Alborno", children: [] };
+
+                // Experience
+                const expNode = { name: "Esperienze Lavorative", children: [] };
+                data.experience.forEach(exp => {
+                    const expChild = { name: exp.title, company: exp.company, date: exp.date, children: [] };
+                    exp.details.forEach(detail => expChild.children.push({ name: detail }));
+                    expNode.children.push(expChild);
                 });
-            });
-            ['experience', 'education', 'certifications', 'future_goals'].forEach(key => {
-                if (cvData[key]) {
-                    cvData[key].forEach(item => {
-                        const nodeTitle = item.title || item.id;
-                        gData.nodes.push({ ...item, id: nodeTitle, group: key, val: 6 });
-                        gData.links.push({ source: categories[key], target: nodeTitle });
-                        if (item.skills) {
-                            item.skills.forEach(skillName => {
-                                if (nodeMap.has(skillName)) {
-                                    gData.links.push({ source: nodeTitle, target: skillName });
-                                }
-                            });
-                        }
+                root.children.push(expNode);
+
+                // Education
+                const eduNode = { name: "Istruzione", children: [] };
+                data.education.forEach(edu => {
+                    eduNode.children.push({ name: edu.title, company: edu.company, date: edu.date });
+                });
+                root.children.push(eduNode);
+
+                // Competency Areas & Skills
+                const skillsNode = { name: "Competenze", children: [] };
+                for (const area in data.competency_areas) {
+                    const areaNode = { name: area, children: [] };
+                    data.competency_areas[area].skills.forEach(skill => {
+                        areaNode.children.push({ name: skill });
                     });
+                    skillsNode.children.push(areaNode);
                 }
-            });
+                root.children.push(skillsNode);
 
-            const modal = document.getElementById('cv-modal');
-            document.querySelector('.cv-modal-close-btn').onclick = () => modal.style.display = 'none';
-            window.onclick = (event) => { if (event.target == modal) { modal.style.display = 'none'; } };
+                // Certifications
+                const certNode = { name: "Certificazioni", children: [] };
+                data.certifications.forEach(cert => {
+                    certNode.children.push({ name: cert.title });
+                });
+                root.children.push(certNode);
 
-            const legendContainer = document.getElementById('cv-legend');
-            legendContainer.innerHTML = ''; // Clear legend before re-rendering
-            const legendMapping = {
-                'Aree di Competenza': 'area', 'Skill Specifica': 'skill', 'Esperienza': 'experience',
-                'Istruzione': 'education', 'Certificazione': 'certs', 'Obiettivo Futuro': 'future'
-            };
-            for (const [title, group] of Object.entries(legendMapping)) {
-                const item = document.createElement('div');
-                item.className = 'legend-item';
-                item.innerHTML = `<div class="legend-color-box" style="background-color: ${graphColors[group]}"></div><span>${title}</span>`;
-                legendContainer.appendChild(item);
+                return root;
             }
 
-            const Graph = ForceGraph()(document.getElementById('cv-graph'))
-                .graphData(gData).nodeId('id').nodeVal('val').nodeLabel('').nodeAutoColorBy('group', d => graphColors[d.group])
-                .linkColor(() => 'rgba(255, 255, 255, 0.2)').linkWidth(1.5).backgroundColor('rgba(0,0,0,0)')
-                .onNodeClick(node => {
-                    const nodeData = Object.values(cvData).flat().find(item => (item.id === node.id) || (item.title === node.id));
-                    if (!nodeData || !nodeData.details) return;
-                    document.getElementById('modal-title').textContent = nodeData.title || nodeData.id;
-                    document.getElementById('modal-company').textContent = nodeData.company || '';
-                    document.getElementById('modal-date').textContent = nodeData.date || '';
-                    const detailsContainer = document.getElementById('modal-details');
-                    detailsContainer.innerHTML = '';
-                    if (nodeData.details.length > 0) {
-                        const ul = document.createElement('ul');
-                        nodeData.details.forEach(d => { const li = document.createElement('li'); li.innerHTML = d; ul.appendChild(li); });
-                        detailsContainer.appendChild(ul);
-                    }
-                    const linkContainer = document.getElementById('modal-link-container');
-                    linkContainer.innerHTML = '';
-                    if (nodeData.link) {
-                        const a = document.createElement('a');
-                        a.href = nodeData.link; a.target = '_blank'; a.textContent = 'Vedi Progetti Correlati';
-                        a.className = 'btn btn-primary'; a.style.marginTop = '1rem';
-                        linkContainer.appendChild(a);
-                    }
-                    modal.style.display = 'block';
-                })
-                .nodeCanvasObject((node, ctx, globalScale) => {
-                    const label = node.id;
-                    const fontSize = 14 / globalScale;
-                    ctx.font = `600 ${fontSize}px ${FONT_FAMILY}`;
-                    const radius = Math.sqrt(node.val) * 2.5;
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false);
-                    ctx.fillStyle = graphColors[node.group] || '#cccccc';
-                    ctx.fill();
-                    ctx.textAlign = 'left';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.fillText(label, node.x + radius + 5, node.y);
-                });
+            const treeData = transformData(cvData);
 
-            Graph.d3Force('charge', d3.forceManyBody().strength(-400));
-            Graph.d3Force('link').distance(100);
-            Graph.d3Force('center', d3.forceCenter());
-            setTimeout(() => Graph.zoom(1.2, 1000), 500);
+            // 2. D3 Tree rendering
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            const svg = d3.select(container).append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .call(d3.zoom().on("zoom", function (event) {
+                    g.attr("transform", event.transform);
+                }))
+                .append("g");
+
+            const g = svg.append("g").attr("transform", "translate(40,40)");
+
+            const tree = d3.tree().size([height - 80, width - 200]);
+            const root = d3.hierarchy(treeData);
+
+            tree(root);
+
+            const link = g.selectAll(".link")
+                .data(root.descendants().slice(1))
+                .enter().append("path")
+                .attr("class", "link")
+                .attr("d", d => {
+                    return "M" + d.y + "," + d.x
+                         + "C" + (d.y + d.parent.y) / 2 + "," + d.x
+                         + " " + (d.y + d.parent.y) / 2 + "," + d.parent.x
+                         + " " + d.parent.y + "," + d.parent.x;
+                })
+                .style("fill", "none")
+                .style("stroke", "#555")
+                .style("stroke-opacity", 0.4)
+                .style("stroke-width", 1.5);
+
+            const node = g.selectAll(".node")
+                .data(root.descendants())
+                .enter().append("g")
+                .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
+                .attr("transform", d => `translate(${d.y},${d.x})`);
+
+            node.append("circle")
+                .attr("r", 10)
+                .style("fill", d => d._children ? "#555" : "#999");
+
+            node.append("text")
+                .attr("dy", ".35em")
+                .attr("x", d => d.children ? -13 : 13)
+                .style("text-anchor", d => d.children ? "end" : "start")
+                .text(d => d.data.name);
+
+            // Center the tree
+            const bounds = g.node().getBBox();
+            const fullWidth = width;
+            const fullHeight = height;
+            const midX = bounds.x + bounds.width / 2;
+            const midY = bounds.y + bounds.height / 2;
+            const scale = 0.85 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight);
+            const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+
+            g.attr("transform", `translate(${translate}) scale(${scale})`);
         }
 
         // Initial render
         renderDocumentView();
-        renderGraphView(); // Render graph initially but it will be hidden by CSS
 
         // --- TAB SWITCHING LOGIC ---
+        let graphRendered = false;
         const tabButtons = document.querySelectorAll('.cv-tab-btn');
         const tabPanes = document.querySelectorAll('.cv-tab-pane');
 
@@ -241,6 +234,10 @@
                 tabPanes.forEach(pane => {
                     if (pane.id === targetPaneId) {
                         pane.classList.add('active');
+                        if (targetPaneId === 'graph-view' && !graphRendered) {
+                            renderGraphView();
+                            graphRendered = true;
+                        }
                     } else {
                         pane.classList.remove('active');
                     }
