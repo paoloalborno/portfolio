@@ -208,11 +208,25 @@
                 ctx.fillText(label, node.x + radius + 5, node.y);
             });
 
-        // --- 6. GRAPH FORCES AND INITIAL ZOOM ---
-        Graph.d3Force('charge').strength(-400);
-        Graph.d3Force('link').distance(100);
-        Graph.d3Force('center', d3.forceCenter());
-        setTimeout(() => Graph.zoom(1.6, 1000), 500);
+        // --- 6. GRAPH FORCES FOR HIERARCHICAL LAYOUT ---
+        // This is the core of the tree layout.
+        // We remove the general "charge" (repulsion) force to stop nodes from flying apart.
+        Graph.d3Force('charge', null);
+        // We remove the centering force as we will control positioning manually.
+        Graph.d3Force('center', null);
+
+        // Add a force to position nodes horizontally, preventing major overlaps.
+        Graph.d3Force('collide', d3.forceCollide(20));
+
+        // Add a force that pushes nodes to a specific Y position based on their level.
+        // This creates the top-down tree structure.
+        Graph.d3Force('y', d3.forceY(d => d.level * 120).strength(1));
+
+        // Add a force to keep the graph centered horizontally.
+        Graph.d3Force('x', d3.forceX(0).strength(0.05));
+
+        // Set an initial zoom.
+        setTimeout(() => Graph.zoom(0.8, 1000), 500);
     });
     </script>
 </body>
