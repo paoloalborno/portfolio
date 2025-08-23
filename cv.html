@@ -61,90 +61,72 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // --- CONFIGURATION ---
+        // --- 1. CONFIGURATION & SETUP ---
         const graphColors = {
             core: '#667eea',
             category: '#764ba2',
-            experience: '#f5576c',
-            education: '#f093fb',
-            certs: '#4facfe',
+            area: '#f5576c',
             skill: '#a0aec0',
-            future: '#00f2fe'
+            experience: '#4facfe',
+            education: '#00f2fe',
+            certs: '#f093fb',
+            future: '#f5b041'
         };
         const FONT_FAMILY = 'Inter, Sans-Serif';
 
-        // --- DATA PROCESSING ---
+        // --- 2. DATA PROCESSING ---
         const gData = { nodes: [], links: [] };
-        // Create a map for quick node lookup
         const nodeMap = new Map();
 
-        // Add core node
-        const mainNode = { id: 'Paolo Alborno', group: 'core', val: 12, level: 0 };
+        const mainNode = { id: "PA's Skill Web", group: 'core', val: 14 };
         gData.nodes.push(mainNode);
         nodeMap.set(mainNode.id, mainNode);
 
-        // Define categories
         const categories = {
             experience: 'Esperienze',
             education: 'Istruzione',
             certifications: 'Certificazioni',
-            skills: 'Competenze',
+            competency_areas: 'Aree di Competenza',
             future_goals: 'Obiettivi Futuri'
         };
 
-        // Create category nodes and link them to the core
-        Object.entries(categories).forEach(([key, title]) => {
-            const categoryNode = { id: title, group: 'category', val: 8, level: 1 };
-            gData.nodes.push(categoryNode);
-            nodeMap.set(title, categoryNode);
+        Object.values(categories).forEach(title => {
+            gData.nodes.push({ id: title, group: 'category', val: 10 });
             gData.links.push({ source: mainNode.id, target: title });
         });
 
-        // Process all items from cvData to create nodes and links
-        Object.entries(cvData).forEach(([key, items]) => {
-            items.forEach(item => {
-                const nodeTitle = item.title || item.id;
-                if (!nodeMap.has(nodeTitle)) {
-                    const node = {
-                        ...item,
-                        id: nodeTitle,
-                        group: item.group || key,
-                        val: item.val || 6,
-                        level: 2
-                    };
-                    gData.nodes.push(node);
-                    nodeMap.set(nodeTitle, node);
-
-                    // Link item to its category
-                    if (categories[key]) {
-                        gData.links.push({ source: categories[key], target: nodeTitle });
-                    }
+        Object.entries(cvData.competency_areas).forEach(([areaName, areaData]) => {
+            gData.nodes.push({ id: areaName, group: 'area', val: 8 });
+            gData.links.push({ source: categories.competency_areas, target: areaName });
+            areaData.skills.forEach(skillName => {
+                if (!nodeMap.has(skillName)) {
+                    gData.nodes.push({ id: skillName, group: 'skill', val: 4 });
+                    nodeMap.set(skillName, skillName);
                 }
-
-                // Link item to its skills
-                if (item.skills) {
-                    item.skills.forEach(skillName => {
-                        if (!nodeMap.has(skillName)) {
-                            const skillNode = { id: skillName, group: 'skill', val: 4, level: 3 };
-                            gData.nodes.push(skillNode);
-                            nodeMap.set(skillName, skillNode);
-                            gData.links.push({ source: categories.skills, target: skillName });
-                        }
-                        gData.links.push({ source: nodeTitle, target: skillName });
-                    });
-                }
+                gData.links.push({ source: areaName, target: skillName });
             });
         });
 
-        // --- MODAL SETUP ---
-        const modal = document.getElementById('cv-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalCompany = document.getElementById('modal-company');
-        const modalDate = document.getElementById('modal-date');
-        const modalDetails = document.getElementById('modal-details');
-        const modalLinkContainer = document.getElementById('modal-link-container');
-        const closeModalBtn = document.querySelector('.cv-modal-close-btn');
+        ['experience', 'education', 'certifications', 'future_goals'].forEach(key => {
+            if (cvData[key]) {
+                cvData[key].forEach(item => {
+                    const nodeTitle = item.title || item.id;
+                    gData.nodes.push({ ...item, id: nodeTitle, group: key, val: 6 });
+                    gData.links.push({ source: categories[key], target: nodeTitle });
+                    if (item.skills) {
+                        item.skills.forEach(skillName => {
+                            if (nodeMap.has(skillName)) {
+                                gData.links.push({ source: nodeTitle, target: skillName });
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
+        // --- 3. MODAL SETUP ---
+        const modal = document.getElementById('cv-modal');
+        const closeModalBtn = document.querySelector('.cv-modal-close-btn');
         closeModalBtn.onclick = () => modal.style.display = 'none';
         window.onclick = (event) => {
             if (event.target == modal) {
@@ -152,11 +134,11 @@
             }
         };
 
-        // --- LEGEND SETUP ---
+        // --- 4. LEGEND SETUP ---
         const legendContainer = document.getElementById('cv-legend');
         const legendMapping = {
-            'Esperienze': 'experience', 'Istruzione': 'education', 'Certificazioni': 'certs',
-            'Competenze': 'skill', 'Obiettivi Futuri': 'future'
+            'Aree di Competenza': 'area', 'Skill Specifica': 'skill', 'Esperienza': 'experience',
+            'Istruzione': 'education', 'Certificazione': 'certs', 'Obiettivo Futuro': 'future'
         };
         for (const [title, group] of Object.entries(legendMapping)) {
             const item = document.createElement('div');
@@ -165,29 +147,26 @@
             legendContainer.appendChild(item);
         }
 
-        // --- GRAPH INITIALIZATION ---
+        // --- 5. GRAPH INITIALIZATION ---
         const Graph = ForceGraph()(document.getElementById('cv-graph'))
             .graphData(gData)
             .nodeId('id')
             .nodeVal('val')
-            .nodeLabel('') // Disable default tooltip
+            .nodeLabel('')
             .nodeAutoColorBy('group', d => graphColors[d.group])
             .linkColor(() => 'rgba(255, 255, 255, 0.2)')
-            .linkWidth(1)
+            .linkWidth(1.5)
             .backgroundColor('rgba(0,0,0,0)')
-            .enableZoomInteraction(false) // Disable zoom
-            .enablePanInteraction(false) // Disable pan
             .onNodeClick(node => {
-                // Find the full data object for the clicked node
                 const nodeData = Object.values(cvData).flat().find(item => (item.id === node.id) || (item.title === node.id));
-                if (!nodeData) return;
+                if (!nodeData || !nodeData.details) return;
 
-                // Populate and show the modal
-                modalTitle.textContent = nodeData.title || nodeData.id;
-                modalCompany.textContent = nodeData.company || '';
-                modalDate.textContent = nodeData.date || '';
+                document.getElementById('modal-title').textContent = nodeData.title || nodeData.id;
+                document.getElementById('modal-company').textContent = nodeData.company || '';
+                document.getElementById('modal-date').textContent = nodeData.date || '';
 
-                modalDetails.innerHTML = '';
+                const detailsContainer = document.getElementById('modal-details');
+                detailsContainer.innerHTML = '';
                 if (nodeData.details && nodeData.details.length > 0) {
                     const ul = document.createElement('ul');
                     nodeData.details.forEach(d => {
@@ -195,10 +174,11 @@
                         li.innerHTML = d;
                         ul.appendChild(li);
                     });
-                    modalDetails.appendChild(ul);
+                    detailsContainer.appendChild(ul);
                 }
 
-                modalLinkContainer.innerHTML = '';
+                const linkContainer = document.getElementById('modal-link-container');
+                linkContainer.innerHTML = '';
                 if (nodeData.link) {
                     const a = document.createElement('a');
                     a.href = nodeData.link;
@@ -206,33 +186,33 @@
                     a.textContent = 'Vedi Progetti Correlati';
                     a.className = 'btn btn-primary';
                     a.style.marginTop = '1rem';
-                    modalLinkContainer.appendChild(a);
+                    linkContainer.appendChild(a);
                 }
 
                 modal.style.display = 'block';
             })
             .nodeCanvasObject((node, ctx, globalScale) => {
-                // Draw the node as a circle
-                const radius = Math.sqrt(node.val) * 2;
+                const label = node.id;
+                const fontSize = 14 / globalScale;
+                ctx.font = `600 ${fontSize}px ${FONT_FAMILY}`;
+
+                const radius = Math.sqrt(node.val) * 2.5;
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false);
                 ctx.fillStyle = graphColors[node.group] || '#cccccc';
                 ctx.fill();
 
-                // Draw the label next to the node
-                const label = node.id;
-                const fontSize = 14 / globalScale;
-                ctx.font = `${fontSize}px ${FONT_FAMILY}`;
                 ctx.textAlign = 'left';
                 ctx.textBaseline = 'middle';
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.fillText(label, node.x + radius + 3, node.y);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.fillText(label, node.x + radius + 5, node.y);
             });
 
-        // Set graph forces for a stable layout
-        Graph.d3Force('charge').strength(-150);
-        Graph.d3Force('link').distance(60);
+        // --- 6. GRAPH FORCES AND INITIAL ZOOM ---
+        Graph.d3Force('charge').strength(-400);
+        Graph.d3Force('link').distance(100);
         Graph.d3Force('center', d3.forceCenter());
+        setTimeout(() => Graph.zoom(1.6, 1000), 500);
     });
     </script>
 </body>

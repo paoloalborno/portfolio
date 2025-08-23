@@ -985,8 +985,8 @@ footer {
 /* New CV Legend Styles */
 .cv-legend {
     position: absolute;
-    bottom: 2rem;
-    left: 2rem;
+    bottom: 1rem;
+    left: 1rem;
     background: rgba(255, 255, 255, 0.9);
     padding: 1rem;
     border-radius: 12px;
