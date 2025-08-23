@@ -905,17 +905,55 @@ footer {
 
 
 /* CV Page Styles */
-.cv-page {
+.cv-page-tabbed {
     padding-top: 80px; /* Header height */
     background: var(--bg);
-    height: calc(100vh - 80px);
-    display: flex;
-    flex-direction: column;
 }
 
-.cv-header {
-    text-align: center;
-    padding: 1rem 0;
+.cv-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.cv-tab-btn {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    position: relative;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.cv-tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.cv-tab-pane {
+    display: none;
+}
+
+.cv-tab-pane.active {
+    display: block;
+}
+
+#graph-view {
+    width: 100%;
+    height: calc(100vh - 200px); /* Adjust height as needed */
+    position: relative;
+    background-color: #1a202c;
+}
+
+#cv-graph {
+    width: 100%;
+    height: 100%;
 }
 
 .cv-title {
