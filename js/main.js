@@ -105,13 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
      * Questa funzione viene eseguita dopo che l'header e il footer sono stati caricati.
      */
     function initializePage() {
-        // La gestione della lingua è la prima cosa da fare, perché potrebbe
-        // influire sul contenuto di altri componenti come il menu.
-        initializeLanguageHandler();
-
-        // Ora che la lingua è impostata, crea il menu di navigazione.
-        // La funzione `printMenu` è stata rimossa perché ora `initializeLanguageHandler`
-        // aggiorna tutti i link, inclusi quelli del menu.
+        // 1. PRIMA: Crea l'HTML del menu e inseriscilo nella pagina.
+        // In questo modo, gli elementi del menu esistono nel DOM.
         const menuContainer = document.querySelector("#menu");
         if(menuContainer) {
             const menuHtml = `
@@ -121,7 +116,12 @@ document.addEventListener('DOMContentLoaded', function() {
             menuContainer.innerHTML = menuHtml;
         }
 
-        // Attiva le altre funzionalità della pagina.
+        // 2. ORA: Gestisci la lingua. La funzione `initializeLanguageHandler`
+        // troverà gli elementi del menu appena creati e li tradurrà,
+        // e aggiornerà anche i loro link con il parametro della lingua corretta.
+        initializeLanguageHandler();
+
+        // 3. INFINE: Attiva tutte le altre funzionalità della pagina.
         setupMobileMenu();
         setupScrollAnimations();
         setupTabs();
