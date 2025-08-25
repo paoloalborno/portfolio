@@ -34,7 +34,7 @@ body {
 }
 
 main {
-    flex-grow: 1;
+    /* flex-grow: 1; is no longer needed with the new sticky footer method. */
 }
 
 .container {
@@ -617,7 +617,7 @@ footer {
     color: #a0aec0; /* Lighter text */
     padding: 3rem 0;
     text-align: center;
-    margin-top: 4rem; /* Add some space above the footer */
+    margin-top: auto; /* This is the key for the sticky footer! */
 }
 
 .footer-social {
