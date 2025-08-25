@@ -252,7 +252,6 @@ class SimpleTree {
             .attr("class", "node-html-container")
             .append("xhtml:i")
             .attr("class", "fas"); // Placeholder, will be updated dynamically
-            .style("filter", "url(#shadow)");
 
         nodeEnter.append('text')
             .attr("y", d => d.children || d._children ? -25 : 25)
