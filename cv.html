@@ -115,7 +115,7 @@
             function transformData(data) {
                 const root = { name: "Paolo Alborno", category: "root", children: [] };
                 const expNode = { name: "Esperienze", category: "section", children: [] };
-                data.experience.forEach(exp => expNode.children.push({ name: exp.title, category: "item", details: exp.details, company: exp.company, date: exp.date }));
+                data.experience.forEach(exp => expNode.children.push({ name: exp.title, category: "item", details: exp.details, company: exp.company, date: exp.date, link: exp.link }));
                 const eduNode = { name: "Istruzione", category: "section", children: [] };
                 data.education.forEach(edu => eduNode.children.push({ name: edu.title, category: "item", details: edu.details, company: edu.company, date: edu.date }));
                 const skillsNode = { name: "Competenze", category: "section", children: [] };
@@ -184,14 +184,20 @@
             }
 
             function click(event, d) {
-                if (d.children) { // If node is expanded, collapse it
-                    d._children = d.children;
-                    d.children = null;
-                } else { // If node is collapsed, expand it
-                    d.children = d._children;
-                    d._children = null;
+                // If the node is an internal node, toggle collapse/expand
+                if (d.children || d._children) {
+                    if (d.children) {
+                        d._children = d.children;
+                        d.children = null;
+                    } else {
+                        d.children = d._children;
+                        d._children = null;
+                    }
+                    update(d);
+                } else {
+                    // If it's a leaf node, open the modal
+                    openModal(d.data);
                 }
-                update(d);
             }
 
             function update(source) {
@@ -208,8 +214,7 @@
                 let nodeEnter = node.enter().append('g')
                     .attr('class', 'node')
                     .attr("transform", d => `translate(${source.x0},${source.y0})`)
-                    .on('click', click)
-                    .on('dblclick', (event, d) => openModal(d.data));
+                    .on('click', click);
 
                 nodeEnter.append('circle')
                     .attr('r', 1e-6)
@@ -221,6 +226,7 @@
                     .attr("dy", ".35em")
                     .attr("text-anchor", "middle")
                     .text(d => d.data.name)
+                    .style("font-weight", d => d.children || d._children ? 600 : 400)
                     .style("fill-opacity", 1e-6)
                     .call(wrapText, 120);
 
@@ -301,6 +307,18 @@
                     ul.appendChild(li);
                 });
                 detailsContainer.appendChild(ul);
+            }
+
+            const linkContainer = document.getElementById('modal-link-container');
+            linkContainer.innerHTML = ''; // Clear previous link
+            if (data.link) {
+                const a = document.createElement('a');
+                a.href = data.link;
+                a.textContent = 'Vedi Progetto Correlato';
+                a.className = 'btn btn-primary'; // Re-use existing button styles
+                a.style.marginTop = '1rem';
+                a.target = '_blank'; // Open in new tab
+                linkContainer.appendChild(a);
             }
 
             modal.style.display = "block";
