@@ -10,20 +10,30 @@ class SimpleTree {
      * @param {HTMLElement} container - The DOM element where the graph will be rendered.
      * @param {Object} initialData - The initial data for the tree (e.g., cvData).
      */
-    constructor(container, initialData) {
+    constructor(container, initialData, options = {}) {
         if (!container || !initialData) {
             console.error("SimpleTree needs a container element and data to initialize.");
             return;
         }
 
+        // --- Default Options ---
+        const defaults = {
+            margin: { top: 40, right: 90, bottom: 50, left: 90 },
+            duration: 750,
+            nodeSeparation: 180,
+            colorScale: d3.scaleOrdinal(d3.schemeCategory10) // A default color scheme
+        };
+
+        // Merge user options with defaults
+        this.options = { ...defaults, ...options };
+
         // --- Core Properties ---
         this.container = container;
         this.rawData = initialData;
-        this.duration = 750;
         this.nodeCounter = 0;
 
         // --- D3 Setup ---
-        this.margin = { top: 40, right: 90, bottom: 50, left: 90 };
+        this.margin = this.options.margin;
         this.width = this.container.clientWidth - this.margin.left - this.margin.right;
         this.height = this.container.clientHeight - this.margin.top - this.margin.bottom;
 
@@ -37,8 +47,8 @@ class SimpleTree {
         this.tree = d3.tree().size([this.width, this.height]);
         this.root = null; // Will be initialized in render()
 
-        // --- Color Scale ---
-        this.colorScale = d3.scaleOrdinal().domain(["root", "section", "item", "skill_area", "skill"]).range(["#5a67d8", "#764ba2", "#667eea", "#f093fb", "#4facfe"]);
+        // Use the color scale from options
+        this.colorScale = this.options.colorScale;
 
         this._setupDefs();
     }
@@ -198,11 +208,12 @@ class SimpleTree {
         const eduNode = { name: "Istruzione", category: "section", children: [] };
         data.education.forEach(edu => eduNode.children.push({ name: edu.title, category: "item", details: edu.details, company: edu.company, date: edu.date }));
         const skillsNode = { name: "Competenze", category: "section", children: [] };
-        data.competency_areas.forEach(area => {
-            const areaNode = { name: area.name, category: "skill_area", children: [] };
+        for (const areaName in data.competency_areas) {
+            const area = data.competency_areas[areaName];
+            const areaNode = { name: areaName, category: "skill_area", children: [] };
             area.skills.forEach(skill => areaNode.children.push({ name: skill, category: "skill" }));
             skillsNode.children.push(areaNode);
-        });
+        }
         const certNode = { name: "Certificazioni", category: "section", children: [] };
         data.certifications.forEach(cert => certNode.children.push({ name: cert.title, category: "item", details: cert.details }));
         root.children.push(expNode, eduNode, skillsNode, certNode);
@@ -219,7 +230,7 @@ class SimpleTree {
         let nodes = treeLayoutData.descendants();
         let links = treeLayoutData.links();
 
-        nodes.forEach(d => { d.y = d.depth * 180; });
+        nodes.forEach(d => { d.y = d.depth * this.options.nodeSeparation; });
 
         let node = this.g.selectAll('g.node')
             .data(nodes, d => d.id || (d.id = ++this.nodeCounter));
@@ -246,7 +257,7 @@ class SimpleTree {
         let nodeUpdate = nodeEnter.merge(node);
 
         nodeUpdate.transition()
-            .duration(this.duration)
+            .duration(this.options.duration)
             .attr("transform", d => `translate(${d.x},${d.y})`);
 
         nodeUpdate.select('circle')
@@ -257,7 +268,7 @@ class SimpleTree {
         nodeUpdate.select('text').style("fill-opacity", 1);
 
         let nodeExit = node.exit().transition()
-            .duration(this.duration)
+            .duration(this.options.duration)
             .attr("transform", d => `translate(${source.x},${source.y})`)
             .remove();
 
@@ -277,11 +288,11 @@ class SimpleTree {
         let linkUpdate = linkEnter.merge(link);
 
         linkUpdate.transition()
-            .duration(this.duration)
+            .duration(this.options.duration)
             .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
 
         link.exit().transition()
-            .duration(this.duration)
+            .duration(this.options.duration)
             .attr('d', d => {
                 const o = {x: source.x, y: source.y};
                 return d3.linkVertical().x(d => d.x).y(d => d.y)({source: o, target: o});
