@@ -220,6 +220,72 @@ nav {
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
+/* Language Toggle Switch */
+.lang-toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    cursor: pointer;
+}
+
+.lang-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.lang-toggle .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--primary-dark);
+    border-radius: 34px;
+    transition: .4s;
+}
+
+.lang-toggle .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.lang-toggle input:checked + .slider {
+    background-color: var(--primary);
+}
+
+.lang-toggle input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.lang-toggle .lang-text-it,
+.lang-toggle .lang-text-en {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    pointer-events: none;
+}
+
+.lang-toggle .lang-text-it {
+    left: 8px;
+}
+
+.lang-toggle .lang-text-en {
+    right: 8px;
+}
+
+
 .btn {
     padding: 14px 28px;
     border-radius: 12px;

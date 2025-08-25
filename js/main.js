@@ -79,20 +79,21 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} containerSelector - Un selettore CSS per trovare il contenitore del menu (es. '#menu').
      */
     function printMenu(containerSelector) {
-      // Usa una "template literal" (delimitata da ``) per creare l'HTML in modo più leggibile.
-      const html = `
+        const currentLang = localStorage.getItem('language') || 'it';
+        // Usa una "template literal" (delimitata da ``) per creare l'HTML in modo più leggibile.
+        const html = `
         <ul class="nav-links">
-          ${menuItems.map(item => 
-            // ".map()" è un metodo degli array che crea un nuovo array trasformando ogni elemento.
-            // Qui, per ogni oggetto "item" in "menuItems", creiamo un pezzo di HTML `<li>...</li>`.
-            `<li><a href="${item.href}" data-translate-key="${item.key}"></a></li>`
-          ).join("")}
+          ${menuItems.map(item => {
+            // Aggiunge il parametro della lingua a ogni link per mantenere la coerenza tra le pagine.
+            const link = `${item.href}?lang=${currentLang}`;
+            return `<li><a href="${link}" data-translate-key="${item.key}"></a></li>`;
+          }).join("")}
         </ul>
       `;
-      // ".join('')" unisce tutti i pezzi di HTML in una singola stringa.
+        // ".join('')" unisce tutti i pezzi di HTML in una singola stringa.
 
-      // Inserisce l'HTML generato dentro l'elemento trovato con "containerSelector".
-      document.querySelector(containerSelector).innerHTML = html;
+        // Inserisce l'HTML generato dentro l'elemento trovato con "containerSelector".
+        document.querySelector(containerSelector).innerHTML = html;
     }
 
     /**
@@ -126,8 +127,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function setLanguage() {
         // "URLSearchParams" ci aiuta a leggere i parametri nell'URL (es. ?lang=en).
         const urlParams = new URLSearchParams(window.location.search);
-        // Prende il valore di "lang". Se non c'è, usa 'it' come default.
-        let lang = urlParams.get('lang') || 'it';
+
+        // La lingua viene decisa con questa priorità:
+        // 1. Parametro nell'URL (es. ?lang=en) -> per condividere link in una lingua specifica.
+        // 2. Lingua salvata nel browser -> per ricordare la scelta dell'utente tra le visite.
+        // 3. Lingua di default ('it') -> se l'utente è nuovo.
+        let lang = urlParams.get('lang') || localStorage.getItem('language') || 'it';
+
+        // Salva la lingua scelta nel localStorage del browser, così la prossima volta
+        // che l'utente visita il sito, la sua preferenza viene ricordata.
+        localStorage.setItem('language', lang);
 
         // Imposta la lingua sull'elemento <html> della pagina.
         document.documentElement.lang = lang;
@@ -162,15 +171,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Aggiorna i link dello switcher della lingua per mostrare qual è attiva.
-        const langSwitcher = document.querySelector('.lang-switcher-desktop');
-        if (langSwitcher) {
-            const currentPath = window.location.pathname;
-            langSwitcher.innerHTML = `
-                <a href="${currentPath}?lang=it" class="lang-option ${lang === 'it' ? 'active' : ''}">IT</a>
-                <span class="lang-separator">|</span>
-                <a href="${currentPath}?lang=en" class="lang-option ${lang === 'en' ? 'active' : ''}">EN</a>
-            `;
+        // Gestisce il nuovo toggle per la lingua
+        const langToggle = document.getElementById('lang-toggle-checkbox');
+        if (langToggle) {
+            // Imposta lo stato iniziale del toggle in base alla lingua corrente
+            langToggle.checked = (lang === 'en');
+
+            // Aggiunge un ascoltatore per il click sul toggle
+            langToggle.addEventListener('change', () => {
+                const newLang = langToggle.checked ? 'en' : 'it';
+                // Ricarica la pagina con il nuovo parametro della lingua
+                window.location.search = `?lang=${newLang}`;
+            });
         }
     }
 

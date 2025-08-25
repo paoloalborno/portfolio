@@ -23,8 +23,15 @@ Struttura:
         <!-- Questo contenitore verrà riempito dinamicamente con i link del menu dal file js/main.js -->
         <div id="menu"></div>
 
-        <!-- Questo contenitore mostra i link per cambiare lingua (es. IT / EN) -->
-        <div class="lang-switcher-desktop"></div>
+        <!-- Contenitore per il toggle della lingua -->
+        <div class="lang-switcher-desktop">
+            <label class="lang-toggle">
+                <input type="checkbox" id="lang-toggle-checkbox">
+                <span class="slider"></span>
+                <span class="lang-text-it">IT</span>
+                <span class="lang-text-en">EN</span>
+            </label>
+        </div>
 
         <!-- Icona per il menu su dispositivi mobili (hamburger menu) -->
         <div class="mobile-menu">

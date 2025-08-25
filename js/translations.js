@@ -176,6 +176,29 @@ const translations = {
         "h2": { "en": "Python Code Snippets", "it": "Python Code Snippets" },
         "section_subtitle": { "en": "A collection of code examples and small scripts I have written.", "it": "Una raccolta di esempi di codice e piccoli script che ho scritto." },
         "example1_h3": { "en": "Example 1: Data Cleaning with Pandas", "it": "Esempio 1: Data Cleaning con Pandas" },
-        "example2_h3": { "en": "Example 2: Simple API Call", "it": "Esempio 2: Chiamata API Semplice" }
+        "example2_h3": { "en": "Example 2: Simple API Call", "it": "Esempio 2: Chiamata API Semplice" },
+        "tech_aws": { "en": "AWS", "it": "AWS" },
+        "tech_cloud": { "en": "Cloud Architecture", "it": "Architettura Cloud" },
+        "tech_ecommerce": { "en": "E-commerce", "it": "E-commerce" },
+        "tech_perf": { "en": "Performance Tuning", "it": "Ottimizzazione Performance" },
+        "tech_nlp": { "en": "NLP", "it": "NLP" },
+        "tech_bert": { "en": "BERT", "it": "BERT" },
+        "tech_python": { "en": "Python", "it": "Python" },
+        "tech_pytorch": { "en": "PyTorch", "it": "PyTorch" },
+        "tech_fastapi": { "en": "FastAPI", "it": "FastAPI" },
+        "tech_docker": { "en": "Docker", "it": "Docker" },
+        "tech_ml": { "en": "Machine Learning", "it": "Machine Learning" },
+        "tech_html": { "en": "HTML5", "it": "HTML5" },
+        "tech_css": { "en": "CSS", "it": "CSS" },
+        "tech_js": { "en": "JavaScript", "it": "JavaScript" },
+        "tech_canvas": { "en": "Canvas", "it": "Canvas" },
+        "tech_aurora": { "en": "AWS Aurora", "it": "AWS Aurora" },
+        "tech_ec2": { "en": "EC2 Auto Scaling", "it": "EC2 Auto Scaling" },
+        "tech_cloudfront": { "en": "CloudFront", "it": "CloudFront" },
+        "tech_elasticache": { "en": "ElastiCache", "it": "ElastiCache" },
+        "tech_cloudwatch": { "en": "CloudWatch", "it": "CloudWatch" }
+    },
+    "hobbies": {
+        "passions_text": { "en": "I am passionate about travel, photography, and trekking. These interests help me maintain a balance between my professional and personal life, and find inspiration in unexpected places.", "it": "Sono un appassionato di viaggi, fotografia e trekking. Questi interessi mi aiutano a mantenere un equilibrio tra vita professionale e personale, e a trovare ispirazione in luoghi inaspettati." }
     }
 };
