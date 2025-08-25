@@ -426,6 +426,10 @@ nav {
     margin-bottom: 1rem;
 }
 
+.hobby-item-centered {
+    text-align: center;
+}
+
 .hobbies-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

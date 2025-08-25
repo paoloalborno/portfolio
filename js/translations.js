@@ -108,7 +108,7 @@ const translations = {
         "gallery_p": { "en": "A small collection of moments and places that have inspired me. Click below to explore the gallery.", "it": "Una piccola collezione di momenti e luoghi che mi hanno ispirato. Clicca qui sotto per esplorare la galleria." },
         "gallery_btn": { "en": "Go to Gallery", "it": "Vai alla Galleria" },
         "passions_h3": { "en": "My Passions", "it": "Le Mie Passioni" },
-        "passions_p": { "en": "I am passionate about [insert passion 1], [insert passion 2], and [insert passion 3]. These interests help me maintain a balance between my professional and personal life, and find inspiration in unexpected places.", "it": "Sono un appassionato di [inserire passione 1], [inserire passione 2], e [inserire passione 3]. Questi interessi mi aiutano a mantenere un equilibrio tra vita professionale e personale, e a trovare ispirazione in luoghi inaspettati." }
+        "passions_p": { "en": "I am passionate about travel, photography, and trekking. These interests help me maintain a balance between my professional and personal life, and find inspiration in unexpected places.", "it": "Sono un appassionato di viaggi, fotografia e trekking. Questi interessi mi aiutano a mantenere un equilibrio tra vita professionale e personale, e a trovare ispirazione in luoghi inaspettati." }
     },
     "gallery": {
         "title": { "en": "Gallery - Paolo Alborno", "it": "Galleria - Paolo Alborno" },
@@ -197,8 +197,5 @@ const translations = {
         "tech_cloudfront": { "en": "CloudFront", "it": "CloudFront" },
         "tech_elasticache": { "en": "ElastiCache", "it": "ElastiCache" },
         "tech_cloudwatch": { "en": "CloudWatch", "it": "CloudWatch" }
-    },
-    "hobbies": {
-        "passions_text": { "en": "I am passionate about travel, photography, and trekking. These interests help me maintain a balance between my professional and personal life, and find inspiration in unexpected places.", "it": "Sono un appassionato di viaggi, fotografia e trekking. Questi interessi mi aiutano a mantenere un equilibrio tra vita professionale e personale, e a trovare ispirazione in luoghi inaspettati." }
     }
 };
