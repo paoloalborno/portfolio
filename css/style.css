@@ -1161,6 +1161,10 @@ footer {
 
 
 @media (max-width: 768px) {
+    .tab-buttons {
+        justify-content: center;
+        row-gap: 0.5rem;
+    }
     .project-preview {
         grid-template-columns: 1fr;
         text-align: center;
