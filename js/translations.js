@@ -1,3 +1,28 @@
+/**
+ * =================================================================================
+ * translations.js - Contenitore delle Traduzioni del Sito
+ * =================================================================================
+ *
+ * Ciao! Questo file è molto semplice e non contiene logica di programmazione complessa.
+ * È un grande "dizionario" (in programmazione si chiama "oggetto") che contiene
+ * tutte le frasi del sito web in diverse lingue.
+ *
+ * COME FUNZIONA?
+ *
+ * La struttura è a livelli:
+ *
+ * 1.  Il primo livello è la **pagina** o la **sezione** del sito (es. "nav", "footer", "index").
+ * 2.  Il secondo livello è una **chiave** che identifica una frase specifica (es. "home", "rights", "title").
+ * 3.  Il terzo livello contiene le **traduzioni** vere e proprie, con un codice per ogni lingua
+ *     (es. "en" per l'inglese, "it" per l'italiano).
+ *
+ * ESEMPIO:
+ * Per trovare il testo del link "Home" del menu in italiano, lo script `main.js`
+ * cercherà `translations.nav.home.it`, che corrisponde a "Home".
+ *
+ * Se devi aggiungere o modificare un testo, basta seguire questa struttura.
+ *
+ */
 const translations = {
     "nav": {
         "home": { "en": "Home", "it": "Home" },
@@ -96,13 +121,11 @@ const translations = {
         "section_subtitle": { "en": "A little game to pass the time. Use the arrow keys to move.", "it": "Un piccolo gioco per passare il tempo. Usa i tasti freccia per muoverti." }
     },
     "python_projects": {
-        "title": { "en": "Paolo - Python Projects", "it": "Paolo - Progetti Python" },
-        "h1": { "en": "Python Projects", "it": "Progetti Python" },
-        "section_subtitle": { "en": "A selection of my Python projects. The source code is available on GitHub.", "it": "Una selezione dei miei progetti Python. Il codice sorgente è disponibile su GitHub." },
-        "btn_github": { "en": "<i class=\"fab fa-github\"></i> Go to my GitHub", "it": "<i class=\"fab fa-github\"></i> Vai al mio GitHub" },
-        "project1_h3": { "en": "Project 1", "it": "Progetto 1" },
-        "project1_p": { "en": "Description of project 1.", "it": "Descrizione del progetto 1." },
-        "project1_btn": { "en": "View Project &rarr;", "it": "Vedi il Progetto &rarr;" }
+        "title": { "en": "Python Snippets - Paolo Alborno", "it": "Python Snippets - Paolo Alborno" },
+        "h2": { "en": "Python Code Snippets", "it": "Python Code Snippets" },
+        "section_subtitle": { "en": "A collection of code examples and small scripts I have written.", "it": "Una raccolta di esempi di codice e piccoli script che ho scritto." },
+        "example1_h3": { "en": "Example 1: Data Cleaning with Pandas", "it": "Esempio 1: Data Cleaning con Pandas" },
+        "example2_h3": { "en": "Example 2: Simple API Call", "it": "Esempio 2: Chiamata API Semplice" }
     },
     "blog": {
         "title": { "en": "Paolo - Blog", "it": "Paolo - Blog" },
