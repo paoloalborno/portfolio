@@ -7,7 +7,7 @@
     <meta name="description" content="CV Interattivo e testuale di Paolo Alborno" data-translate-key="cv.meta_description">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -332,14 +332,10 @@
                     word,
                     line = [],
                     lineNumber = 0,
-                    lineHeight = 1.1, // ems
+                    lineHeight = 1.2, // ems
                     y = text.attr("y"),
                     dy = parseFloat(text.attr("dy") || 0),
-                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-
-                // Adjust initial position for multi-line wrapping
-                text.attr("transform", "translate(0, -10)");
-
+                    tspan = text.text(null).append("tspan").attr("x", 0).attr("dy", dy + "em");
 
                 while (word = words.pop()) {
                     line.push(word);
@@ -348,8 +344,20 @@
                         line.pop();
                         tspan.text(line.join(" "));
                         line = [word];
-                        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + "em").text(word);
+                        // Use relative dy for subsequent lines
+                        tspan = text.append("tspan").attr("x", 0).attr("dy", lineHeight + "em").text(word);
                     }
+                }
+
+                // After wrapping, adjust the whole text block for vertical centering
+                const lineCount = text.selectAll("tspan").size();
+                const textBlockHeight = lineCount > 1 ? text.node().getBBox().height : 0;
+                const initialY = parseFloat(y);
+
+                if (initialY > 0) { // Text is below the node
+                    text.attr("y", initialY + 5);
+                } else { // Text is above the node
+                    text.attr("y", initialY - (textBlockHeight > 0 ? textBlockHeight - 10 : 0));
                 }
             });
         }
