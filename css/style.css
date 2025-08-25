@@ -1071,14 +1071,14 @@ footer {
 
 /* D3 Tree styles */
 .node circle {
-  /* Fill and stroke are now handled via inline styles in JS for dynamic coloring */
+  /* Fill is handled via inline styles in JS for dynamic coloring */
   transition: all 0.3s ease;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+  filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.2));
 }
 
 .node:hover circle {
     transform: scale(1.1);
-    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+    filter: drop-shadow(5px 5px 6px rgba(0,0,0,0.3));
 }
 
 .node text {

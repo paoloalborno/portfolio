@@ -145,15 +145,6 @@
 
             const defs = svg.append("defs");
 
-            const filter = defs.append("filter")
-                .attr("id", "shadow")
-                .attr("height", "150%");
-            filter.append("feGaussianBlur").attr("in", "SourceAlpha").attr("stdDeviation", 4).attr("result", "blur");
-            filter.append("feOffset").attr("in", "blur").attr("dx", 3).attr("dy", 3).attr("result", "offsetBlur");
-            const feMerge = filter.append("feMerge");
-            feMerge.append("feMergeNode").attr("in", "offsetBlur");
-            feMerge.append("feMergeNode").attr("in", "SourceGraphic");
-
             const categories = colorScale.domain();
             categories.forEach(category => {
                 const color = colorScale(category);
@@ -218,8 +209,7 @@
 
                 nodeEnter.append('circle')
                     .attr('r', 1e-6)
-                    .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`)
-                    .style("filter", "url(#shadow)");
+                    .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`);
 
                 nodeEnter.append('text')
                     .attr("y", d => d.children || d._children ? -25 : 25)
