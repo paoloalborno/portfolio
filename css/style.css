@@ -646,6 +646,10 @@ footer {
     color: #a0aec0; /* Lighter text */
     padding: 3rem 0;
     text-align: center;
+    /* margin-top: auto; moved to the placeholder */
+}
+
+#footer-placeholder {
     margin-top: auto; /* This is the key for the sticky footer! */
 }
 
