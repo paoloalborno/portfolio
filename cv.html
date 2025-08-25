@@ -53,6 +53,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script src="js/cv_data.js"></script>
+    <script src="js/simple_tree.js"></script> <!-- Include the new library -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 
@@ -107,259 +108,34 @@
             }
         }
 
-        // --- RENDER GRAPH VIEW (Collapsible D3 Tree) ---
+        // --- RENDER GRAPH VIEW ---
         function renderGraphView() {
             const container = document.getElementById('cv-graph');
-            container.innerHTML = '';
+            if (container) {
+                const cvTree = new SimpleTree(container, cvData);
+                cvTree.render();
 
-            function transformData(data) {
-                const root = { name: "Paolo Alborno", category: "root", children: [] };
-                const expNode = { name: "Esperienze", category: "section", children: [] };
-                data.experience.forEach(exp => expNode.children.push({ name: exp.title, category: "item", details: exp.details, company: exp.company, date: exp.date, link: exp.link }));
-                const eduNode = { name: "Istruzione", category: "section", children: [] };
-                data.education.forEach(edu => eduNode.children.push({ name: edu.title, category: "item", details: edu.details, company: edu.company, date: edu.date }));
-                const skillsNode = { name: "Competenze", category: "section", children: [] };
-                for (const area in data.competency_areas) {
-                    const areaNode = { name: area, category: "skill_area", children: [] };
-                    data.competency_areas[area].skills.forEach(skill => areaNode.children.push({ name: skill, category: "skill" }));
-                    skillsNode.children.push(areaNode);
-                }
-                const certNode = { name: "Certificazioni", category: "section", children: [] };
-                data.certifications.forEach(cert => certNode.children.push({ name: cert.title, category: "item", details: cert.details }));
-                root.children.push(expNode, eduNode, skillsNode, certNode);
-                return root;
-            }
-
-            const treeData = transformData(cvData);
-            const colorScale = d3.scaleOrdinal().domain(["root", "section", "item", "skill_area", "skill"]).range(["#5a67d8", "#764ba2", "#667eea", "#f093fb", "#4facfe"]);
-
-            const margin = { top: 40, right: 90, bottom: 50, left: 90 };
-            const width = container.clientWidth - margin.left - margin.right;
-            const height = container.clientHeight - margin.top - margin.bottom;
-            let i = 0;
-            const duration = 750;
-
-            const svg = d3.select(container).append("svg")
-                .attr("width", width + margin.right + margin.left)
-                .attr("height", height + margin.top + margin.bottom);
-
-            const defs = svg.append("defs");
-
-            const categories = colorScale.domain();
-            categories.forEach(category => {
-                const color = colorScale(category);
-                const gradient = defs.append("linearGradient")
-                    .attr("id", `gradient-${category.replace(/\s/g, '-')}`)
-                    .attr("x1", "0%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%");
-                gradient.append("stop").attr("offset", "0%").attr("stop-color", d3.color(color).brighter(0.8));
-                gradient.append("stop").attr("offset", "100%").attr("stop-color", d3.color(color).darker(0.5));
-            });
-
-            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-            const tree = d3.tree().size([width, height]);
-            let root = d3.hierarchy(treeData, d => d.children);
-            root.x0 = width / 2;
-            root.y0 = 0;
-
-            // Collapse after the first level
-            root.children.forEach(collapse);
-            update(root);
-
-            function collapse(d) {
-                if (d.children) {
-                    d._children = d.children;
-                    d._children.forEach(collapse);
-                    d.children = null;
-                }
-            }
-
-            function click(event, d) {
-                // If the node is an internal node, toggle collapse/expand
-                if (d.children || d._children) {
-                    if (d.children) {
-                        d._children = d.children;
-                        d.children = null;
-                    } else {
-                        d.children = d._children;
-                        d._children = null;
-                    }
-                    update(d);
-                } else {
-                    // If it's a leaf node, open the modal
-                    openModal(d.data);
-                }
-            }
-
-            function update(source) {
-                const treeLayout = tree(root);
-                const treeLayoutData = tree(root);
-                let nodes = treeLayoutData.descendants();
-                let links = treeLayoutData.links();
-
-                nodes.forEach(d => { d.y = d.depth * 180; });
-
-                let node = svg.selectAll('g.node')
-                    .data(nodes, d => d.id || (d.id = ++i));
-
-                let nodeEnter = node.enter().append('g')
-                    .attr('class', 'node')
-                    .attr("transform", d => `translate(${source.x0},${source.y0})`)
-                    .on('click', click);
-
-                nodeEnter.append('circle')
-                    .attr('r', 1e-6)
-                    .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`);
-
-                nodeEnter.append('text')
-                    .attr("y", d => d.children || d._children ? -25 : 25)
-                    .attr("dy", ".35em")
-                    .attr("text-anchor", "middle")
-                    .text(d => d.data.name)
-                    .style("font-weight", d => d.children || d._children ? 600 : 400)
-                    .style("fill-opacity", 1e-6)
-                    .call(wrapText, 120);
-
-                let nodeUpdate = nodeEnter.merge(node);
-
-                nodeUpdate.transition()
-                    .duration(duration)
-                    .attr("transform", d => `translate(${d.x},${d.y})`);
-
-                nodeUpdate.select('circle')
-                    .attr('r', 10)
-                    .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`)
-                    .attr('cursor', 'pointer');
-
-                nodeUpdate.select('text')
-                    .style("fill-opacity", 1);
-
-                let nodeExit = node.exit().transition()
-                    .duration(duration)
-                    .attr("transform", d => `translate(${source.x},${source.y})`)
-                    .remove();
-
-                nodeExit.select('circle').attr('r', 1e-6);
-                nodeExit.select('text').style('fill-opacity', 1e-6);
-
-                let link = svg.selectAll('path.link')
-                    .data(links, d => d.id);
-
-                let linkEnter = link.enter().insert('path', "g")
-                    .attr("class", "link")
-                    .attr('d', d => {
-                        const o = {x: source.x0, y: source.y0};
-                        return d3.linkVertical().x(d => d.x).y(d => d.y)({source: o, target: o});
-                    });
-
-                let linkUpdate = linkEnter.merge(link);
-
-                linkUpdate.transition()
-                    .duration(duration)
-                    .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
-
-                link.exit().transition()
-                    .duration(duration)
-                    .attr('d', d => {
-                        const o = {x: source.x, y: source.y};
-                        return d3.linkVertical().x(d => d.x).y(d => d.y)({source: o, target: o});
-                    })
-                    .remove();
-
-                nodes.forEach(d => {
-                    d.x0 = d.x;
-                    d.y0 = d.y;
-                });
+                // Example of how to use the new simple API
+                // setTimeout(() => {
+                //     cvTree.addNode({name: 'New Skill', category: 'skill'}, 'Competenze');
+                // }, 3000);
             }
         }
 
         // --- MODAL LOGIC ---
+        // This part is kept separate as it's a general UI component, not tied to the tree logic.
         const modal = document.getElementById('cv-modal');
         const modalCloseBtn = document.querySelector('.cv-modal-close-btn');
-
-        function openModal(data) {
-            // Don't open modal for nodes with no meaningful details
-            if (!data.company && !data.date && (!data.details || data.details.length === 0)) {
-                return;
+        if (modal && modalCloseBtn) {
+            function closeModal() {
+                modal.style.display = "none";
             }
-
-            document.getElementById('modal-title').textContent = data.name || 'Dettagli';
-            document.getElementById('modal-company').textContent = data.company || '';
-            document.getElementById('modal-date').textContent = data.date || '';
-
-            const detailsContainer = document.getElementById('modal-details');
-            detailsContainer.innerHTML = ''; // Clear previous details
-            if (data.details && data.details.length > 0) {
-                const ul = document.createElement('ul');
-                data.details.forEach(detail => {
-                    const li = document.createElement('li');
-                    li.textContent = detail;
-                    ul.appendChild(li);
-                });
-                detailsContainer.appendChild(ul);
-            }
-
-            const linkContainer = document.getElementById('modal-link-container');
-            linkContainer.innerHTML = ''; // Clear previous link
-            if (data.link) {
-                const a = document.createElement('a');
-                a.href = data.link;
-                a.textContent = 'Vedi Progetto Correlato';
-                a.className = 'btn btn-primary'; // Re-use existing button styles
-                a.style.marginTop = '1rem';
-                a.target = '_blank'; // Open in new tab
-                linkContainer.appendChild(a);
-            }
-
-            modal.style.display = "block";
-        }
-
-        function closeModal() {
-            modal.style.display = "none";
-        }
-
-        modalCloseBtn.onclick = closeModal;
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-
-        function wrapText(text, width) {
-            text.each(function() {
-                var text = d3.select(this),
-                    words = text.text().split(/\s+/).reverse(),
-                    word,
-                    line = [],
-                    lineNumber = 0,
-                    lineHeight = 1.2, // ems
-                    y = text.attr("y"),
-                    dy = parseFloat(text.attr("dy") || 0),
-                    tspan = text.text(null).append("tspan").attr("x", 0).attr("dy", dy + "em");
-
-                while (word = words.pop()) {
-                    line.push(word);
-                    tspan.text(line.join(" "));
-                    if (tspan.node().getComputedTextLength() > width && line.length > 1) {
-                        line.pop();
-                        tspan.text(line.join(" "));
-                        line = [word];
-                        // Use relative dy for subsequent lines
-                        tspan = text.append("tspan").attr("x", 0).attr("dy", lineHeight + "em").text(word);
-                    }
+            modalCloseBtn.onclick = closeModal;
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    closeModal();
                 }
-
-                // After wrapping, adjust the whole text block for vertical centering
-                const lineCount = text.selectAll("tspan").size();
-                const textBlockHeight = lineCount > 1 ? text.node().getBBox().height : 0;
-                const initialY = parseFloat(y);
-
-                if (initialY > 0) { // Text is below the node
-                    text.attr("y", initialY + 5);
-                } else { // Text is above the node
-                    text.attr("y", initialY - (textBlockHeight > 0 ? textBlockHeight - 10 : 0));
-                }
-            });
+            }
         }
 
 
