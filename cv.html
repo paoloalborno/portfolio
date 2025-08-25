@@ -107,153 +107,174 @@
             }
         }
 
-        // --- RENDER GRAPH VIEW (D3 Tree) ---
+        // --- RENDER GRAPH VIEW (Collapsible D3 Tree) ---
         function renderGraphView() {
             const container = document.getElementById('cv-graph');
-            container.innerHTML = ''; // Clear previous graph
+            container.innerHTML = '';
 
-            // 1. Data Transformation
             function transformData(data) {
                 const root = { name: "Paolo Alborno", category: "root", children: [] };
-
-                // Experience
-                const expNode = { name: "Esperienze Lavorative", category: "section", children: [] };
-                data.experience.forEach(exp => {
-                    const expChild = { name: exp.title, company: exp.company, date: exp.date, details: exp.details, category: "item" };
-                    expNode.children.push(expChild);
-                });
-                root.children.push(expNode);
-
-                // Education
+                const expNode = { name: "Esperienze", category: "section", children: [] };
+                data.experience.forEach(exp => expNode.children.push({ name: exp.title, category: "item", details: exp.details, company: exp.company, date: exp.date }));
                 const eduNode = { name: "Istruzione", category: "section", children: [] };
-                data.education.forEach(edu => {
-                    eduNode.children.push({ name: edu.title, company: edu.company, date: edu.date, details: edu.details, category: "item" });
-                });
-                root.children.push(eduNode);
-
-                // Competency Areas & Skills
+                data.education.forEach(edu => eduNode.children.push({ name: edu.title, category: "item", details: edu.details, company: edu.company, date: edu.date }));
                 const skillsNode = { name: "Competenze", category: "section", children: [] };
                 for (const area in data.competency_areas) {
                     const areaNode = { name: area, category: "skill_area", children: [] };
-                    data.competency_areas[area].skills.forEach(skill => {
-                        areaNode.children.push({ name: skill, category: "skill" });
-                    });
+                    data.competency_areas[area].skills.forEach(skill => areaNode.children.push({ name: skill, category: "skill" }));
                     skillsNode.children.push(areaNode);
                 }
-                root.children.push(skillsNode);
-
-                // Certifications
                 const certNode = { name: "Certificazioni", category: "section", children: [] };
-                data.certifications.forEach(cert => {
-                    certNode.children.push({ name: cert.title, details: cert.details, category: "item" });
-                });
-                root.children.push(certNode);
-
+                data.certifications.forEach(cert => certNode.children.push({ name: cert.title, category: "item", details: cert.details }));
+                root.children.push(expNode, eduNode, skillsNode, certNode);
                 return root;
             }
 
             const treeData = transformData(cvData);
+            const colorScale = d3.scaleOrdinal().domain(["root", "section", "item", "skill_area", "skill"]).range(["#5a67d8", "#764ba2", "#667eea", "#f093fb", "#4facfe"]);
 
-            // Color scale for node categories
-            const colorScale = d3.scaleOrdinal()
-                .domain(["root", "section", "item", "skill_area", "skill"])
-                .range(["#5a67d8", "#764ba2", "#667eea", "#f093fb", "#4facfe"]);
-
-
-            // 2. D3 Tree rendering
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            const margin = { top: 60, right: 20, bottom: 60, left: 20 };
+            const margin = { top: 40, right: 90, bottom: 50, left: 90 };
+            const width = container.clientWidth - margin.left - margin.right;
+            const height = container.clientHeight - margin.top - margin.bottom;
+            let i = 0;
+            const duration = 750;
 
             const svg = d3.select(container).append("svg")
-                .attr("width", width)
-                .attr("height", height)
-                .call(d3.zoom().on("zoom", function (event) {
-                    g.attr("transform", event.transform);
-                }))
-                .append("g");
+                .attr("width", width + margin.right + margin.left)
+                .attr("height", height + margin.top + margin.bottom);
 
             const defs = svg.append("defs");
-            const categories = colorScale.domain();
 
+            const filter = defs.append("filter")
+                .attr("id", "shadow")
+                .attr("height", "150%");
+            filter.append("feGaussianBlur").attr("in", "SourceAlpha").attr("stdDeviation", 4).attr("result", "blur");
+            filter.append("feOffset").attr("in", "blur").attr("dx", 3).attr("dy", 3).attr("result", "offsetBlur");
+            const feMerge = filter.append("feMerge");
+            feMerge.append("feMergeNode").attr("in", "offsetBlur");
+            feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+            const categories = colorScale.domain();
             categories.forEach(category => {
                 const color = colorScale(category);
                 const gradient = defs.append("linearGradient")
                     .attr("id", `gradient-${category.replace(/\s/g, '-')}`)
-                    .attr("x1", "0%").attr("y1", "0%")
-                    .attr("x2", "100%").attr("y2", "100%");
-
-                gradient.append("stop")
-                    .attr("offset", "0%")
-                    .attr("stop-color", d3.color(color).brighter(0.8));
-
-                gradient.append("stop")
-                    .attr("offset", "100%")
-                    .attr("stop-color", d3.color(color).darker(0.5));
+                    .attr("x1", "0%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%");
+                gradient.append("stop").attr("offset", "0%").attr("stop-color", d3.color(color).brighter(0.8));
+                gradient.append("stop").attr("offset", "100%").attr("stop-color", d3.color(color).darker(0.5));
             });
 
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            const tree = d3.tree().nodeSize([140, 140]);
-            const root = d3.hierarchy(treeData, d => d.children);
+            const tree = d3.tree().size([width, height]);
+            let root = d3.hierarchy(treeData, d => d.children);
+            root.x0 = width / 2;
+            root.y0 = 0;
 
-            tree(root);
+            // Collapse after the first level
+            root.children.forEach(collapse);
+            update(root);
 
-            const link = g.selectAll(".link")
-                .data(root.links())
-                .enter().append("path")
-                .attr("class", "link")
-                .attr("d", d3.linkVertical().x(d => d.x).y(d => d.y))
-                .style("opacity", 0)
-                .transition()
-                .duration(750)
-                .delay((d, i) => i * 5)
-                .style("opacity", 1);
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
 
-            const nodeEnter = g.selectAll(".node")
-                .data(root.descendants())
-                .enter().append("g")
-                .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
-                .attr("transform", d => `translate(${d.x},${d.y})`)
-                .style("opacity", 0);
+            function click(event, d) {
+                if (d.children) { // If node is expanded, collapse it
+                    d._children = d.children;
+                    d.children = null;
+                } else { // If node is collapsed, expand it
+                    d.children = d._children;
+                    d._children = null;
+                }
+                update(d);
+            }
 
-            nodeEnter.transition()
-                .duration(750)
-                .delay((d, i) => i * 10)
-                .style("opacity", 1);
+            function update(source) {
+                const treeLayout = tree(root);
+                const treeLayoutData = tree(root);
+                let nodes = treeLayoutData.descendants();
+                let links = treeLayoutData.links();
 
-            const node = g.selectAll('.node')
-                .on("click", (event, d) => {
-                    // Open modal only for nodes that are not the root and have some details.
-                    if (d.depth > 0) {
-                        openModal(d.data);
-                    }
-                })
-                .style("cursor", d => d.depth > 0 ? "pointer" : "default");
+                nodes.forEach(d => { d.y = d.depth * 180; });
 
+                let node = svg.selectAll('g.node')
+                    .data(nodes, d => d.id || (d.id = ++i));
 
-            node.append("circle")
-                .attr("r", 10) // Slightly larger nodes
-                .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`);
+                let nodeEnter = node.enter().append('g')
+                    .attr('class', 'node')
+                    .attr("transform", d => `translate(${source.x0},${source.y0})`)
+                    .on('click', click)
+                    .on('dblclick', (event, d) => openModal(d.data));
 
-            node.append("text")
-                .attr("dy", "0.31em")
-                .attr("y", d => d.children ? -25 : 25) // Increase spacing for text
-                .attr("text-anchor", "middle")
-                .text(d => d.data.name)
-                .call(wrapText, 120); // Wrap text to a 120px width
+                nodeEnter.append('circle')
+                    .attr('r', 1e-6)
+                    .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`)
+                    .style("filter", "url(#shadow)");
 
-            // Center the tree
-            const bounds = g.node().getBBox();
-            const fullWidth = width - margin.left - margin.right;
-            const fullHeight = height - margin.top - margin.bottom;
-            const midX = bounds.x + bounds.width / 2;
-            const midY = bounds.y + bounds.height / 2;
-            const scale = 1.0 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight);
-            const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+                nodeEnter.append('text')
+                    .attr("y", d => d.children || d._children ? -25 : 25)
+                    .attr("dy", ".35em")
+                    .attr("text-anchor", "middle")
+                    .text(d => d.data.name)
+                    .style("fill-opacity", 1e-6)
+                    .call(wrapText, 120);
 
+                let nodeUpdate = nodeEnter.merge(node);
 
-            g.attr("transform", `translate(${translate[0] + margin.left}, ${translate[1] + margin.top}) scale(${scale})`);
+                nodeUpdate.transition()
+                    .duration(duration)
+                    .attr("transform", d => `translate(${d.x},${d.y})`);
+
+                nodeUpdate.select('circle')
+                    .attr('r', 10)
+                    .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`)
+                    .attr('cursor', 'pointer');
+
+                nodeUpdate.select('text')
+                    .style("fill-opacity", 1);
+
+                let nodeExit = node.exit().transition()
+                    .duration(duration)
+                    .attr("transform", d => `translate(${source.x},${source.y})`)
+                    .remove();
+
+                nodeExit.select('circle').attr('r', 1e-6);
+                nodeExit.select('text').style('fill-opacity', 1e-6);
+
+                let link = svg.selectAll('path.link')
+                    .data(links, d => d.id);
+
+                let linkEnter = link.enter().insert('path', "g")
+                    .attr("class", "link")
+                    .attr('d', d => {
+                        const o = {x: source.x0, y: source.y0};
+                        return d3.linkVertical().x(d => d.x).y(d => d.y)({source: o, target: o});
+                    });
+
+                let linkUpdate = linkEnter.merge(link);
+
+                linkUpdate.transition()
+                    .duration(duration)
+                    .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
+
+                link.exit().transition()
+                    .duration(duration)
+                    .attr('d', d => {
+                        const o = {x: source.x, y: source.y};
+                        return d3.linkVertical().x(d => d.x).y(d => d.y)({source: o, target: o});
+                    })
+                    .remove();
+
+                nodes.forEach(d => {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+            }
         }
 
         // --- MODAL LOGIC ---
