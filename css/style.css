@@ -948,7 +948,7 @@ footer {
     width: 100%;
     height: calc(100vh - 200px); /* Adjust height as needed */
     position: relative;
-    background-color: #1a202c;
+    background-color: var(--bg); /* White background */
 }
 
 #cv-graph {
@@ -1071,21 +1071,26 @@ footer {
 
 /* D3 Tree styles */
 .node circle {
-  fill: #999;
+  fill: var(--bg-card); /* Light gray/white for leaf nodes */
+  stroke: var(--primary);
+  stroke-width: 2px;
 }
 
 .node--internal circle {
-  fill: #555;
+  fill: var(--primary); /* Darker color for internal nodes */
 }
 
 .node text {
-  font: 12px sans-serif;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  fill: var(--text);
 }
 
 .link {
   fill: none;
-  stroke: #555;
-  stroke-opacity: 0.4;
+  stroke: var(--text-muted);
+  stroke-opacity: 0.6;
   stroke-width: 1.5px;
 }
 

@@ -119,16 +119,18 @@
                 // Experience
                 const expNode = { name: "Esperienze Lavorative", children: [] };
                 data.experience.forEach(exp => {
-                    const expChild = { name: exp.title, company: exp.company, date: exp.date, children: [] };
-                    exp.details.forEach(detail => expChild.children.push({ name: detail }));
+                    const expChild = { name: exp.title, company: exp.company, date: exp.date, details: exp.details, children: [] };
+                    // We don't add details as children anymore to keep the graph cleaner
+                    // Details will be shown in the modal
                     expNode.children.push(expChild);
                 });
                 root.children.push(expNode);
 
+
                 // Education
                 const eduNode = { name: "Istruzione", children: [] };
                 data.education.forEach(edu => {
-                    eduNode.children.push({ name: edu.title, company: edu.company, date: edu.date });
+                    eduNode.children.push({ name: edu.title, company: edu.company, date: edu.date, details: edu.details });
                 });
                 root.children.push(eduNode);
 
@@ -146,7 +148,7 @@
                 // Certifications
                 const certNode = { name: "Certificazioni", children: [] };
                 data.certifications.forEach(cert => {
-                    certNode.children.push({ name: cert.title });
+                    certNode.children.push({ name: cert.title, details: cert.details });
                 });
                 root.children.push(certNode);
 
@@ -158,6 +160,8 @@
             // 2. D3 Tree rendering
             const width = container.clientWidth;
             const height = container.clientHeight;
+            const margin = { top: 60, right: 20, bottom: 60, left: 20 };
+
             const svg = d3.select(container).append("svg")
                 .attr("width", width)
                 .attr("height", height)
@@ -166,55 +170,102 @@
                 }))
                 .append("g");
 
-            const g = svg.append("g").attr("transform", "translate(40,40)");
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            const tree = d3.tree().size([height - 80, width - 200]);
-            const root = d3.hierarchy(treeData);
+            const tree = d3.tree().size([width - margin.left - margin.right, height - margin.top - margin.bottom]);
+            const root = d3.hierarchy(treeData, d => d.children);
 
             tree(root);
 
             const link = g.selectAll(".link")
-                .data(root.descendants().slice(1))
+                .data(root.links())
                 .enter().append("path")
                 .attr("class", "link")
-                .attr("d", d => {
-                    return "M" + d.y + "," + d.x
-                         + "C" + (d.y + d.parent.y) / 2 + "," + d.x
-                         + " " + (d.y + d.parent.y) / 2 + "," + d.parent.x
-                         + " " + d.parent.y + "," + d.parent.x;
-                })
-                .style("fill", "none")
-                .style("stroke", "#555")
-                .style("stroke-opacity", 0.4)
-                .style("stroke-width", 1.5);
+                .attr("d", d3.linkVertical()
+                    .x(d => d.x)
+                    .y(d => d.y));
 
             const node = g.selectAll(".node")
                 .data(root.descendants())
                 .enter().append("g")
                 .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
-                .attr("transform", d => `translate(${d.y},${d.x})`);
+                .attr("transform", d => `translate(${d.x},${d.y})`)
+                .on("click", (event, d) => {
+                    // Open modal only for nodes that are not the root and have some details.
+                    if (d.depth > 0) {
+                        openModal(d.data);
+                    }
+                })
+                .style("cursor", d => d.depth > 0 ? "pointer" : "default");
+
 
             node.append("circle")
-                .attr("r", 10)
-                .style("fill", d => d._children ? "#555" : "#999");
+                .attr("r", 8);
 
             node.append("text")
-                .attr("dy", ".35em")
-                .attr("x", d => d.children ? -13 : 13)
-                .style("text-anchor", d => d.children ? "end" : "start")
-                .text(d => d.data.name);
+                .attr("dy", "0.31em")
+                .attr("y", d => d.children ? -20 : 20)
+                .attr("text-anchor", "middle")
+                .text(d => {
+                    const maxLen = 30;
+                    const name = d.data.name;
+                    if (d.data.isDetail) return ""; // Don't show text for detail nodes
+                    return name.length > maxLen ? name.substring(0, maxLen) + '...' : name;
+                });
 
             // Center the tree
             const bounds = g.node().getBBox();
-            const fullWidth = width;
-            const fullHeight = height;
+            const fullWidth = width - margin.left - margin.right;
+            const fullHeight = height - margin.top - margin.bottom;
             const midX = bounds.x + bounds.width / 2;
             const midY = bounds.y + bounds.height / 2;
-            const scale = 0.85 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight);
+            const scale = 0.9 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight);
             const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
 
-            g.attr("transform", `translate(${translate}) scale(${scale})`);
+
+            g.attr("transform", `translate(${translate[0] + margin.left}, ${translate[1] + margin.top}) scale(${scale})`);
         }
+
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById('cv-modal');
+        const modalCloseBtn = document.querySelector('.cv-modal-close-btn');
+
+        function openModal(data) {
+            // Don't open modal for nodes with no meaningful details
+            if (!data.company && !data.date && (!data.details || data.details.length === 0)) {
+                return;
+            }
+
+            document.getElementById('modal-title').textContent = data.name || 'Dettagli';
+            document.getElementById('modal-company').textContent = data.company || '';
+            document.getElementById('modal-date').textContent = data.date || '';
+
+            const detailsContainer = document.getElementById('modal-details');
+            detailsContainer.innerHTML = ''; // Clear previous details
+            if (data.details && data.details.length > 0) {
+                const ul = document.createElement('ul');
+                data.details.forEach(detail => {
+                    const li = document.createElement('li');
+                    li.textContent = detail;
+                    ul.appendChild(li);
+                });
+                detailsContainer.appendChild(ul);
+            }
+
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        modalCloseBtn.onclick = closeModal;
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
 
         // Initial render
         renderDocumentView();
