@@ -1071,13 +1071,7 @@ footer {
 
 /* D3 Tree styles */
 .node circle {
-  fill: var(--bg-card); /* Light gray/white for leaf nodes */
-  stroke: var(--primary);
-  stroke-width: 2px;
-}
-
-.node--internal circle {
-  fill: var(--primary); /* Darker color for internal nodes */
+  /* Fill and stroke are now handled via inline styles in JS for dynamic coloring */
 }
 
 .node text {

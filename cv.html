@@ -114,41 +114,38 @@
 
             // 1. Data Transformation
             function transformData(data) {
-                const root = { name: "Paolo Alborno", children: [] };
+                const root = { name: "Paolo Alborno", category: "root", children: [] };
 
                 // Experience
-                const expNode = { name: "Esperienze Lavorative", children: [] };
+                const expNode = { name: "Esperienze Lavorative", category: "section", children: [] };
                 data.experience.forEach(exp => {
-                    const expChild = { name: exp.title, company: exp.company, date: exp.date, details: exp.details, children: [] };
-                    // We don't add details as children anymore to keep the graph cleaner
-                    // Details will be shown in the modal
+                    const expChild = { name: exp.title, company: exp.company, date: exp.date, details: exp.details, category: "item" };
                     expNode.children.push(expChild);
                 });
                 root.children.push(expNode);
 
-
                 // Education
-                const eduNode = { name: "Istruzione", children: [] };
+                const eduNode = { name: "Istruzione", category: "section", children: [] };
                 data.education.forEach(edu => {
-                    eduNode.children.push({ name: edu.title, company: edu.company, date: edu.date, details: edu.details });
+                    eduNode.children.push({ name: edu.title, company: edu.company, date: edu.date, details: edu.details, category: "item" });
                 });
                 root.children.push(eduNode);
 
                 // Competency Areas & Skills
-                const skillsNode = { name: "Competenze", children: [] };
+                const skillsNode = { name: "Competenze", category: "section", children: [] };
                 for (const area in data.competency_areas) {
-                    const areaNode = { name: area, children: [] };
+                    const areaNode = { name: area, category: "skill_area", children: [] };
                     data.competency_areas[area].skills.forEach(skill => {
-                        areaNode.children.push({ name: skill });
+                        areaNode.children.push({ name: skill, category: "skill" });
                     });
                     skillsNode.children.push(areaNode);
                 }
                 root.children.push(skillsNode);
 
                 // Certifications
-                const certNode = { name: "Certificazioni", children: [] };
+                const certNode = { name: "Certificazioni", category: "section", children: [] };
                 data.certifications.forEach(cert => {
-                    certNode.children.push({ name: cert.title, details: cert.details });
+                    certNode.children.push({ name: cert.title, details: cert.details, category: "item" });
                 });
                 root.children.push(certNode);
 
@@ -156,6 +153,12 @@
             }
 
             const treeData = transformData(cvData);
+
+            // Color scale for node categories
+            const colorScale = d3.scaleOrdinal()
+                .domain(["root", "section", "item", "skill_area", "skill"])
+                .range(["#5a67d8", "#764ba2", "#667eea", "#f093fb", "#4facfe"]);
+
 
             // 2. D3 Tree rendering
             const width = container.clientWidth;
@@ -172,7 +175,7 @@
 
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            const tree = d3.tree().size([width - margin.left - margin.right, height - margin.top - margin.bottom]);
+            const tree = d3.tree().nodeSize([140, 140]);
             const root = d3.hierarchy(treeData, d => d.children);
 
             tree(root);
@@ -200,18 +203,17 @@
 
 
             node.append("circle")
-                .attr("r", 8);
+                .attr("r", 8)
+                .style("fill", d => colorScale(d.data.category))
+                .style("stroke", d => d3.color(colorScale(d.data.category)).darker(0.5))
+                .style("stroke-width", "2px");
 
             node.append("text")
                 .attr("dy", "0.31em")
-                .attr("y", d => d.children ? -20 : 20)
+                .attr("y", d => d.children ? -25 : 25) // Increase spacing for text
                 .attr("text-anchor", "middle")
-                .text(d => {
-                    const maxLen = 30;
-                    const name = d.data.name;
-                    if (d.data.isDetail) return ""; // Don't show text for detail nodes
-                    return name.length > maxLen ? name.substring(0, maxLen) + '...' : name;
-                });
+                .text(d => d.data.name)
+                .call(wrapText, 120); // Wrap text to a 120px width
 
             // Center the tree
             const bounds = g.node().getBBox();
@@ -264,6 +266,35 @@
             if (event.target == modal) {
                 closeModal();
             }
+        }
+
+        function wrapText(text, width) {
+            text.each(function() {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy") || 0),
+                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+
+                // Adjust initial position for multi-line wrapping
+                text.attr("transform", "translate(0, -10)");
+
+
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width && line.length > 1) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + "em").text(word);
+                    }
+                }
+            });
         }
 
 
