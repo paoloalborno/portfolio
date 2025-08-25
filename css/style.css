@@ -1107,6 +1107,26 @@ footer {
   stroke-width: 1.5px;
 }
 
+/* Gallery Page Styles */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+}
+.gallery-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-item img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
 /* Timeline for Textual CV */
 .cv-section {
     margin-bottom: 3rem;

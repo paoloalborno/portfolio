@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!--
+    =================================================================================
+    Impostazioni della Pagina (Head)
+    =================================================================================
+    - Contiene le meta-informazioni per la pagina della galleria.
+    - Include i font, le icone e i fogli di stile.
+    =================================================================================
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate-key="gallery.title"></title>
     <meta name="description" content="Una galleria di foto di Paolo Alborno.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 4rem;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
-        .gallery-item img:hover {
-            transform: scale(1.05);
-        }
-    </style>
 </head>
 <body>
+
+    <!-- Placeholder per l'Header (caricato da js/main.js) -->
     <div id="header-placeholder"></div>
 
+    <!-- Contenuto principale della pagina Galleria -->
     <main>
         <section class="gallery" style="padding-top: 120px;">
             <div class="container">
+                <!-- Titolo e sottotitolo della sezione -->
                 <h2 class="section-title" data-translate-key="gallery.h2"></h2>
                 <p class="section-subtitle" data-translate-key="gallery.section_subtitle"></p>
 
+                <!-- Griglia che contiene le immagini della galleria -->
                 <div class="gallery-grid">
+                    <!-- Elemento della galleria 1 -->
                     <div class="gallery-item">
                         <img src="https://images.unsplash.com/photo-1629716645211-8c04bd0c0661?q=80&w=2070&auto=format&fit=crop" alt="Technology in Nature">
                     </div>
+                    <!-- Elemento della galleria 2 -->
                     <div class="gallery-item">
                         <img src="https://images.unsplash.com/photo-1544220342-d53d11001334?q=80&w=1974&auto=format&fit=crop" alt="Wind Turbines at Sunset">
                     </div>
+                    <!-- Si possono aggiungere altri .gallery-item qui -->
                 </div>
             </div>
         </section>
     </main>
 
+	<!-- Placeholder per il Footer -->
 	<div id="footer-placeholder"></div>
+
+    <!-- Script necessari per la pagina -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 </body>

@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!--
+    =================================================================================
+    Impostazioni della Pagina (Head)
+    =================================================================================
+    - Contiene le meta-informazioni per la pagina di contatto.
+    - Include i font, le icone e i fogli di stile.
+    =================================================================================
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate-key="contact.title"></title>
     <meta name="description" content="" data-translate-key="contact.meta_description">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <!-- Placeholder per l'Header (caricato da js/main.js) -->
     <div id="header-placeholder"></div>
 
+    <!-- Contenuto principale della pagina Contatti -->
     <main>
         <section class="contact" style="padding-top: 120px;">
             <div class="container contact-container">
+                <!-- Titolo e sottotitolo della sezione -->
                 <h2 class="section-title animate-on-scroll" data-translate-key="contact.h2"></h2>
                 <p class="section-subtitle animate-on-scroll" data-translate-key="contact.section_subtitle"></p>
 
+                <!--
+                =================================================================================
+                Modulo di Contatto (Form)
+                =================================================================================
+                - Un modulo HTML per permettere agli utenti di inviare un messaggio.
+                - `action="#"` e `method="POST"` sono segnaposto. Per far funzionare
+                  veramente questo modulo, sarebbe necessario un backend (un server)
+                  per ricevere e processare i dati.
+                =================================================================================
+                -->
                 <form class="contact-form animate-on-scroll" action="#" method="POST">
+                    <!-- Riga del modulo con due campi affiancati -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name" data-translate-key="contact.label_name"></label>
@@ -31,21 +54,27 @@
                             <input type="email" id="email" name="email" required>
                         </div>
                     </div>
+                    <!-- Campo per l'oggetto del messaggio -->
                     <div class="form-group">
                         <label for="subject" data-translate-key="contact.label_subject"></label>
                         <input type="text" id="subject" name="subject" required>
                     </div>
+                    <!-- Campo per il corpo del messaggio -->
                     <div class="form-group">
                         <label for="message" data-translate-key="contact.label_message"></label>
                         <textarea id="message" name="message" required></textarea>
                     </div>
+                    <!-- Bottone per inviare il modulo -->
                     <button type="submit" class="submit-btn" data-translate-key="contact.btn_send"></button>
                 </form>
             </div>
         </section>
     </main>
 
+	<!-- Placeholder per il Footer -->
 	<div id="footer-placeholder"></div>
+
+    <!-- Script necessari per la pagina -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 </body>

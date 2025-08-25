@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!--
+    =================================================================================
+    Impostazioni della Pagina (Head)
+    =================================================================================
+    - Contiene le meta-informazioni per la pagina "Chi Sono".
+    - Include i font, le icone e i fogli di stile.
+    =================================================================================
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate-key="about.title"></title>
     <meta name="description" content="" data-translate-key="about.meta_description">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <!-- Placeholder per l'Header (caricato da js/main.js) -->
     <div id="header-placeholder"></div>
 
+    <!-- Contenuto principale della pagina "Chi Sono" -->
     <main>
         <section class="about" style="padding-top: 120px;">
             <div class="container">
+                <!-- Titolo e sottotitolo della sezione -->
                 <h2 class="section-title animate-on-scroll" data-translate-key="about.h2"></h2>
                 <p class="section-subtitle animate-on-scroll" data-translate-key="about.section_subtitle"></p>
 
+                <!-- Contenitore a due colonne per testo e competenze -->
                 <div class="about-content">
+
+                    <!-- Colonna sinistra: Testo descrittivo -->
                     <div class="about-text animate-on-scroll">
                         <h3 data-translate-key="about.mission_h3"></h3>
                         <p data-translate-key="about.mission_p1"></p>
@@ -28,9 +43,11 @@
                         <p data-translate-key="about.mission_p3"></p>
                     </div>
 
+                    <!-- Colonna destra: Griglia delle competenze -->
                     <div class="skills-container animate-on-scroll">
                         <h3 data-translate-key="about.skills_h3"></h3>
                         <div class="skills-grid">
+                            <!-- Ogni 'skill-card' rappresenta una singola competenza -->
                             <div class="skill-card">
                                 <div class="skill-icon">☁️</div>
                                 <h4 data-translate-key="about.skill1"></h4>
@@ -70,7 +87,10 @@
         </section>
     </main>
 
+    <!-- Placeholder per il Footer -->
     <div id="footer-placeholder"></div>
+
+    <!-- Script necessari per la pagina -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 </body>

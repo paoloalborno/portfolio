@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!--
+    =================================================================================
+    Impostazioni della Pagina (Head)
+    =================================================================================
+    Questa sezione contiene informazioni importanti per il browser, ma non è
+    visibile direttamente nella pagina.
+    - charset="UTF-8": Imposta la codifica dei caratteri per visualizzare correttamente
+      lettere accentate e simboli speciali.
+    - viewport: Rende il sito "responsive", cioè adattabile a schermi di diverse
+      dimensioni (telefoni, tablet, computer).
+    - title: Il titolo che appare nella scheda del browser. Viene impostato da js/main.js.
+    - meta description/keywords: Informazioni per i motori di ricerca come Google.
+    - link: Collegano file esterni, come i font da Google Fonts e i fogli di stile CSS
+      per la grafica della pagina.
+    =================================================================================
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate-key="index.title"></title>
@@ -8,38 +24,72 @@
     <meta name="keywords" content="Paolo Alborno, software engineer, aws, scrum, project manager, nlp, bert, cloud, backend developer">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <!--
+    =================================================================================
+    Contenuto Principale della Pagina (Body)
+    =================================================================================
+    -->
+
+    <!--
+        Placeholder per l'Header.
+        Il file `templates/header.html` verrà caricato qui dal file `js/main.js`.
+        Questo evita di dover copiare e incollare il menu in ogni pagina.
+    -->
     <div id="header-placeholder"></div>
 
+    <!-- Il tag <main> contiene il contenuto principale e unico di questa pagina. -->
     <main>
+        <!--
+            Sezione "Hero": la prima cosa che un utente vede.
+            Contiene il titolo principale e una breve introduzione.
+        -->
         <section id="home" class="hero">
             <div class="container">
                 <div class="hero-content">
+
+                    <!-- Colonna sinistra: Testo di presentazione -->
                     <div class="hero-text">
                         <h1 data-translate-key="index.h1"></h1>
                         <p class="subtitle" data-translate-key="index.subtitle"></p>
                         <p data-translate-key="index.p_hero"></p>
                         
+                        <!-- Contenitore per i bottoni di azione -->
+                        <div class="hero-buttons">
+                            <a href="projects.html" class="btn btn-primary" data-translate-key="index.btn_projects"></a>
+                        </div>
                     </div>
                     
+                    <!-- Colonna destra: Immagine o elemento visivo -->
                     <div class="hero-visual">
                         <div class="hero-image-container">
                             <img src="images/placeholder.jpg" alt="Paolo" class="hero-image">
                         </div>
                     </div>
-					<div class="hero-buttons">
-						<a href="projects.html" class="btn btn-primary" data-translate-key="index.btn_projects"></a>
-					</div>
+
                 </div>
             </div>
         </section>
     </main>
 
+	<!--
+        Placeholder per il Footer.
+        Il file `templates/footer.html` verrà caricato qui dal file `js/main.js`.
+    -->
 	<div id="footer-placeholder"></div>
+
+    <!--
+        Script JavaScript.
+        Questi file vengono caricati alla fine per non bloccare il rendering
+        della pagina.
+        - translations.js: Contiene il "dizionario" per le traduzioni.
+        - main.js: Contiene la logica principale del sito (caricamento header/footer, traduzioni, etc.).
+    -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 </body>

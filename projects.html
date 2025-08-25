@@ -1,33 +1,60 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!--
+    =================================================================================
+    Impostazioni della Pagina (Head)
+    =================================================================================
+    - Contiene le meta-informazioni per la pagina dei progetti.
+    - Include i font, le icone e i fogli di stile.
+    =================================================================================
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate-key="projects.title"></title>
     <meta name="description" content="" data-translate-key="projects.meta_description">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <!-- Placeholder per l'Header (caricato da js/main.js) -->
     <div id="header-placeholder"></div>
 
+    <!-- Contenuto principale della pagina Progetti -->
     <main>
         <section class="projects" style="padding-top: 120px;">
             <div class="container">
+                <!-- Titolo e sottotitolo della sezione -->
                 <h2 class="section-title animate-on-scroll" data-translate-key="projects.h2"></h2>
                 <p class="section-subtitle animate-on-scroll" data-translate-key="projects.section_subtitle"></p>
 
+                <!--
+                =================================================================================
+                Sistema a Schede (Tabs)
+                =================================================================================
+                - Questo è il contenitore principale per le schede dei progetti.
+                - La logica per far funzionare le schede è in `js/main.js`.
+                - Ogni bottone in `.tab-buttons` è collegato a un pannello in `.tab-content`
+                  tramite l'attributo `data-tab`.
+                =================================================================================
+                -->
                 <div class="tabs-container animate-on-scroll">
+                    <!-- Bottoni per navigare tra le schede -->
                     <div class="tab-buttons">
                         <button class="tab-btn active" data-tab="ecommerce" data-translate-key="projects.tab_ecommerce"></button>
                         <button class="tab-btn" data-tab="nlp" data-translate-key="projects.tab_nlp"></button>
                         <button class="tab-btn" data-tab="python" data-translate-key="projects.tab_python"></button>
                         <button class="tab-btn" data-tab="game" data-translate-key="projects.tab_game"></button>
                     </div>
+
+                    <!-- Contenuto dei pannelli delle schede -->
                     <div class="tab-content">
+
+                        <!-- Pannello 1: Progetto E-commerce (visibile di default) -->
                         <div class="tab-pane active" id="ecommerce">
                             <div class="project-preview">
                                 <img src="images/ecommerce-preview.jpg" alt="E-commerce Project Preview" class="project-preview-image">
@@ -44,6 +71,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Pannello 2: Progetto NLP -->
                         <div class="tab-pane" id="nlp">
                             <div class="project-preview">
                                 <img src="images/nlp-preview.jpg" alt="NLP Project Preview" class="project-preview-image">
@@ -61,59 +90,42 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Pannello 3: Progetti Python con sotto-schede -->
                         <div class="tab-pane" id="python">
                             <div class="project-preview">
                                 <img src="https://cdn.iconscout.com/icon/free/png-256/free-python-icon-svg-png-download-226051.png" alt="Python Projects Icon" class="project-preview-image" style="object-fit: contain; padding: 2rem;">
                                 <div class="project-preview-text">
+                                    <!-- Contenitore per le sotto-schede (sub-tabs) -->
                                     <div class="sub-tabs-container">
                                         <div class="sub-tab-buttons">
                                             <button class="sub-tab-btn active" data-sub-tab="tasklist" data-translate-key="projects.py_subtab_tasklist"></button>
                                             <button class="sub-tab-btn" data-sub-tab="ai-agent" data-translate-key="projects.py_subtab_ai_agent"></button>
                                         </div>
                                         <div class="sub-tab-content">
+                                            <!-- Sotto-pannello 1: Task List -->
                                             <div class="sub-tab-pane active" id="tasklist">
                                                 <div class="sub-tab-pane-grid">
                                                     <div class="sub-tab-description">
                                                         <h3 data-translate-key="projects.py_tasklist_h3"></h3>
                                                         <p data-translate-key="projects.py_tasklist_p"></p>
                                                     </div>
-                                                    <div class="code-block">
-<pre><code>
-class Task:
+                                                    <div class="code-block"><pre><code>class Task:
     def __init__(self, name):
         self.name = name
         self.done = False
-
-    def complete(self):
-        self.done = True
-
-# Example Usage
-# task = Task("Finish project")
-# task.complete()
-</code></pre>
-                                                    </div>
+# ...</code></pre></div>
                                                 </div>
                                             </div>
+                                            <!-- Sotto-pannello 2: AI Agent -->
                                             <div class="sub-tab-pane" id="ai-agent">
                                                 <div class="sub-tab-pane-grid">
                                                     <div class="sub-tab-description">
                                                         <h3 data-translate-key="projects.py_ai_agent_h3"></h3>
                                                         <p data-translate-key="projects.py_ai_agent_p"></p>
                                                     </div>
-                                                    <div class="code-block">
-<pre><code>
-from langchain_community.llms import Ollama
-
-# Initialize the model
-llm = Ollama(model="llama2")
-
-# Run a query
-response = llm.invoke(
-    "Why is the sky blue?"
-)
-print(response)
-</code></pre>
-                                                    </div>
+                                                    <div class="code-block"><pre><code>from langchain_community.llms import Ollama
+# ...</code></pre></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,6 +133,8 @@ print(response)
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Pannello 4: Gioco Snake -->
                         <div class="tab-pane" id="game">
                             <div class="project-preview">
                                 <img src="https://placehold.co/600x400/81C784/FFFFFF?text=Snake+Game" alt="Game Preview" class="project-preview-image">
@@ -137,13 +151,17 @@ print(response)
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Placeholder per il Footer -->
     <div id="footer-placeholder"></div>
+
+    <!-- Script necessari per la pagina -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 </body>

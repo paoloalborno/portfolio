@@ -1,9 +1,35 @@
+<!--
+=================================================================================
+Footer (Piè di pagina del Sito)
+=================================================================================
+Questo file contiene il footer che appare in fondo a ogni pagina.
+Come l'header, viene caricato dinamicamente da `js/main.js` per evitare
+di ripetere lo stesso codice su più pagine.
+
+Struttura:
+- <footer>: Un tag semantico che indica che questo è il blocco del piè di pagina.
+- .footer-social: Un contenitore per i link ai social media o contatti.
+    - <a>: Link individuali, con un'icona (<i>) dentro per la grafica.
+- .footer-text: Un paragrafo per il testo di copyright. Il suo contenuto viene
+                 impostato dinamicamente da `js/main.js` per gestire la traduzione.
+=================================================================================
+-->
 <footer>
     <div class="container">
+        <!-- Sezione per i link ai social e contatti -->
         <div class="footer-social">
+            <!-- Link a LinkedIn: si apre in una nuova scheda del browser (target="_blank") -->
             <a href="https://linkedin.com/in/paoloalborno" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+
+            <!-- Link per inviare un'email -->
             <a href="mailto:paolo.alborno@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
         </div>
+
+        <!--
+            Testo del copyright.
+            L'attributo "data-translate-key" viene usato da js/main.js per inserire
+            il testo corretto in base alla lingua selezionata (italiano o inglese).
+        -->
         <p class="footer-text" data-translate-key="footer.rights"></p>
     </div>
 </footer>

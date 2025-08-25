@@ -1,8 +1,36 @@
+<!--
+=================================================================================
+Header (Intestazione del Sito)
+=================================================================================
+Questo file contiene la barra di navigazione che appare in cima a ogni pagina.
+Viene caricato dinamicamente in tutte le pagine dal file `js/main.js`.
+Questo approccio è utile perché, se vogliamo modificare il menu, basta
+modificare questo singolo file e la modifica apparirà ovunque.
+
+Struttura:
+- <header>: Un tag semantico che indica che questo è il blocco di intestazione.
+- <nav>: Un tag semantico per la navigazione principale.
+- .logo: Un contenitore per il logo del sito (attualmente vuoto, gestito da CSS/JS).
+- #menu: Il contenitore dove `js/main.js` inserirà dinamicamente i link del menu.
+- .lang-switcher-desktop: Il contenitore per i link per cambiare lingua (es. IT | EN).
+=================================================================================
+-->
 <header>
     <nav class="container">
+        <!-- Contenitore per il logo del sito -->
         <div class="logo"></div>
+
+        <!-- Questo contenitore verrà riempito dinamicamente con i link del menu dal file js/main.js -->
         <div id="menu"></div>
+
+        <!-- Questo contenitore mostra i link per cambiare lingua (es. IT / EN) -->
         <div class="lang-switcher-desktop"></div>
+
+        <!-- Icona per il menu su dispositivi mobili (hamburger menu) -->
+        <div class="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </nav>
 </header>
