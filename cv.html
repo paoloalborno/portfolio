@@ -173,6 +173,25 @@
                 }))
                 .append("g");
 
+            const defs = svg.append("defs");
+            const categories = colorScale.domain();
+
+            categories.forEach(category => {
+                const color = colorScale(category);
+                const gradient = defs.append("linearGradient")
+                    .attr("id", `gradient-${category.replace(/\s/g, '-')}`)
+                    .attr("x1", "0%").attr("y1", "0%")
+                    .attr("x2", "100%").attr("y2", "100%");
+
+                gradient.append("stop")
+                    .attr("offset", "0%")
+                    .attr("stop-color", d3.color(color).brighter(0.8));
+
+                gradient.append("stop")
+                    .attr("offset", "100%")
+                    .attr("stop-color", d3.color(color).darker(0.5));
+            });
+
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
             const tree = d3.tree().nodeSize([140, 140]);
@@ -184,15 +203,26 @@
                 .data(root.links())
                 .enter().append("path")
                 .attr("class", "link")
-                .attr("d", d3.linkVertical()
-                    .x(d => d.x)
-                    .y(d => d.y));
+                .attr("d", d3.linkVertical().x(d => d.x).y(d => d.y))
+                .style("opacity", 0)
+                .transition()
+                .duration(750)
+                .delay((d, i) => i * 5)
+                .style("opacity", 1);
 
-            const node = g.selectAll(".node")
+            const nodeEnter = g.selectAll(".node")
                 .data(root.descendants())
                 .enter().append("g")
                 .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
                 .attr("transform", d => `translate(${d.x},${d.y})`)
+                .style("opacity", 0);
+
+            nodeEnter.transition()
+                .duration(750)
+                .delay((d, i) => i * 10)
+                .style("opacity", 1);
+
+            const node = g.selectAll('.node')
                 .on("click", (event, d) => {
                     // Open modal only for nodes that are not the root and have some details.
                     if (d.depth > 0) {
@@ -203,10 +233,8 @@
 
 
             node.append("circle")
-                .attr("r", 8)
-                .style("fill", d => colorScale(d.data.category))
-                .style("stroke", d => d3.color(colorScale(d.data.category)).darker(0.5))
-                .style("stroke-width", "2px");
+                .attr("r", 10) // Slightly larger nodes
+                .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`);
 
             node.append("text")
                 .attr("dy", "0.31em")
@@ -221,7 +249,7 @@
             const fullHeight = height - margin.top - margin.bottom;
             const midX = bounds.x + bounds.width / 2;
             const midY = bounds.y + bounds.height / 2;
-            const scale = 0.9 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight);
+            const scale = 1.0 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight);
             const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
 
 
