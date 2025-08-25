@@ -21,7 +21,9 @@ class SimpleTree {
             margin: { top: 40, right: 90, bottom: 50, left: 90 },
             duration: 750,
             nodeSeparation: 180,
-            colorScale: d3.scaleOrdinal(d3.schemeCategory10) // A default color scheme
+            colorScale: d3.scaleOrdinal()
+                .domain(["root", "section", "item", "skill_area", "skill"])
+                .range(["#2d3748", "#4A5568", "#2B6CB0", "#319795", "#4299E1"])
         };
 
         // Merge user options with defaults
@@ -274,7 +276,8 @@ class SimpleTree {
                 if (d.children) return baseClass + "fa-minus-circle";
                 if (d._children) return baseClass + "fa-plus-circle";
                 return baseClass + "fa-info-circle";
-            });
+            })
+            .style("color", d => this.colorScale(d.data.category));
 
         nodeUpdate.select('div.node-html-container')
              .attr('cursor', 'pointer');

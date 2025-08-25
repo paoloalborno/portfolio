@@ -1085,7 +1085,7 @@ footer {
 
 .node .node-html-container i {
     font-size: 16px;
-    color: var(--primary-dark);
+    /* Color will be set dynamically via JS */
 }
 
 .node:hover .node-html-container {
