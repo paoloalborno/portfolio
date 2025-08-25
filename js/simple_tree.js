@@ -240,9 +240,18 @@ class SimpleTree {
             .attr("transform", `translate(${source.x0},${source.y0})`)
             .on('click', (event, d) => this._click(event, d));
 
-        nodeEnter.append('circle')
-            .attr('r', 1e-6)
-            .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`)
+        // Add a foreignObject to allow for HTML content (like icons)
+        const nodeContent = nodeEnter.append("foreignObject")
+            .attr("width", 30)
+            .attr("height", 30)
+            .attr("x", -15)
+            .attr("y", -15)
+            .style("overflow", "visible");
+
+        nodeContent.append("xhtml:div")
+            .attr("class", "node-html-container")
+            .append("xhtml:i")
+            .attr("class", "fas"); // Placeholder, will be updated dynamically
             .style("filter", "url(#shadow)");
 
         nodeEnter.append('text')
@@ -260,10 +269,16 @@ class SimpleTree {
             .duration(this.options.duration)
             .attr("transform", d => `translate(${d.x},${d.y})`);
 
-        nodeUpdate.select('circle')
-            .attr('r', 10)
-            .style("fill", d => `url(#gradient-${d.data.category.replace(/\s/g, '-')})`)
-            .attr('cursor', 'pointer');
+        nodeUpdate.select("i.fas")
+            .attr("class", d => {
+                let baseClass = "fas ";
+                if (d.children) return baseClass + "fa-minus-circle";
+                if (d._children) return baseClass + "fa-plus-circle";
+                return baseClass + "fa-info-circle";
+            });
+
+        nodeUpdate.select('div.node-html-container')
+             .attr('cursor', 'pointer');
 
         nodeUpdate.select('text').style("fill-opacity", 1);
 
@@ -272,7 +287,7 @@ class SimpleTree {
             .attr("transform", d => `translate(${source.x},${source.y})`)
             .remove();
 
-        nodeExit.select('circle').attr('r', 1e-6);
+        nodeExit.select('foreignObject').remove(); // Or transition out
         nodeExit.select('text').style('fill-opacity', 1e-6);
 
         let link = this.g.selectAll('path.link')

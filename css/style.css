@@ -1070,15 +1070,27 @@ footer {
 }
 
 /* D3 Tree styles */
-.node circle {
-  /* Fill is handled via inline styles in JS for dynamic coloring */
-  transition: all 0.3s ease;
-  filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.2));
+.node .node-html-container {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    border: 2px solid white;
 }
 
-.node:hover circle {
-    transform: scale(1.1);
-    filter: drop-shadow(5px 5px 6px rgba(0,0,0,0.3));
+.node .node-html-container i {
+    font-size: 16px;
+    color: var(--primary-dark);
+}
+
+.node:hover .node-html-container {
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 .node text {
