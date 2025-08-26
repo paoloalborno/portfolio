@@ -34,7 +34,8 @@ const translations = {
         "contact": { "en": "Contact Me", "it": "Contattami" }
     },
     "footer": {
-        "rights": { "en": "&copy; 2024 Paolo Alborno. All rights reserved.", "it": "&copy; 2024 Paolo Alborno. Tutti i diritti riservati." }
+        "rights": { "en": "&copy; 2025 Paolo Alborno. All rights reserved.", "it": "&copy; 2025 Paolo Alborno. Tutti i diritti riservati." },
+        "skills_h3": { "en": "Core Technologies", "it": "Tecnologie Chiave" }
     },
     "index": {
         "title": { "en": "Paolo Alborno - Software Engineer", "it": "Paolo Alborno - Software Engineer" },
