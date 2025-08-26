@@ -106,32 +106,35 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function initializePage() {
         // 1. PRIMA: Crea l'HTML del menu e inseriscilo nella pagina.
-        // In questo modo, gli elementi del menu esistono nel DOM.
         const menuContainer = document.querySelector("#menu");
+        let navLinksElement;
         if(menuContainer) {
             const menuHtml = `
                 <ul class="nav-links">
                   ${menuItems.map(item => `<li><a href="${item.href}" data-translate-key="${item.key}"></a></li>`).join("")}
                 </ul>`;
             menuContainer.innerHTML = menuHtml;
+            // Ottieni un riferimento diretto all'elemento appena creato.
+            navLinksElement = menuContainer.querySelector('.nav-links');
         }
 
-        // 2. ORA: Gestisci la lingua. La funzione `initializeLanguageHandler`
-        // troverà gli elementi del menu appena creati e li tradurrà,
-        // e aggiornerà anche i loro link con il parametro della lingua corretta.
+        // 2. ORA: Gestisci la lingua.
         initializeLanguageHandler();
 
-        // 3. INFINE: Attiva tutte le altre funzionalità della pagina.
-        setupMobileMenu();
+        // 3. INFINE: Attiva tutte le altre funzionalità, passando il riferimento a navLinks.
+        // In questo modo, non dobbiamo fare una nuova query al DOM.
+        if (navLinksElement) {
+            setupMobileMenu(navLinksElement);
+        }
         setupScrollAnimations();
         setupTabs();
         setupSubTabs();
     }
 
-    // ... (le altre funzioni come setupMobileMenu, setupScrollAnimations, etc. rimangono invariate) ...
-    function setupMobileMenu() {
+    // La funzione ora accetta l'elemento navLinks come argomento.
+    function setupMobileMenu(navLinks) {
         const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
+        // Non è più necessario cercare navLinks, lo abbiamo già.
         if (mobileMenu && navLinks) {
             mobileMenu.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
