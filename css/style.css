@@ -1342,3 +1342,33 @@ footer {
     margin-bottom: 0.5rem;
     color: var(--text-light);
 }
+
+/* Styles for the CV Download Section */
+.cv-download-section {
+    padding: 2rem 0;
+    text-align: center;
+    background-color: var(--bg-alt);
+    margin-top: 80px; /* To clear the fixed header */
+}
+
+.cv-download-section .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.cv-download-section .btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.cv-download-section .btn i {
+    margin-right: 8px;
+}
