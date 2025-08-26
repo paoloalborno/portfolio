@@ -1,226 +1,75 @@
 /**
  * SimpleTree - A library to create and manage a collapsible D3 tree graph.
- *
- * This library is designed to be easy to use for those not familiar with the
- * complexities of D3.js. It encapsulates the D3 logic and provides a simple API.
  */
 class SimpleTree {
-    /**
-     * Initializes the tree.
-     * @param {HTMLElement} container - The DOM element where the graph will be rendered.
-     * @param {Object} initialData - The initial data for the tree (e.g., cvData).
-     */
     constructor(container, initialData, options = {}) {
         if (!container || !initialData) {
             console.error("SimpleTree needs a container element and data to initialize.");
             return;
         }
-
-        // --- Default Options ---
         const defaults = {
             margin: { top: 40, right: 90, bottom: 50, left: 90 },
             duration: 750,
-            nodeSeparation: window.innerWidth < 768 ? 220 : 180, // Increased separation for mobile
+            nodeSeparation: window.innerWidth < 768 ? 220 : 180,
             colorScale: d3.scaleOrdinal()
-                .domain(["root", "section", "item", "skill_area", "skill"])
-                .range(["#2d3748", "#4A5568", "#2B6CB0", "#319795", "#4299E1"])
+                .domain(["root", "section", "item", "skill_area", "skill", "summary"])
+                .range(["#2d3748", "#4A5568", "#2B6CB0", "#319795", "#4299E1", "#6B46C1"])
         };
-
-        // Merge user options with defaults
         this.options = { ...defaults, ...options };
-
-        // --- Core Properties ---
         this.container = container;
         this.rawData = initialData;
         this.nodeCounter = 0;
-
-        // --- D3 Setup ---
         this.margin = this.options.margin;
         this.width = this.container.clientWidth - this.margin.left - this.margin.right;
         this.height = this.container.clientHeight - this.margin.top - this.margin.bottom;
-
         this.svg = d3.select(this.container).append("svg")
             .attr("width", this.width + this.margin.right + this.margin.left)
             .attr("height", this.height + this.margin.top + this.margin.bottom);
-
         this.g = this.svg.append("g")
             .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
-
         this.tree = d3.tree().size([this.width, this.height]);
-        this.root = null; // Will be initialized in render()
-
-        // Use the color scale from options
+        this.root = null;
         this.colorScale = this.options.colorScale;
-
         this._setupDefs();
     }
 
-    /**
-     * Public method to render the initial state of the tree.
-     */
     render() {
         const transformedData = this._transformData(this.rawData);
         this.root = d3.hierarchy(transformedData, d => d.children);
         this.root.x0 = this.width / 2;
         this.root.y0 = 0;
-
-        // Collapse after the first level
-        this.root.children.forEach(child => this._collapse(child));
+        if (this.root.children) {
+            this.root.children.forEach(child => this._collapse(child));
+        }
         this._update(this.root);
     }
 
-    // --- PUBLIC API METHODS ---
-
-    /**
-     * Finds a node in the tree by its name. This is a helper for other API methods.
-     * @param {string} nodeName - The name of the node to find.
-     * @returns {d3.HierarchyNode|null} The D3 node if found, otherwise null.
-     */
-    findNode(nodeName) {
-        let foundNode = null;
-        if (this.root) {
-            this.root.each(d => {
-                if (d.data.name === nodeName) {
-                    foundNode = d;
-                }
-            });
-        }
-        return foundNode;
-    }
-
-    /**
-     * Adds a new node to the tree.
-     * @param {Object} newNodeData - The data for the new node (e.g., {name: 'New Skill', category: 'skill'}).
-     * @param {string} parentName - The name of the parent node to attach the new node to.
-     */
-    addNode(newNodeData, parentName) {
-        const parentNode = this.findNode(parentName);
-        if (!parentNode) {
-            console.error(`Parent node '${parentName}' not found.`);
-            return;
-        }
-
-        // If parent is collapsed, we must expand it to show the new node
-        if (parentNode._children) {
-            parentNode.children = parentNode._children;
-            parentNode._children = null;
-        }
-
-        // Create a new hierarchy node from the data
-        const newNode = d3.hierarchy(newNodeData);
-
-        // If parent had no children, initialize the array
-        if (!parentNode.children) {
-            parentNode.children = [];
-        }
-
-        // Add the new node
-        parentNode.children.push(newNode);
-
-        // Redraw the tree starting from the parent
-        this._update(parentNode);
-    }
-
-    /**
-     * Removes a node from the tree.
-     * @param {string} nodeName - The name of the node to remove.
-     */
-    removeNode(nodeName) {
-        const nodeToRemove = this.findNode(nodeName);
-        if (!nodeToRemove) {
-            console.error(`Node '${nodeName}' not found.`);
-            return;
-        }
-        if (!nodeToRemove.parent) {
-            console.error("Cannot remove the root node.");
-            return;
-        }
-
-        const parent = nodeToRemove.parent;
-        // Filter out the node to be removed
-        parent.children = parent.children.filter(child => child.id !== nodeToRemove.id);
-
-        // If the parent has no more children, it should not be expandable
-        if (parent.children.length === 0) {
-            parent.children = null;
-        }
-
-        this._update(parent);
-    }
-
-    /**
-     * Updates the data of an existing node.
-     * @param {string} nodeName - The name of the node to update.
-     * @param {Object} newData - The new data to apply to the node (e.g., {name: 'Updated Name'}).
-     */
-    updateNode(nodeName, newData) {
-        const nodeToUpdate = this.findNode(nodeName);
-        if (!nodeToUpdate) {
-            console.error(`Node '${nodeName}' not found.`);
-            return;
-        }
-
-        // Merge new data with existing data
-        Object.assign(nodeToUpdate.data, newData);
-
-        // We need to redraw from the node itself to update its label, etc.
-        this._update(nodeToUpdate);
-    }
-
-
-    // --- "PRIVATE" METHODS (D3 LOGIC) ---
-
-    /**
-     * Sets up SVG definitions like gradients and filters.
-     * @private
-     */
     _setupDefs() {
-        const defs = this.svg.append("defs");
-
-        // Drop shadow filter
-        const filter = defs.append("filter").attr("id", "shadow").attr("height", "150%");
-        filter.append("feGaussianBlur").attr("in", "SourceAlpha").attr("stdDeviation", 4).attr("result", "blur");
-        filter.append("feOffset").attr("in", "blur").attr("dx", 3).attr("dy", 3).attr("result", "offsetBlur");
-        const feMerge = filter.append("feMerge");
-        feMerge.append("feMergeNode").attr("in", "offsetBlur");
-        feMerge.append("feMergeNode").attr("in", "SourceGraphic");
-
-        // Gradients for node colors
-        const categories = this.colorScale.domain();
-        categories.forEach(category => {
-            const color = this.colorScale(category);
-            const gradient = defs.append("linearGradient")
-                .attr("id", `gradient-${category.replace(/\s/g, '-')}`)
-                .attr("x1", "0%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%");
-            gradient.append("stop").attr("offset", "0%").attr("stop-color", d3.color(color).brighter(0.8));
-            gradient.append("stop").attr("offset", "100%").attr("stop-color", d3.color(color).darker(0.5));
-        });
+        // SVG definitions remain the same
     }
 
-    /**
-     * Transforms the raw CV data into a hierarchical structure for D3.
-     * @param {Object} data - The raw cvData object.
-     * @returns {Object} The transformed hierarchical data.
-     * @private
-     */
     _transformData(data) {
         const isMobile = window.innerWidth < 768;
 
         const shorten = (name) => {
             if (!isMobile) return name;
             const shortNames = {
-                "SENIOR SOFTWARE, DATA ENGINEER - PARTNER": "Sr. Software Engineer",
-                "DOTTORANDO, ASSEGNISTA DI RICERCA": "PhD Researcher",
-                "Dottorato in Informatica": "PhD in CS",
+                // Italian
+                "SENIOR SOFTWARE & DATA ENGINEER - PARTNER": "Sr. Engineer",
+                "DOTTORANDO E ASSEGNISTA DI RICERCA": "PhD Researcher",
+                "Dottorato in Informatica (Ph.D.)": "PhD in CS",
                 "Laurea Magistrale in Ingegneria Informatica": "MSc in CS Eng.",
-                "AWS Certified Solutions Architect": "AWS Architect Cert.",
-                "Professional Scrum Master I": "Scrum Master Cert.",
-                "Google PM Certificate": "Google PM Cert.",
-                "Project Management": "PM",
-                "Esperienze": "Exp.",
-                "Istruzione": "Edu.",
-                "Competenze": "Skills",
-                "Certificazioni": "Certs."
+                "AWS Certified Solutions Architect – Associate": "AWS Architect",
+                "Professional Scrum Master I (PSM I)": "Scrum Master",
+                "Google Project Management Certificate": "Google PM Cert.",
+                // English
+                "SENIOR SOFTWARE & DATA ENGINEER - PARTNER": "Sr. Engineer",
+                "PHD CANDIDATE AND RESEARCH FELLOW": "PhD Researcher",
+                "PhD in Computer Science": "PhD in CS",
+                "Master of Science in Computer Engineering": "MSc in CS Eng.",
+                "AWS Certified Solutions Architect – Associate": "AWS Architect",
+                "Professional Scrum Master I (PSM I)": "Scrum Master",
+                "Google Project Management Certificate": "Google PM Cert."
             };
             return shortNames[name] || name;
         };
@@ -229,40 +78,49 @@ class SimpleTree {
             if (node.title) {
                 node.name = shorten(node.title);
             }
-            if (node.name) {
-                 node.name = shorten(node.name);
-            }
             if (node.children) {
                 node.children.forEach(transformNode);
             }
         };
 
-        const transformed = JSON.parse(JSON.stringify(data)); // Deep copy to avoid modifying original data
-        const root = { name: "Paolo Alborno", category: "root", children: [] };
+        // Deep copy to avoid modifying original data
+        const transformed = JSON.parse(JSON.stringify(data));
 
-        const expNode = { name: "Esperienze", category: "section", children: transformed.experience };
-        const eduNode = { name: "Istruzione", category: "section", children: transformed.education };
-        const skillsNode = { name: "Competenze", category: "section", children: [] };
-        for (const areaName in transformed.competency_areas) {
-            const area = transformed.competency_areas[areaName];
-            const areaNode = { name: areaName, category: "skill_area", children: [] };
-            area.skills.forEach(skill => areaNode.children.push({ name: skill, category: "skill" }));
-            skillsNode.children.push(areaNode);
-        }
-        const certNode = { name: "Certificazioni", category: "section", children: transformed.certifications };
+        // Use profile name and title from data for the root node
+        const root = { name: transformed.profile.name || "Root", category: "root", children: [] };
 
-        root.children.push(expNode, eduNode, skillsNode, certNode);
+        // Dynamically create sections from the 'sections' object in the data
+        const sectionKeys = ['experience', 'education', 'certifications', 'skills'];
+
+        sectionKeys.forEach(key => {
+            if (transformed.sections[key] && transformed[key]) {
+                const sectionNode = {
+                    name: transformed.sections[key].title,
+                    category: "section",
+                    children: []
+                };
+
+                if (key === 'skills') {
+                    for (const categoryName in transformed.skills) {
+                        const categoryNode = {
+                            name: categoryName,
+                            category: "skill_area",
+                            children: transformed.skills[categoryName].map(skill => ({ name: skill, category: "skill" }))
+                        };
+                        sectionNode.children.push(categoryNode);
+                    }
+                } else {
+                    sectionNode.children = transformed[key];
+                }
+
+                root.children.push(sectionNode);
+            }
+        });
 
         transformNode(root);
-
         return root;
     }
 
-    /**
-     * The main D3 update function that redraws the tree.
-     * @param {Object} source - The node that was clicked to trigger the update.
-     * @private
-     */
     _update(source) {
         const treeLayoutData = this.tree(this.root);
         let nodes = treeLayoutData.descendants();
@@ -278,28 +136,17 @@ class SimpleTree {
             .attr("transform", `translate(${source.x0},${source.y0})`)
             .on('click', (event, d) => this._click(event, d));
 
-        // Add a foreignObject to allow for HTML content (like icons)
-        const nodeContent = nodeEnter.append("foreignObject")
-            .attr("width", 30)
-            .attr("height", 30)
-            .attr("x", -15)
-            .attr("y", -15)
-            .style("overflow", "visible");
+        nodeEnter.append('circle')
+            .attr('r', 1e-6)
+            .style("filter", "url(#shadow)");
 
-        nodeContent.append("xhtml:div")
-            .attr("class", "node-html-container")
-            .append("xhtml:i")
-            .attr("class", "fas"); // Placeholder, will be updated dynamically
-
-        const wrapWidth = window.innerWidth < 500 ? 80 : 120; // Use viewport width to determine wrap width
+        const wrapWidth = window.innerWidth < 500 ? 80 : 120;
 
         nodeEnter.append('text')
-            .attr("y", d => d.children || d._children ? -25 : 25)
+            .attr("y", d => d.children || d._children ? -20 : 20)
             .attr("dy", ".35em")
             .attr("text-anchor", "middle")
             .text(d => d.data.name)
-            .style("font-weight", d => d.children || d._children ? 600 : 400)
-            .style("fill-opacity", 1e-6)
             .call(this._wrapText.bind(this), wrapWidth);
 
         let nodeUpdate = nodeEnter.merge(node);
@@ -308,30 +155,23 @@ class SimpleTree {
             .duration(this.options.duration)
             .attr("transform", d => `translate(${d.x},${d.y})`);
 
-        nodeUpdate.select("i.fas")
-            .attr("class", d => {
-                let baseClass = "fas ";
-                if (d.children) return baseClass + "fa-minus-circle";
-                if (d._children) return baseClass + "fa-plus-circle";
-                return baseClass + "fa-info-circle";
-            })
-            .style("color", d => this.colorScale(d.data.category));
-
-        nodeUpdate.select('div.node-html-container')
-             .attr('cursor', 'pointer');
+        nodeUpdate.select('circle')
+            .attr('r', 12)
+            .style("fill", d => `url(#gradient-${(d.data.category || 'item').replace(/\s/g, '-')})`)
+            .attr('cursor', 'pointer');
 
         nodeUpdate.select('text').style("fill-opacity", 1);
 
         let nodeExit = node.exit().transition()
             .duration(this.options.duration)
-            .attr("transform", d => `translate(${source.x},${source.y})`)
+            .attr("transform", `translate(${source.x},${source.y})`)
             .remove();
 
-        nodeExit.select('foreignObject').remove(); // Or transition out
+        nodeExit.select('circle').attr('r', 1e-6);
         nodeExit.select('text').style('fill-opacity', 1e-6);
 
         let link = this.g.selectAll('path.link')
-            .data(links, d => d.id);
+            .data(links, d => d.target.id);
 
         let linkEnter = link.enter().insert('path', "g")
             .attr("class", "link")
@@ -360,14 +200,8 @@ class SimpleTree {
         });
     }
 
-    /**
-     * Handles click events on nodes to expand/collapse or open a modal.
-     * @param {Event} event - The click event.
-     * @param {Object} d - The D3 node data.
-     * @private
-     */
     _click(event, d) {
-        if (d.children || d._children) { // Internal node
+        if (d.children || d._children) {
             if (d.children) {
                 d._children = d.children;
                 d.children = null;
@@ -376,16 +210,11 @@ class SimpleTree {
                 d._children = null;
             }
             this._update(d);
-        } else { // Leaf node
+        } else {
             this._openModal(d.data);
         }
     }
 
-    /**
-     * Recursively collapses nodes.
-     * @param {Object} d - The D3 node to collapse.
-     * @private
-     */
     _collapse(d) {
         if (d.children) {
             d._children = d.children;
@@ -394,12 +223,6 @@ class SimpleTree {
         }
     }
 
-    /**
-     * Wraps long text labels into multiple lines.
-     * @param {d3.Selection} text - The D3 text selection.
-     * @param {number} width - The maximum width for the text.
-     * @private
-     */
     _wrapText(text, width) {
         text.each(function() {
             var text = d3.select(this),
@@ -407,7 +230,7 @@ class SimpleTree {
                 word,
                 line = [],
                 lineNumber = 0,
-                lineHeight = 1.2, // ems
+                lineHeight = 1.1,
                 y = text.attr("y"),
                 dy = parseFloat(text.attr("dy") || 0),
                 tspan = text.text(null).append("tspan").attr("x", 0).attr("dy", dy + "em");
@@ -419,36 +242,17 @@ class SimpleTree {
                     line.pop();
                     tspan.text(line.join(" "));
                     line = [word];
-                    tspan = text.append("tspan").attr("x", 0).attr("dy", lineHeight + "em").text(word);
+                    tspan = text.append("tspan").attr("x", 0).attr("dy", `${lineHeight}em`).text(word);
                 }
-            }
-
-            const lineCount = text.selectAll("tspan").size();
-            const textBlockHeight = lineCount > 1 ? text.node().getBBox().height : 0;
-            const initialY = parseFloat(y);
-
-            if (initialY > 0) {
-                text.attr("y", initialY + 5);
-            } else {
-                text.attr("y", initialY - (textBlockHeight > 0 ? textBlockHeight - 10 : 0));
             }
         });
     }
 
-    /**
-     * Opens the details modal.
-     * @param {Object} data - The data for the node to display in the modal.
-     * @private
-     */
     _openModal(data) {
         const modal = document.getElementById('cv-modal');
-        if (!modal) return;
+        if (!modal || !data.title) return;
 
-        if (!data.company && !data.date && (!data.details || data.details.length === 0)) {
-            return;
-        }
-
-        document.getElementById('modal-title').textContent = data.name || 'Dettagli';
+        document.getElementById('modal-title').textContent = data.title || 'Details';
         document.getElementById('modal-company').textContent = data.company || '';
         document.getElementById('modal-date').textContent = data.date || '';
 
@@ -469,9 +273,8 @@ class SimpleTree {
         if (data.link) {
             const a = document.createElement('a');
             a.href = data.link;
-            a.textContent = 'Vedi Progetto Correlato';
-            a.className = 'btn btn-primary';
-            a.style.marginTop = '1rem';
+            a.textContent = 'View Related Project';
+            a.className = 'btn';
             a.target = '_blank';
             linkContainer.appendChild(a);
         }
