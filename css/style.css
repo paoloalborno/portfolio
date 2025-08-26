@@ -794,11 +794,45 @@ footer {
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-links {
+        /* Nascondi il menu di navigazione di default */
         display: none;
+        /* Posizionamento assoluto per sovrapporsi al contenuto */
+        position: absolute;
+        top: 100%; /* Posizionalo subito sotto l'header */
+        left: 0;
+        width: 100%;
+        /* Stile del menu a tendina */
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.active {
+        /* Mostra il menu quando ha la classe 'active' */
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 0.5rem 0;
     }
 
     .mobile-menu {
-        display: flex;
+        display: flex; /* Mostra l'icona hamburger */
+        z-index: 1001; /* Assicura che sia sopra altri elementi */
+    }
+
+    /* Stile per l'animazione dell'icona hamburger in una 'X' */
+    .mobile-menu.is-active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .mobile-menu.is-active span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu.is-active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
     }
 
     .hero-content {
@@ -875,6 +909,7 @@ footer {
     gap: 1rem;
     border-bottom: 2px solid #e2e8f0;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
 .tab-btn {
