@@ -1200,6 +1200,9 @@ footer {
         justify-content: center;
         row-gap: 0.5rem;
     }
+    .node text {
+        font-size: 10px;
+    }
     .project-preview {
         grid-template-columns: 1fr;
         text-align: center;
