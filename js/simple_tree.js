@@ -75,6 +75,7 @@ class SimpleTree {
         };
 
         const transformNode = (node) => {
+            // Create the 'name' property for display, but keep the original 'title'
             if (node.title) {
                 node.name = shorten(node.title);
             }
@@ -250,7 +251,12 @@ class SimpleTree {
 
     _openModal(data) {
         const modal = document.getElementById('cv-modal');
-        if (!modal || !data.title) return;
+        if (!modal) return;
+
+        // Only open modal for nodes that have actual details
+        if (!data.company && !data.date && (!data.details || data.details.length === 0)) {
+            return;
+        }
 
         document.getElementById('modal-title').textContent = data.title || 'Details';
         document.getElementById('modal-company').textContent = data.company || '';

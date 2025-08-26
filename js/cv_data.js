@@ -15,7 +15,7 @@
 // ===========================================
 // --- DATI DEL CV IN ITALIANO ---
 // ===========================================
-const cvDataIT = {
+var cvDataIT = {
     profile: {
         name: "Paolo Alborno",
         title: "Senior Software & Data Engineer",
@@ -95,7 +95,7 @@ const cvDataIT = {
 // ===========================================
 // --- CV DATA IN ENGLISH ---
 // ===========================================
-const cvDataEN = {
+var cvDataEN = {
     profile: {
         name: "Paolo Alborno",
         title: "Senior Software & Data Engineer",
@@ -173,4 +173,4 @@ const cvDataEN = {
 };
 
 // Per compatibilità con il vecchio sistema, si potrebbe esportare uno di default
-const cvData = cvDataIT;
+var cvData = cvDataIT;
