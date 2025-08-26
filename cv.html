@@ -83,8 +83,9 @@
     <!-- Script di Inizializzazione -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. Ottieni la lingua corrente (gestita in main.js)
-            const currentLang = localStorage.getItem('language') || 'it';
+            // 1. Ottieni la lingua corrente (stessa logica di main.js)
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentLang = urlParams.get('lang') || localStorage.getItem('language') || 'it';
 
             // 2. Crea un'istanza del gestore del CV e inizializzalo
             const cvManager = new CVManager(currentLang);

@@ -59,10 +59,11 @@ const translations = {
         "skill2": { "en": "Backend & API Development", "it": "Backend & API Development" },
         "skill3": { "en": "NLP (BERT)", "it": "NLP (BERT)" },
         "skill4": { "en": "E-commerce Analysis", "it": "Analisi E-commerce" },
-        "skill5": { "en": "Scrum Master", "it": "Scrum Master" },
+        "skill5": { "en": "Java", "it": "Java" },
         "skill6": { "en": "Project Management", "it": "Project Management" },
         "skill7": { "en": "Python", "it": "Python" },
-        "skill8": { "en": "Docker", "it": "Docker" }
+        "skill8": { "en": "CI/CD", "it": "CI/CD" },
+        "skill9": { "en": "Orchestration (NiFi)", "it": "Orchestrazione (NiFi)" }
     },
     "projects": {
         "title": { "en": "Projects - Paolo Alborno", "it": "Progetti - Paolo Alborno" },
