@@ -218,6 +218,15 @@ class SimpleTree {
         }
         const certNode = { name: "Certificazioni", category: "section", children: [] };
         data.certifications.forEach(cert => certNode.children.push({ name: cert.title, category: "item", details: cert.details }));
+
+        // Shorten names for mobile view
+        if (window.innerWidth < 768) {
+            expNode.name = "Exp.";
+            eduNode.name = "Edu.";
+            skillsNode.name = "Skills";
+            certNode.name = "Certs.";
+        }
+
         root.children.push(expNode, eduNode, skillsNode, certNode);
         return root;
     }
@@ -255,6 +264,8 @@ class SimpleTree {
             .append("xhtml:i")
             .attr("class", "fas"); // Placeholder, will be updated dynamically
 
+        const wrapWidth = window.innerWidth < 500 ? 80 : 120; // Use viewport width to determine wrap width
+
         nodeEnter.append('text')
             .attr("y", d => d.children || d._children ? -25 : 25)
             .attr("dy", ".35em")
@@ -262,7 +273,7 @@ class SimpleTree {
             .text(d => d.data.name)
             .style("font-weight", d => d.children || d._children ? 600 : 400)
             .style("fill-opacity", 1e-6)
-            .call(this._wrapText.bind(this), 120);
+            .call(this._wrapText.bind(this), wrapWidth);
 
         let nodeUpdate = nodeEnter.merge(node);
 
