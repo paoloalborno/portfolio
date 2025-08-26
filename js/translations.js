@@ -169,7 +169,10 @@ const translations = {
     },
     "cv": {
         "title": { "en": "CV - Paolo Alborno", "it": "CV - Paolo Alborno" },
-        "meta_description": { "en": "CV of Paolo Alborno, Senior Software & Data Engineer.", "it": "CV di Paolo Alborno, Senior Software & Data Engineer." }
+        "meta_description": { "en": "CV of Paolo Alborno, Senior Software & Data Engineer.", "it": "CV di Paolo Alborно, Senior Software & Data Engineer." },
+        "doc_view_btn": { "en": "Document View", "it": "Visualizzazione Documento" },
+        "graph_view_btn": { "en": "Graph View", "it": "Visualizzazione Grafo" },
+        "download_btn": { "en": "Download CV (PDF)", "it": "Scarica CV (PDF)" }
     },
     "python_snippets": {
         "title": { "en": "Python Snippets - Paolo Alborno", "it": "Python Snippets - Paolo Alborno" },

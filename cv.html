@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <!--
-    =================================================================================
-    Impostazioni della Pagina (Head)
-    =================================================================================
-    - Questa sezione contiene le meta-informazioni per la pagina del CV.
-    - Vengono inclusi i font, le icone (Font Awesome) e il foglio di stile principale.
-    =================================================================================
-    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate-key="cv.title">CV - Paolo Alborno</title>
@@ -21,63 +13,53 @@
 </head>
 <body>
 
-    <!-- Placeholder per l'Header (caricato da js/main.js) -->
+    <!-- Placeholder per l'Header -->
     <div id="header-placeholder"></div>
 
     <!-- Contenuto principale della pagina CV -->
     <main>
-        <!--
-            Sezione principale che contiene il sistema a schede (Tabs).
-            L'utente può scegliere tra due visualizzazioni del CV.
-        -->
+        <!-- Sezione per il download del CV -->
+        <section class="cv-download-section">
+            <div class="container">
+                <a href="resources/CV_PaoloAlborno_July_2025.pdf" download="CV_PaoloAlborno.pdf" class="btn" data-translate-key="cv.download_btn">
+                    <i class="fas fa-download"></i> Scarica CV (PDF)
+                </a>
+            </div>
+        </section>
+
         <section class="cv-page-tabbed">
             <div class="container">
                 <!-- Bottoni per cambiare scheda -->
                 <div class="cv-tabs">
-                    <button class="cv-tab-btn active" data-tab="doc-view">Visualizzazione Documento</button>
-                    <button class="cv-tab-btn" data-tab="graph-view">Visualizzazione Grafo</button>
+                    <button class="cv-tab-btn active" data-tab="doc-view" data-translate-key="cv.doc_view_btn">Visualizzazione Documento</button>
+                    <button class="cv-tab-btn" data-tab="graph-view" data-translate-key="cv.graph_view_btn">Visualizzazione Grafo</button>
                 </div>
             </div>
 
             <!-- Contenitore per i pannelli delle schede -->
             <div class="cv-tab-content">
-
-                <!-- Pannello 1: Visualizzazione Testuale (attivo di default) -->
+                <!-- Pannello 1: Visualizzazione Testuale -->
                 <div id="doc-view" class="cv-tab-pane active">
                     <div class="container" id="cv-text-container">
-                        <!-- Il contenuto del CV testuale viene generato qui da JavaScript -->
+                        <!-- Il contenuto del CV testuale viene generato qui da js/cv_logic.js -->
                     </div>
                 </div>
 
                 <!-- Pannello 2: Visualizzazione a Grafo -->
                 <div id="graph-view" class="cv-tab-pane">
                     <div id="cv-graph">
-                        <!-- Il grafico D3.js interattivo viene generato qui dalla libreria SimpleTree -->
+                        <!-- Il grafico D3.js viene generato qui da js/cv_logic.js -->
                     </div>
-                    <div id="cv-legend" class="cv-legend">
-                        <!-- La legenda del grafico potrebbe essere inserita qui in futuro -->
-                    </div>
+                    <div id="cv-legend" class="cv-legend"></div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!--
-    =================================================================================
-    Modal (Finestra Pop-up)
-    =================================================================================
-    - Questa è la struttura della finestra pop-up che mostra i dettagli di un nodo
-      del grafico.
-    - È nascosta di default (display: none in CSS) e viene mostrata da JavaScript
-      quando un nodo viene cliccato.
-    =================================================================================
-    -->
+    <!-- Modal (Finestra Pop-up) per i dettagli del grafo -->
     <div id="cv-modal" class="cv-modal">
         <div class="cv-modal-content">
-            <!-- Bottone per chiudere il pop-up -->
             <span class="cv-modal-close-btn">&times;</span>
-
-            <!-- Contenitori che verranno riempiti con i dati del nodo cliccato -->
             <h3 id="modal-title"></h3>
             <p id="modal-company"></p>
             <p id="modal-date"></p>
@@ -86,149 +68,29 @@
         </div>
     </div>
 
-    <!-- Placeholder per il Footer (caricato da js/main.js) -->
+    <!-- Placeholder per il Footer -->
     <div id="footer-placeholder"></div>
 
-    <!--
-    =================================================================================
-    Script JavaScript
-    =================================================================================
-    - Vengono caricate le librerie e i file di dati necessari.
-    - D3.js: La libreria per creare visualizzazioni di dati.
-    - cv_data.js: Contiene i dati del CV in formato JavaScript.
-    - simple_tree.js: La nostra libreria semplificata per creare il grafico.
-    - translations.js & main.js: Logica principale del sito.
-    =================================================================================
-    -->
+    <!-- Script Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script src="js/cv_data.js"></script>
-    <script src="js/simple_tree.js"></script> <!-- Inclusione della nuova libreria -->
+    <script src="js/simple_tree.js"></script>
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <!-- Logica specifica della pagina CV -->
+    <script src="js/cv_logic.js"></script>
 
-    <!-- Script specifico per la pagina CV -->
+    <!-- Script di Inizializzazione -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Ottieni la lingua corrente (gestita in main.js)
+            const currentLang = localStorage.getItem('language') || 'it';
 
-        /**
-         * --- Funzione per Creare la Visualizzazione Testuale del CV ---
-         * Questa funzione legge i dati da `cv_data.js` e costruisce dinamicamente
-         * l'HTML per il CV in formato "timeline" (linea del tempo).
-         */
-        function renderDocumentView() {
-            const cvContainer = document.getElementById('cv-text-container');
-            cvContainer.innerHTML = ''; // Pulisce il contenitore prima di aggiungere nuovo contenuto
-
-            const sections = {
-                experience: { title: 'Esperienze Lavorative', icon: 'fa-briefcase' },
-                education: { title: 'Istruzione e Formazione', icon: 'fa-graduation-cap' },
-                certifications: { title: 'Certificazioni', icon: 'fa-certificate' }
-            };
-
-            // Itera su ogni sezione (esperienze, istruzione, etc.)
-            for (const sectionKey in sections) {
-                const sectionInfo = sections[sectionKey];
-                const sectionData = cvData[sectionKey];
-
-                if (sectionData && sectionData.length > 0) {
-                    // Costruisce l'HTML per la sezione e i suoi elementi
-                    let sectionHTML = `
-                        <div class="cv-section">
-                            <h2 class="cv-section-title">
-                                <i class="fas ${sectionInfo.icon}"></i> ${sectionInfo.title}
-                            </h2>
-                            <div class="timeline">
-                    `;
-                    sectionData.forEach(item => {
-                        sectionHTML += `
-                            <div class="timeline-item">
-                                <div class="timeline-dot"></div>
-                                <div class="timeline-content">
-                                    <h3 class="timeline-title">${item.title}</h3>
-                                    <p class="timeline-date">${item.date || ''}</p>
-                                    <p class="timeline-company">${item.company || ''}</p>
-                                    <div class="timeline-details">
-                                        <ul>
-                                            ${item.details.map(detail => `<li>${detail}</li>`).join('')}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    sectionHTML += `</div></div>`;
-                    cvContainer.innerHTML += sectionHTML;
-                }
-            }
-        }
-
-        /**
-         * --- Funzione per Creare la Visualizzazione a Grafo del CV ---
-         * Questa funzione usa la nostra libreria `SimpleTree` per disegnare il grafico.
-         * La complessità di D3 è nascosta dentro la classe SimpleTree.
-         */
-        function renderGraphView() {
-            const container = document.getElementById('cv-graph');
-            if (container) {
-                // 1. Crea una nuova istanza della nostra libreria
-                const cvTree = new SimpleTree(container, cvData);
-                // 2. Chiama il metodo .render() per disegnare il grafico
-                cvTree.render();
-            }
-        }
-
-        /**
-         * --- Logica per Chiudere il Modal (Pop-up) ---
-         * Questa logica è stata mantenuta qui perché gestisce un elemento
-         * generico dell'interfaccia utente della pagina.
-         */
-        const modal = document.getElementById('cv-modal');
-        const modalCloseBtn = document.querySelector('.cv-modal-close-btn');
-        if (modal && modalCloseBtn) {
-            function closeModal() {
-                modal.style.display = "none";
-            }
-            // Chiudi il modal se l'utente clicca sulla 'x'
-            modalCloseBtn.onclick = closeModal;
-            // Chiudi il modal anche se l'utente clicca fuori dall'area del contenuto
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    closeModal();
-                }
-            }
-        }
-
-        // --- ESECUZIONE INIZIALE ---
-
-        // 1. Mostra subito la vista testuale del CV.
-        renderDocumentView();
-
-        // 2. Imposta la logica per i bottoni delle schede (Tabs).
-        let graphRendered = false; // Una variabile per assicurarsi che il grafico venga creato solo una volta.
-        const tabButtons = document.querySelectorAll('.cv-tab-btn');
-        const tabPanes = document.querySelectorAll('.cv-tab-pane');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetPaneId = button.getAttribute('data-tab');
-
-                // Rendi inattivi tutti i bottoni e i pannelli
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabPanes.forEach(pane => pane.classList.remove('active'));
-
-                // Rendi attivo solo il bottone cliccato e il pannello corrispondente
-                button.classList.add('active');
-                document.getElementById(targetPaneId)?.classList.add('active');
-
-                // Se l'utente ha cliccato sulla scheda del grafo e il grafo non è ancora stato creato...
-                if (targetPaneId === 'graph-view' && !graphRendered) {
-                    // ...crealo ora.
-                    renderGraphView();
-                    graphRendered = true; // Imposta a true per non crearlo di nuovo.
-                }
-            });
+            // 2. Crea un'istanza del gestore del CV e inizializzalo
+            const cvManager = new CVManager(currentLang);
+            cvManager.init();
         });
-    });
     </script>
+
 </body>
 </html>
