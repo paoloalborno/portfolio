@@ -22,8 +22,19 @@ class SimpleTree {
             duration: 750,
             nodeSeparation: window.innerWidth < 768 ? 220 : 180, // Increased separation for mobile
             colorScale: d3.scaleOrdinal()
-                .domain(["root", "section", "item", "skill_area", "skill"])
-                .range(["#2d3748", "#4A5568", "#2B6CB0", "#319795", "#4299E1"])
+                .domain(["root", "section_experience", "experience_item", "section_education", "education_item", "section_certifications", "certification_item", "section_skills", "skill_area", "skill"])
+                .range([
+                    "#2d3748", // root
+                    "#E53E3E", // section_experience (Red)
+                    "#C53030", // experience_item (Darker Red)
+                    "#D69E2E", // section_education (Yellow/Amber)
+                    "#805AD5", // education_item (Purple)
+                    "#319795", // section_certifications (Teal)
+                    "#2C7A7B", // certification_item (Darker Teal)
+                    "#4A5568", // section_skills (Gray)
+                    "#2B6CB0", // skill_area (Blue)
+                    "#4299E1"  // skill (Light Blue)
+                ])
         };
 
         // Merge user options with defaults
@@ -204,52 +215,23 @@ class SimpleTree {
      * @private
      */
     _transformData(data) {
-        const isMobile = window.innerWidth < 768;
-
-        const shorten = (name) => {
-            if (!isMobile || !name) return name;
-            const shortNames = {
-                // Italian
-                "SENIOR SOFTWARE & DATA ENGINEER - PARTNER": "Sr. Engineer",
-                "DOTTORANDO E ASSEGNISTA DI RICERCA": "PhD Researcher",
-                "Dottorato in Informatica (Ph.D.)": "PhD in CS",
-                "Laurea Magistrale in Ingegneria Informatica": "MSc in CS Eng.",
-                "AWS Certified Solutions Architect – Associate": "AWS Architect",
-                "Professional Scrum Master I (PSM I)": "Scrum Master",
-                "Google Project Management Certificate": "Google PM Cert.",
-                // English
-                "SENIOR SOFTWARE & DATA ENGINEER - PARTNER": "Sr. Engineer",
-                "PHD CANDIDATE AND RESEARCH FELLOW": "PhD Researcher",
-                "PhD in Computer Science": "PhD in CS",
-                "Master of Science in Computer Engineering": "MSc in CS Eng.",
-                "AWS Certified Solutions Architect – Associate": "AWS Architect",
-                "Professional Scrum Master I (PSM I)": "Scrum Master",
-                "Google Project Management Certificate": "Google PM Cert."
-            };
-            return shortNames[name] || name;
-        };
-
-        const transformNode = (node) => {
-            // Use title for the name, shortening if necessary. Keep original title.
-            if (node.title) {
-                node.name = shorten(node.title);
-            }
-            if (node.children) {
-                node.children.forEach(transformNode);
-            }
-        };
-
         const transformed = JSON.parse(JSON.stringify(data));
         const root = { name: transformed.profile.name || "Paolo Alborno", category: "root", children: [] };
 
-        const sectionKeys = ['experience', 'education', 'certifications', 'skills'];
+        const sectionMap = {
+            experience: "experience",
+            education: "education",
+            certifications: "certifications",
+            skills: "skills"
+        };
 
-        sectionKeys.forEach(key => {
+        Object.keys(sectionMap).forEach(key => {
             if (transformed.sections[key] && transformed[key]) {
+                const sectionCategory = `section_${sectionMap[key]}`;
                 const sectionNode = {
-                    name: shorten(transformed.sections[key].title),
-                    title: transformed.sections[key].title, // Keep original title
-                    category: "section",
+                    name: transformed.sections[key].title,
+                    title: transformed.sections[key].title,
+                    category: sectionCategory,
                     children: []
                 };
 
@@ -258,19 +240,27 @@ class SimpleTree {
                         const categoryNode = {
                             name: categoryName,
                             category: "skill_area",
-                            children: transformed.skills[categoryName].map(skill => ({ name: skill, title: skill, category: "skill" }))
+                            children: transformed.skills[categoryName].map(skill => ({
+                                name: skill,
+                                title: skill,
+                                category: "skill"
+                            }))
                         };
                         sectionNode.children.push(categoryNode);
                     }
                 } else {
-                    sectionNode.children = transformed[key];
+                    // Assign the specific item category from the data object
+                    sectionNode.children = transformed[key].map(item => {
+                        item.category = item.graph_category || `${sectionMap[key]}_item`;
+                        item.name = item.title; // Use the (already abbreviated) title as the name
+                        return item;
+                    });
                 }
 
                 root.children.push(sectionNode);
             }
         });
 
-        transformNode(root);
         return root;
     }
 
@@ -291,6 +281,7 @@ class SimpleTree {
 
         let nodeEnter = node.enter().append('g')
             .attr('class', 'node')
+            .attr('data-category', d => d.data.category) // Add stable attribute for testing
             .attr("transform", `translate(${source.x0},${source.y0})`)
             .on('click', (event, d) => this._click(event, d));
 

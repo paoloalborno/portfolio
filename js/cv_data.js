@@ -31,7 +31,8 @@ var cvDataIT = {
     experience: [
         {
             id: 'exp_senior',
-            title: 'SENIOR SOFTWARE & DATA ENGINEER - PARTNER',
+            title: 'Senior S/W & Data Engineer',
+            graph_category: 'experience_item',
             date: 'Feb 2019 - Presente',
             company: 'MASSIVE DATA HEIGHTS | Varazze, Italia (Remoto)',
             details: [
@@ -45,7 +46,8 @@ var cvDataIT = {
         },
         {
             id: 'exp_phd',
-            title: 'DOTTORANDO E ASSEGNISTA DI RICERCA',
+            title: 'Dottorando e Ricercatore',
+            graph_category: 'experience_item',
             date: 'Set 2014 - Feb 2019',
             company: 'UNIVERSITÀ DI GENOVA - DIBRIS | Genova, Italia',
             details: [
@@ -59,30 +61,33 @@ var cvDataIT = {
     education: [
         {
             id: 'edu_phd',
-            title: 'Dottorato in Informatica (Ph.D.)',
+            title: 'Dottorato in Informatica',
+            graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'Università di Genova, Italia',
             details: ["Specializzazione in Human-Computer Interaction e analisi di dati multimodali."]
         },
         {
             id: 'edu_msc',
-            title: 'Laurea Magistrale in Ingegneria Informatica',
+            title: 'Laurea Mag. Ing. Informatica',
+            graph_category: 'education_item',
             date: '2011 - 2014',
             company: 'Università di Genova, Italia',
             details: ["Votazione: 110/110 e Lode."]
         },
         {
             id: 'edu_bsc',
-            title: 'Laurea Triennale in Ingegneria Informatica',
+            title: 'Laurea Triennale Ing. Informatica',
+            graph_category: 'education_item',
             date: '2008 - 2011',
             company: 'Università di Genova, Italia',
             details: []
         }
     ],
     certifications: [
-        { id: 'cert_aws', title: 'AWS Certified Solutions Architect – Associate', date: '2023', details: [] },
-        { id: 'cert_psm', title: 'Professional Scrum Master I (PSM I)', date: '2022', details: [] },
-        { id: 'cert_google', title: 'Google Project Management Certificate', date: '2022', details: [] }
+        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', date: '2023', details: [] },
+        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', date: '2022', details: [] },
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', date: '2022', details: [] }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD", "Terraform (principiante)"],
@@ -111,7 +116,8 @@ var cvDataEN = {
     experience: [
         {
             id: 'exp_senior',
-            title: 'SENIOR SOFTWARE & DATA ENGINEER - PARTNER',
+            title: 'Senior S/W & Data Engineer',
+            graph_category: 'experience_item',
             date: 'Feb 2019 - Present',
             company: 'MASSIVE DATA HEIGHTS | Varazze, Italy (Remote)',
             details: [
@@ -125,7 +131,8 @@ var cvDataEN = {
         },
         {
             id: 'exp_phd',
-            title: 'PHD CANDIDATE AND RESEARCH FELLOW',
+            title: 'PhD Candidate & Researcher',
+            graph_category: 'experience_item',
             date: 'Sep 2014 - Feb 2019',
             company: 'UNIVERSITY OF GENOA - DIBRIS | Genoa, Italy',
             details: [
@@ -140,29 +147,32 @@ var cvDataEN = {
         {
             id: 'edu_phd',
             title: 'PhD in Computer Science',
+            graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'University of Genoa, Italy',
             details: ["Specialization in Human-Computer Interaction and multimodal data analysis."]
         },
         {
             id: 'edu_msc',
-            title: 'Master of Science in Computer Engineering',
+            title: 'MSc in Computer Engineering',
+            graph_category: 'education_item',
             date: '2011 - 2014',
             company: 'University of Genoa, Italy',
             details: ["Final grade: 110/110 cum Laude."]
         },
         {
             id: 'edu_bsc',
-            title: 'Bachelor of Science in Computer Engineering',
+            title: 'BSc in Computer Engineering',
+            graph_category: 'education_item',
             date: '2008 - 2011',
             company: 'University of Genoa, Italy',
             details: []
         }
     ],
     certifications: [
-        { id: 'cert_aws', title: 'AWS Certified Solutions Architect – Associate', date: '2023', details: [] },
-        { id: 'cert_psm', title: 'Professional Scrum Master I (PSM I)', date: '2022', details: [] },
-        { id: 'cert_google', title: 'Google Project Management Certificate', date: '2022', details: [] }
+        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', date: '2023', details: [] },
+        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', date: '2022', details: [] },
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', date: '2022', details: [] }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD", "Terraform (beginner)"],
