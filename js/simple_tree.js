@@ -20,7 +20,7 @@ class SimpleTree {
         const defaults = {
             margin: { top: 40, right: 90, bottom: 50, left: 90 },
             duration: 750,
-            nodeSeparation: 180,
+            nodeSeparation: window.innerWidth < 768 ? 220 : 180, // Increased separation for mobile
             colorScale: d3.scaleOrdinal()
                 .domain(["root", "section", "item", "skill_area", "skill"])
                 .range(["#2d3748", "#4A5568", "#2B6CB0", "#319795", "#4299E1"])
@@ -204,30 +204,57 @@ class SimpleTree {
      * @private
      */
     _transformData(data) {
+        const isMobile = window.innerWidth < 768;
+
+        const shorten = (name) => {
+            if (!isMobile) return name;
+            const shortNames = {
+                "SENIOR SOFTWARE, DATA ENGINEER - PARTNER": "Sr. Software Engineer",
+                "DOTTORANDO, ASSEGNISTA DI RICERCA": "PhD Researcher",
+                "Dottorato in Informatica": "PhD in CS",
+                "Laurea Magistrale in Ingegneria Informatica": "MSc in CS Eng.",
+                "AWS Certified Solutions Architect": "AWS Architect Cert.",
+                "Professional Scrum Master I": "Scrum Master Cert.",
+                "Google PM Certificate": "Google PM Cert.",
+                "Project Management": "PM",
+                "Esperienze": "Exp.",
+                "Istruzione": "Edu.",
+                "Competenze": "Skills",
+                "Certificazioni": "Certs."
+            };
+            return shortNames[name] || name;
+        };
+
+        const transformNode = (node) => {
+            if (node.title) {
+                node.name = shorten(node.title);
+            }
+            if (node.name) {
+                 node.name = shorten(node.name);
+            }
+            if (node.children) {
+                node.children.forEach(transformNode);
+            }
+        };
+
+        const transformed = JSON.parse(JSON.stringify(data)); // Deep copy to avoid modifying original data
         const root = { name: "Paolo Alborno", category: "root", children: [] };
-        const expNode = { name: "Esperienze", category: "section", children: [] };
-        data.experience.forEach(exp => expNode.children.push({ name: exp.title, category: "item", details: exp.details, company: exp.company, date: exp.date, link: exp.link }));
-        const eduNode = { name: "Istruzione", category: "section", children: [] };
-        data.education.forEach(edu => eduNode.children.push({ name: edu.title, category: "item", details: edu.details, company: edu.company, date: edu.date }));
+
+        const expNode = { name: "Esperienze", category: "section", children: transformed.experience };
+        const eduNode = { name: "Istruzione", category: "section", children: transformed.education };
         const skillsNode = { name: "Competenze", category: "section", children: [] };
-        for (const areaName in data.competency_areas) {
-            const area = data.competency_areas[areaName];
+        for (const areaName in transformed.competency_areas) {
+            const area = transformed.competency_areas[areaName];
             const areaNode = { name: areaName, category: "skill_area", children: [] };
             area.skills.forEach(skill => areaNode.children.push({ name: skill, category: "skill" }));
             skillsNode.children.push(areaNode);
         }
-        const certNode = { name: "Certificazioni", category: "section", children: [] };
-        data.certifications.forEach(cert => certNode.children.push({ name: cert.title, category: "item", details: cert.details }));
-
-        // Shorten names for mobile view
-        if (window.innerWidth < 768) {
-            expNode.name = "Exp.";
-            eduNode.name = "Edu.";
-            skillsNode.name = "Skills";
-            certNode.name = "Certs.";
-        }
+        const certNode = { name: "Certificazioni", category: "section", children: transformed.certifications };
 
         root.children.push(expNode, eduNode, skillsNode, certNode);
+
+        transformNode(root);
+
         return root;
     }
 
