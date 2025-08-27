@@ -7,12 +7,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const menuItems = [
-      { href: "index.html", key: "nav.home" },
-      { href: "about.html", key: "nav.about" },
-      { href: "projects.html", key: "nav.projects" },
-      { href: "backlog.html", key: "nav.backlog" },
-      { href: "cv.html", key: "nav.cv" },
-      { href: "hobbies.html", key: "nav.hobbies" },
+      { href: "/index.html", key: "nav.home" },
+      { href: "/about.html", key: "nav.about" },
+      { href: "/projects.html", key: "nav.projects" },
+      { href: "/backlog.html", key: "nav.backlog" },
+      { href: "/cv.html", key: "nav.cv" },
+      { href: "/hobbies.html", key: "nav.hobbies" },
     ];
 
     async function loadComponent(url, elementId) {

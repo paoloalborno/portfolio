@@ -71,9 +71,11 @@ nav {
     background-clip: text;
 }
 
-/* Fai in modo che il menu occupi lo spazio rimanente */
+/* Fai in modo che il menu occupi lo spazio rimanente e centri il suo contenuto */
 #menu {
     flex-grow: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-links {
