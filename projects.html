@@ -56,12 +56,12 @@
 
                         <!-- Pannello 1: Progetto E-commerce (visibile di default) -->
                         <div class="tab-pane active" id="ecommerce">
-                            <div class="project-preview">
-                                <img src="images/ecommerce-preview.png" alt="E-commerce Project Preview" class="project-preview-image" style="object-fit: contain; padding: 2rem;">
-                                <div class="project-preview-text">
-                                    <h3 data-translate-key="projects.ecommerce_h3"></h3>
-                                    <p class="project-preview-description" data-translate-key="projects.ecommerce_p"></p>
-                                    <div class="project-tech">
+                            <div class="project-grid">
+                                <div class="project-tile">
+                                    <div class="project-tile-icon"><i class="fas fa-shopping-cart"></i></div>
+                                    <h3 class="project-tile-title" data-translate-key="projects.ecommerce_h3"></h3>
+                                    <p class="project-tile-description" data-translate-key="projects.ecommerce_p"></p>
+                                    <div class="project-tile-tech">
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_aws"></span>
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_cloud"></span>
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_ecommerce"></span>
@@ -74,12 +74,12 @@
 
                         <!-- Pannello 2: Progetto NLP -->
                         <div class="tab-pane" id="nlp">
-                            <div class="project-preview">
-                                <img src="images/nlp-preview.png" alt="NLP Project Preview" class="project-preview-image" style="object-fit: contain; padding: 2rem;">
-                                <div class="project-preview-text">
-                                    <h3 data-translate-key="projects.nlp_h3"></h3>
-                                    <p class="project-preview-description" data-translate-key="projects.nlp_p"></p>
-                                    <div class="project-tech">
+                           <div class="project-grid">
+                                <div class="project-tile">
+                                    <div class="project-tile-icon"><i class="fas fa-brain"></i></div>
+                                    <h3 class="project-tile-title" data-translate-key="projects.nlp_h3"></h3>
+                                    <p class="project-tile-description" data-translate-key="projects.nlp_p"></p>
+                                    <div class="project-tile-tech">
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_nlp"></span>
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_bert"></span>
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_python"></span>
@@ -91,61 +91,34 @@
                             </div>
                         </div>
 
-                        <!-- Pannello 3: Progetti Python con sotto-schede -->
+                        <!-- Pannello 3: Progetti Python -->
                         <div class="tab-pane" id="python">
-                            <div class="project-preview">
-                                <img src="https://cdn.iconscout.com/icon/free/png-256/free-python-icon-svg-png-download-226051.png" alt="Python Projects Icon" class="project-preview-image" style="object-fit: contain; padding: 2rem;">
-                                <div class="project-preview-text">
-                                    <!-- Contenitore per le sotto-schede (sub-tabs) -->
-                                    <div class="sub-tabs-container">
-                                        <div class="sub-tab-buttons">
-                                            <button class="sub-tab-btn active" data-sub-tab="tasklist" data-translate-key="projects.py_subtab_tasklist"></button>
-                                            <button class="sub-tab-btn" data-sub-tab="ai-agent" data-translate-key="projects.py_subtab_ai_agent"></button>
-                                        </div>
-                                        <div class="sub-tab-content">
-                                            <!-- Sotto-pannello 1: Task List -->
-                                            <div class="sub-tab-pane active" id="tasklist">
-                                                <div class="sub-tab-pane-grid">
-                                                    <div class="sub-tab-description">
-                                                        <h3 data-translate-key="projects.py_tasklist_h3"></h3>
-                                                        <p data-translate-key="projects.py_tasklist_p"></p>
-                                                    </div>
-                                                    <div class="code-block"><pre><code>class Task:
-														def __init__(self, name):
-															self.name = name
-															self.done = False
-														# ...</code></pre></div>
-                                                </div>
-                                            </div>
-                                            <!-- Sotto-pannello 2: AI Agent -->
-                                            <div class="sub-tab-pane" id="ai-agent">
-                                                <div class="sub-tab-pane-grid">
-                                                    <div class="sub-tab-description">
-                                                        <h3 data-translate-key="projects.py_ai_agent_h3"></h3>
-                                                        <p data-translate-key="projects.py_ai_agent_p"></p>
-                                                    </div>
-                                                    <div class="code-block"><pre><code>from langchain_community.llms import Ollama
-# ...</code></pre></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="project-grid">
+                                <div class="project-tile">
+                                    <div class="project-tile-icon"><i class="fab fa-python"></i></div>
+                                    <h3 class="project-tile-title" data-translate-key="projects.tab_python"></h3>
+                                    <p class="project-tile-description">Una collezione di piccoli progetti e script in Python.</p>
+                                    <div class="project-tile-tech">
+                                        <span class="tech-tag">Task List</span>
+                                        <span class="tech-tag">AI Agent</span>
+                                        <span class="tech-tag">Ollama</span>
                                     </div>
+                                    <a href="projects/python_projects.html" class="btn btn-primary">Vedi Dettagli</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Pannello 4: Gioco Snake -->
                         <div class="tab-pane" id="game">
-                            <div class="project-preview">
-                                <img src="https://placehold.co/600x400/81C784/FFFFFF?text=Snake+Game" alt="Game Preview" class="project-preview-image">
-                                <div class="project-preview-text">
-                                    <h3 data-translate-key="projects.game_h3"></h3>
-                                    <p class="project-preview-description" data-translate-key="projects.game_p"></p>
-                                    <div class="project-tech">
+                            <div class="project-grid">
+                                <div class="project-tile">
+                                    <div class="project-tile-icon"><i class="fas fa-gamepad"></i></div>
+                                    <h3 class="project-tile-title" data-translate-key="projects.game_h3"></h3>
+                                    <p class="project-tile-description" data-translate-key="projects.game_p"></p>
+                                    <div class="project-tile-tech">
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_html"></span>
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_css"></span>
                                         <span class="tech-tag" data-translate-key="python_snippets.tech_js"></span>
-                                        <span class="tech-tag" data-translate-key="python_snippets.tech_canvas"></span>
                                     </div>
                                     <a href="projects/game.html" class="btn btn-primary" data-translate-key="projects.game_btn"></a>
                                 </div>
@@ -162,7 +135,7 @@
     <div id="footer-placeholder"></div>
 
     <!-- Script necessari per la pagina -->
-    <script src="../js/translations.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
