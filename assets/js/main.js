@@ -75,9 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const rawHref = link.getAttribute('href');
             if (rawHref && (rawHref.startsWith('/') || rawHref.includes('.html'))) {
                 try {
-                    // Risolviamo l'URL in modo robusto partendo dall'origine del sito.
-                    // Questo evita problemi con pagine nidificate (es. /projects/page.html).
-                    const absoluteUrl = new URL(rawHref, window.location.origin);
+                    // Risolviamo l'URL in modo robusto partendo dalla URL corrente della pagina.
+                    // Questo permette ai link relativi (es. "gallery.html") di funzionare correttamente.
+                    const absoluteUrl = new URL(rawHref, window.location.href);
 
                     // Aggiungiamo il parametro della lingua.
                     absoluteUrl.searchParams.set('lang', currentLang);
