@@ -18,7 +18,15 @@ class CVManager {
     }
 
     getCvDataForLanguage(lang) {
-        return lang === 'en' ? window.cvDataEN : window.cvDataIT;
+        switch (lang) {
+            case 'en':
+                return window.cvDataEN;
+            case 'fr':
+                return window.cvDataFR;
+            case 'it':
+            default:
+                return window.cvDataIT;
+        }
     }
 
     init() {
