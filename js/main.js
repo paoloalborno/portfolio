@@ -203,8 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- ESECUZIONE ---
-    loadComponent('templates/header.html', 'header-placeholder')
-        .then(() => loadComponent('templates/footer.html', 'footer-placeholder'))
+    loadComponent('/templates/header.html', 'header-placeholder')
+        .then(() => loadComponent('/templates/footer.html', 'footer-placeholder'))
         .then(initializePage);
 
     setupKonamiCode();
