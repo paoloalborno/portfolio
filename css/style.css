@@ -58,8 +58,8 @@ header {
 
 nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1.5rem; /* Aggiunto per spaziatura */
 }
 
 .logo {
@@ -69,6 +69,11 @@ nav {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Fai in modo che il menu occupi lo spazio rimanente */
+#menu {
+    flex-grow: 1;
 }
 
 .nav-links {
@@ -793,6 +798,15 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Su mobile, il logo occupa lo spazio per spingere i controlli a destra */
+    .logo {
+        flex-grow: 1;
+    }
+
+    #menu {
+        flex-grow: 0; /* Resetta la crescita del menu */
+    }
+
     .nav-links {
         /* Nascondi il menu di navigazione di default */
         display: none;
@@ -1196,6 +1210,17 @@ footer {
 
 
 @media (max-width: 768px) {
+    .backlog-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item-details {
+        width: 100%;
+        min-width: 0;
+        justify-content: space-between;
+    }
+
     .tab-buttons {
         justify-content: center;
         row-gap: 0.5rem;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-translate-key="python_projects.title"></title>
+    <title data-translate-key="projects.tab_python"></title> <!-- Chiave corretta per il titolo -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,37 +14,77 @@
     <div id="header-placeholder"></div>
 
     <main>
+        <!-- La classe 'about' viene usata per lo stile di base della sezione -->
         <section class="python-projects about">
             <div class="container">
-                <h1 class="section-title" data-translate-key="python_projects.h1"></h1>
+                <!-- Titolo principale della pagina -->
+                <h1 class="section-title" data-translate-key="projects.tab_python"></h1>
+
+                <!-- Sottotitolo -->
                 <p class="section-subtitle" data-translate-key="python_projects.section_subtitle"></p>
 
-                <div class="github-link">
-                    <a href="https://github.com/paoloalborno" class="btn btn-primary" target="_blank" data-translate-key="python_projects.btn_github"></a>
-                </div>
+                <!-- Contenitore per i sub-tab -->
+                <div class="sub-tabs-container">
+                    <!-- Bottoni dei sub-tab -->
+                    <div class="sub-tab-buttons">
+                        <button class="sub-tab-btn active" data-sub-tab="tasklist" data-translate-key="projects.py_subtab_tasklist"></button>
+                        <button class="sub-tab-btn" data-sub-tab="ai_agent" data-translate-key="projects.py_subtab_ai_agent"></button>
+                    </div>
 
-                <div class="projects-grid">
-                    <!-- Esempio di progetto -->
-                    <div class="project-card">
-                        <div class="project-content">
-                            <h3 class="project-title" data-translate-key="python_projects.project1_h3"></h3>
-                            <p class="project-description" data-translate-key="python_projects.project1_p"></p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Flask</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="#" target="_blank" data-translate-key="python_projects.project1_btn"></a>
+                    <!-- Contenuto dei pannelli dei sub-tab -->
+                    <div class="sub-tab-content">
+
+                        <!-- Pannello 1: Task List (attivo di default) -->
+                        <div class="sub-tab-pane active" id="tasklist">
+                            <div class="sub-tab-pane-grid">
+                                <div>
+                                    <h3 data-translate-key="projects.py_tasklist_h3"></h3>
+                                    <p data-translate-key="projects.py_tasklist_p"></p>
+                                </div>
+                                <div class="code-block">
+                                    <pre><code># Esempio di codice per Task List
+# (Questo è un placeholder)
+class Task:
+    def __init__(self, name):
+        self.name = name
+        self.done = False
+
+tasks = [Task("Implementare la UI"), Task("Testare il backend")]
+for task in tasks:
+    print(f"- {task.name}")
+                                    </code></pre>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Pannello 2: AI Agent -->
+                        <div class="sub-tab-pane" id="ai_agent">
+                            <div class="sub-tab-pane-grid">
+                                <div>
+                                    <h3 data-translate-key="projects.py_ai_agent_h3"></h3>
+                                    <p data-translate-key="projects.py_ai_agent_p"></p>
+                                </div>
+                                <div class="code-block">
+                                    <pre><code># Esempio di codice per AI Agent
+# (Questo è un placeholder)
+from langchain_community.llms import Ollama
+
+llm = Ollama(model="llama2")
+response = llm.invoke("Perché il cielo è blu?")
+print(response)
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <!-- Aggiungi altri progetti qui -->
                 </div>
+
             </div>
         </section>
     </main>
 
-	<div id="footer-placeholder"></div>
+    <div id="footer-placeholder"></div>
     <script src="../js/translations.js"></script>
     <script src="../js/main.js"></script>
 </body>
