@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
       { href: "index.html", key: "nav.home" },
       { href: "about.html", key: "nav.about" },
       { href: "projects.html", key: "nav.projects" },
-      { href: "blog.html", key: "nav.blog" },
+      { href: "backlog.html", key: "nav.backlog" },
       { href: "cv.html", key: "nav.cv" },
       { href: "hobbies.html", key: "nav.hobbies" },
     ];

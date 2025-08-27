@@ -28,7 +28,7 @@ const translations = {
         "home": { "en": "Home", "it": "Home" },
         "about": { "en": "About Me", "it": "Chi Sono" },
         "projects": { "en": "Projects", "it": "Progetti" },
-        "blog": { "en": "Blog", "it": "Blog" },
+        "backlog": { "en": "Backlog", "it": "Backlog" },
         "cv": { "en": "CV", "it": "CV" },
         "hobbies": { "en": "Hobbies", "it": "Hobby" },
         "contact": { "en": "Contact Me", "it": "Contattami" }
@@ -129,12 +129,8 @@ const translations = {
         "example1_h3": { "en": "Example 1: Data Cleaning with Pandas", "it": "Esempio 1: Data Cleaning con Pandas" },
         "example2_h3": { "en": "Example 2: Simple API Call", "it": "Esempio 2: Chiamata API Semplice" }
     },
-    "blog": {
-        "title": { "en": "Paolo - Blog", "it": "Paolo - Blog" },
-        "h1": { "en": "My Blog", "it": "Il Mio Blog" },
-        "section_subtitle": { "en": "Thoughts, articles, and personal notes on the world of technology and beyond.", "it": "Pensieri, articoli e note personali sul mondo della tecnologia e non solo." },
-        "coming_soon_h3": { "en": "Coming soon...", "it": "Prossimamente..." },
-        "coming_soon_p": { "en": "I'm working on creating interesting content. Check back soon!", "it": "Sto lavorando alla creazione di contenuti interessanti. Torna a trovarmi presto!" }
+    "backlog": {
+        "title": { "en": "My Backlog", "it": "Il Mio Backlog" }
     },
     "project_ecommerce": {
         "title": { "en": "Project: E-commerce Infrastructure Analysis - Paolo Alborno", "it": "Progetto: Analisi Infrastruttura E-commerce - Paolo Alborno" },
