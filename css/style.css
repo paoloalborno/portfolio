@@ -1416,6 +1416,7 @@ footer {
     flex-direction: column;
     gap: 1.5rem;
     margin-top: 4rem;
+    margin-bottom: 4rem; /* Aggiunto per spaziatura dal footer */
 }
 
 .backlog-item {

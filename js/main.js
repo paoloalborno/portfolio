@@ -72,13 +72,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const allLinks = document.querySelectorAll('a');
         allLinks.forEach(link => {
             // Controlliamo se il link punta a una pagina locale (non a un sito esterno).
-            // Se sì, aggiungiamo `?lang=...` per mantenere la lingua scelta durante la navigazione.
-            if (link.hostname === window.location.hostname && link.pathname.includes('.html')) {
-                // Pulisce eventuali parametri 'lang' esistenti prima di aggiungere quello nuovo.
-                const url = new URL(link.href);
-                url.searchParams.delete('lang');
-                url.searchParams.append('lang', currentLang);
-                link.href = url.href;
+            const rawHref = link.getAttribute('href');
+            if (rawHref && (rawHref.startsWith('/') || rawHref.includes('.html'))) {
+                try {
+                    // Risolviamo l'URL in modo robusto partendo dall'origine del sito.
+                    // Questo evita problemi con pagine nidificate (es. /projects/page.html).
+                    const absoluteUrl = new URL(rawHref, window.location.origin);
+
+                    // Aggiungiamo il parametro della lingua.
+                    absoluteUrl.searchParams.set('lang', currentLang);
+                    link.href = absoluteUrl.href;
+
+                } catch (e) {
+                    // Ignora link non validi come href="#"
+                    // console.error(`Could not process link: ${rawHref}`, e);
+                }
             }
         });
 
