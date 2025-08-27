@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const menuItems = [
       { href: "/index.html", key: "nav.home" },
-      { href: "/about.html", key: "nav.about" },
-      { href: "/projects.html", key: "nav.projects" },
-      { href: "/backlog.html", key: "nav.backlog" },
-      { href: "/cv.html", key: "nav.cv" },
-      { href: "/hobbies.html", key: "nav.hobbies" },
+      { href: "/pages/about.html", key: "nav.about" },
+      { href: "/pages/projects.html", key: "nav.projects" },
+      { href: "/pages/backlog.html", key: "nav.backlog" },
+      { href: "/pages/cv.html", key: "nav.cv" },
+      { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
 
     async function loadComponent(url, elementId) {
@@ -211,8 +211,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- ESECUZIONE ---
-    loadComponent('/templates/header.html', 'header-placeholder')
-        .then(() => loadComponent('/templates/footer.html', 'footer-placeholder'))
+    loadComponent('/assets/templates/header.html', 'header-placeholder')
+        .then(() => loadComponent('/assets/templates/footer.html', 'footer-placeholder'))
         .then(initializePage);
 
     setupKonamiCode();
