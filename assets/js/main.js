@@ -4,7 +4,19 @@
  * =================================================================================
  * ... (header commenti come prima)
  */
+
+
 document.addEventListener('DOMContentLoaded', function() {
+	
+	const firebaseConfig = {
+		apiKey: "AIzaSyBVkDmkQWWcZjLUsWOhzNpjs7AY1vAYqWI",
+		authDomain: "portfolio-backend-48826.firebaseapp.com",
+		projectId: "portfolio-backend-48826"
+	};
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GithubAuthProvider();
 
     const menuItems = [
       { href: "/index.html", key: "nav.home" },
@@ -201,29 +213,50 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+	async function loginWithGitHub() {
+	  try {
+		const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        const token = await user.getIdToken();
+
+        document.getElementById("tokenOutput").textContent = token;
+        console.log("Token JWT:", token);
+
+	  } catch (error) {
+		console.error("Errore login:", error);
+		alert("Login fallito: " + error.message);
+	  }
+	}
+
     function setupAdminModal() {
         const adminIcon = document.querySelector('.admin-login');
-        const modal = document.getElementById('admin-login-modal');
-        const closeBtn = modal.querySelector('.close-btn');
+		const modal = document.getElementById('admin-login-modal');
+		const closeBtn = modal.querySelector('.close-btn');
+		const loginBtn = modal.querySelector('#login-github-btn');
 
         if (adminIcon && modal && closeBtn) {
-            // Apri modale
-            adminIcon.addEventListener('click', () => {
-                modal.style.display = 'block';
-            });
+			// Apri modale
+			adminIcon.addEventListener('click', () => {
+				modal.style.display = 'block';
+			});
 
-            // Chiudi modale con il bottone 'x'
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
+			// Chiudi modale con il bottone 'x'
+			closeBtn.addEventListener('click', () => {
+				modal.style.display = 'none';
+			});
 
-            // Chiudi modale cliccando fuori dal contenuto
-            window.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
+				// Chiudi modale cliccando fuori dal contenuto
+			window.addEventListener('click', (event) => {
+				if (event.target === modal) {
+					modal.style.display = 'none';
+				}
+			});
+		}
+
+		if (loginBtn) {
+			loginBtn.addEventListener("click", loginWithGitHub);
+		}
     }
 
     function setupKonamiCode() {
