@@ -110,7 +110,9 @@ const translations = {
         "gallery_p": { "en": "A small collection of moments and places that have inspired me. Click below to explore the gallery.", "it": "Una piccola collezione di momenti e luoghi che mi hanno ispirato. Clicca qui sotto per esplorare la galleria." },
         "gallery_btn": { "en": "Go to Gallery", "it": "Vai alla Galleria" },
         "passions_h3": { "en": "My Passions", "it": "Le Mie Passioni" },
-        "passions_p": { "en": "I am passionate about travel, photography, and trekking. These interests help me maintain a balance between my professional and personal life, and find inspiration in unexpected places.", "it": "Sono un appassionato di viaggi, fotografia e trekking. Questi interessi mi aiutano a mantenere un equilibrio tra vita professionale e personale, e a trovare ispirazione in luoghi inaspettati." }
+        "passions_p": { "en": "I am passionate about travel, photography, and trekking. These interests help me maintain a balance between my professional and personal life, and find inspiration in unexpected places.", "it": "Sono un appassionato di viaggi, fotografia e trekking. Questi interessi mi aiutano a mantenere un equilibrio tra vita professionale e personale, e a trovare ispirazione in luoghi inaspettati." },
+        "trekking_h3": { "en": "Trekking", "it": "Trekking" },
+        "trekking_p": { "en": "Exploring nature and mountains is one of my greatest passions. Every trail is an adventure.", "it": "Esplorare la natura e le montagne è una delle mie più grandi passioni. Ogni sentiero è un'avventura." }
     },
     "gallery": {
         "title": { "en": "Gallery - Paolo Alborno", "it": "Galleria - Paolo Alborno" },
@@ -130,7 +132,19 @@ const translations = {
         "example2_h3": { "en": "Example 2: Simple API Call", "it": "Esempio 2: Chiamata API Semplice" }
     },
     "backlog": {
-        "title": { "en": "My Backlog", "it": "Il Mio Backlog" }
+        "title": { "en": "My Backlog", "it": "Il Mio Backlog" },
+        "langchain_title": { "en": "LangChain & LLMs", "it": "LangChain & LLMs" },
+        "status_learning": { "en": "Learning", "it": "Learning" },
+        "type_tech": { "en": "Tech", "it": "Tech" },
+        "dates_aug_oct": { "en": "August 2025 - October 2025", "it": "Agosto 2025 - Ottobre 2025" },
+        "portfolio_title": { "en": "Portfolio Website", "it": "Portfolio Website" },
+        "status_developing": { "en": "Developing", "it": "Developing" },
+        "type_project": { "en": "Project", "it": "Project" },
+        "dates_jul_sep": { "en": "July 2025 - September 2025", "it": "Luglio 2025 - Settembre 2025" },
+        "react_title": { "en": "Advanced React Course", "it": "Corso Avanzato di React" },
+        "status_future": { "en": "Future Goal", "it": "Obiettivo Futuro" },
+        "type_course": { "en": "Course", "it": "Corso" },
+        "dates_eoy": { "en": "By end of year", "it": "Entro fine anno" }
     },
     "project_ecommerce": {
         "title": { "en": "Project: E-commerce Infrastructure Analysis - Paolo Alborno", "it": "Progetto: Analisi Infrastruttura E-commerce - Paolo Alborno" },
