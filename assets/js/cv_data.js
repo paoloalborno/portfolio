@@ -182,5 +182,90 @@ var cvDataEN = {
     }
 };
 
+// ===========================================
+// --- CV DATA IN FRENCH ---
+// ===========================================
+var cvDataFR = {
+    profile: {
+        name: "Paolo Alborno",
+        title: "Ingénieur Senior Logiciel & Données",
+        summary: "Ingénieur logiciel et données avec plus de 5 ans d'expérience dans la conception et la mise en œuvre d'architectures cloud-natives, de pipelines de données complexes et de solutions d'intelligence artificielle. Spécialisé en AWS, NLP et méthodologies agiles, avec une capacité avérée à traduire les besoins de l'entreprise en systèmes technologiques robustes, évolutifs et efficaces."
+    },
+    sections: {
+        summary: { title: 'Profil Professionnel', icon: 'fa-user' },
+        experience: { title: 'Expérience Professionnelle', icon: 'fa-briefcase' },
+        education: { title: 'Éducation et Formation', icon: 'fa-graduation-cap' },
+        certifications: { title: 'Certifications', icon: 'fa-certificate' },
+        skills: { title: 'Compétences Techniques', icon: 'fa-cogs' }
+    },
+    experience: [
+        {
+            id: 'exp_senior',
+            title: 'Ingénieur Senior S/W & Données',
+            graph_category: 'experience_item',
+            date: 'Fév 2019 - Présent',
+            company: 'MASSIVE DATA HEIGHTS | Varazze, Italie (À distance)',
+            details: [
+                "Conception et développement d'une architecture cloud-native sur AWS pour l'analyse de milliards d'avis sur les produits.",
+                "Mise en œuvre de modèles NLP (BERT) et LLM (LangChain) pour l'extraction automatique d'informations stratégiques.",
+                "Développement de microservices performants en Python et d'API en Java pour des pipelines de données complexes.",
+                "Gestion de l'infrastructure avec Docker et optimisation des coûts AWS, réalisant une réduction de 30%.",
+                "Contributeur clé à l'acquisition de plus de 10 clients de niveau entreprise."
+            ],
+            skills: ['AWS', 'Python', 'NLP', 'BERT', 'Java', 'Docker', 'LangChain', 'System Design']
+        },
+        {
+            id: 'exp_phd',
+            title: 'Doctorant & Chercheur',
+            graph_category: 'experience_item',
+            date: 'Sep 2014 - Fév 2019',
+            company: 'UNIVERSITÉ DE GÊNES - DIBRIS | Gênes, Italie',
+            details: [
+                "Développement de modules logiciels pour l'acquisition et l'analyse de données de capteurs en temps réel dans des projets de recherche européens (H2020).",
+                "Coordination des livrables techniques et rédaction de rapports scientifiques et techniques.",
+                "Co-organisation de la conférence internationale sur l'interaction homme-machine (MOCO 2018)."
+            ],
+            skills: ['Python', 'Java', 'Gestion de Projet', 'Recherche']
+        }
+    ],
+    education: [
+        {
+            id: 'edu_phd',
+            title: 'Doctorat en Informatique',
+            graph_category: 'education_item',
+            date: '2014 - 2018',
+            company: 'Université de Gênes, Italie',
+            details: ["Spécialisation en Interaction Homme-Machine et analyse de données multimodales."]
+        },
+        {
+            id: 'edu_msc',
+            title: 'MSc en Ingénierie Informatique',
+            graph_category: 'education_item',
+            date: '2011 - 2014',
+            company: 'Université de Gênes, Italie',
+            details: ["Note finale: 110/110 avec mention."]
+        },
+        {
+            id: 'edu_bsc',
+            title: 'BSc en Ingénierie Informatique',
+            graph_category: 'education_item',
+            date: '2008 - 2011',
+            company: 'Université de Gênes, Italie',
+            details: []
+        }
+    ],
+    certifications: [
+        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', date: '2023', details: [] },
+        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', date: '2022', details: [] },
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', date: '2022', details: [] }
+    ],
+    skills: {
+        "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD", "Terraform (débutant)"],
+        "Backend": ["Python (FastAPI, Flask)", "Java", "Node.js (basique)"],
+        "AI & Données": ["NLP (BERT, Transformers)", "LangChain", "PyTorch", "Pandas", "SQL", "Bases de données vectorielles"],
+        "Autre": ["Méthodologies Agiles (Scrum)", "Gestion de Projet", "Conception de Systèmes", "Git"]
+    }
+};
+
 // Per compatibilità con il vecchio sistema, si potrebbe esportare uno di default
 var cvData = cvDataIT;
