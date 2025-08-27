@@ -1372,3 +1372,106 @@ footer {
 .cv-download-section .btn i {
     margin-right: 8px;
 }
+
+/* Backlog Page Styles */
+.backlog-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 4rem;
+}
+
+.backlog-item {
+    background: var(--bg-card);
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.backlog-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.item-main-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.item-main-info .fas {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+}
+
+.item-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.item-type, .item-status {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.item-type.tech { background-color: #e0f2fe; color: #0ea5e9; }
+.item-type.project { background-color: #dcfce7; color: #22c55e; }
+.item-type.course { background-color: #fef3c7; color: #f59e0b; }
+
+.item-status.learning { color: #3b82f6; }
+.item-status.developing { color: #16a34a; }
+.item-status.future { color: #a855f7; }
+
+.item-details {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: 300px;
+}
+
+.item-dates {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.progress-bar-container {
+    width: 150px;
+    height: 8px;
+    background-color: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--gradient-1);
+    border-radius: 4px;
+}
+
+/* Border colors based on status */
+.backlog-item[data-status="learning"] { border-color: #3b82f6; }
+.backlog-item[data-status="developing"] { border-color: #16a34a; }
+.backlog-item[data-status="future"] {
+    border-color: #a855f7;
+    background-color: #faf5ff;
+}
+
+.backlog-item.future-goal {
+    font-style: italic;
+}
+
+.backlog-item.future-goal .item-title {
+    color: #581c87;
+}
