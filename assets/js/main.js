@@ -90,19 +90,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // --- 6. Impostare e Gestire il Toggle Button ---
-        const langToggle = document.getElementById('lang-toggle-checkbox');
-        if (langToggle) {
-            // a) Imposta lo stato iniziale del toggle: 'checked' (acceso) se la lingua è inglese.
-            langToggle.checked = (currentLang === 'en');
+        // --- 6. Gestire il nuovo selettore di lingua ---
+        const langOptions = document.querySelectorAll('.lang-option');
+        if (langOptions.length > 0) {
+            // a) Imposta lo stato attivo sulla lingua corrente
+            langOptions.forEach(option => {
+                if (option.getAttribute('data-lang') === currentLang) {
+                    option.classList.add('active');
+                }
+            });
 
-            // b) Aggiunge un "ascoltatore di eventi": cosa fare quando l'utente clicca il toggle.
-            langToggle.addEventListener('change', () => {
-                // Determina la nuova lingua in base allo stato del toggle.
-                const newLang = langToggle.checked ? 'en' : 'it';
-                // Ricarica la pagina, aggiungendo il nuovo parametro della lingua all'URL.
-                // Il nostro script, al ricaricamento, leggerà questo parametro e farà tutto il resto.
-                window.location.search = `?lang=${newLang}`;
+            // b) Aggiunge un "ascoltatore di eventi" a ogni opzione
+            langOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const newLang = option.getAttribute('data-lang');
+                    if (newLang !== currentLang) {
+                        // Ricarica la pagina con il nuovo parametro della lingua
+                        window.location.search = `?lang=${newLang}`;
+                    }
+                });
             });
         }
     }
@@ -137,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setupScrollAnimations();
         setupTabs();
         setupSubTabs();
+        setupAdminModal();
     }
 
     // La funzione ora accetta l'elemento navLinks come argomento.
@@ -194,6 +201,31 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    function setupAdminModal() {
+        const adminIcon = document.querySelector('.admin-login');
+        const modal = document.getElementById('admin-login-modal');
+        const closeBtn = modal.querySelector('.close-btn');
+
+        if (adminIcon && modal && closeBtn) {
+            // Apri modale
+            adminIcon.addEventListener('click', () => {
+                modal.style.display = 'block';
+            });
+
+            // Chiudi modale con il bottone 'x'
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // Chiudi modale cliccando fuori dal contenuto
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    }
+
     function setupKonamiCode() {
         const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
         let konamiIndex = 0;
