@@ -307,17 +307,6 @@ nav {
     transform: translateY(-2px);
 }
 
-.modal .btn-secondary {
-    background: #e2e8f0;
-    color: var(--text-light);
-    border-color: #e2e8f0;
-}
-
-.modal .btn-secondary:hover {
-    background: #cbd5e0;
-    color: var(--text);
-}
-
 .social-links-hero {
     display: flex;
     gap: 1rem;
@@ -1700,19 +1689,38 @@ footer {
     margin-top: 1.5rem;
 }
 
+.modal-buttons .btn,
+.modal-buttons .btn-danger,
+.modal-buttons .btn-secondary {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
 .btn-danger {
     background-color: #e53e3e;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .btn-danger:hover {
     background-color: #c53030;
+    transform: translateY(-2px);
+}
+
+.modal-buttons .btn-secondary {
+    background: #e2e8f0;
+    color: var(--text-light);
+    border: 2px solid transparent;
+}
+
+.modal-buttons .btn-secondary:hover {
+    background: #cbd5e0;
+    color: var(--text);
+    transform: translateY(-2px);
 }
 
 .admin-link a {
