@@ -26,22 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
       { href: "/pages/cv.html", key: "nav.cv" },
       { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
-	
-	function protectPage() {
-		// Nascondi il body finché non verifichiamo lo stato
-		document.body.style.display = "none";
-
-		firebase.auth().onAuthStateChanged(user => {
-			if (user) {
-				// Utente loggato → mostra contenuto
-				document.body.style.display = "block";
-			} else {
-				// Utente non loggato → redirect
-				alert("Devi essere loggato per accedere a questa pagina.");
-				window.location.href = "../index.html";
-			}
-		});
-	}
 
     async function loadComponent(url, elementId) {
         try {
@@ -248,44 +232,82 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Logout
 	function logout() {
+        const logoutModal = document.getElementById('admin-logout-modal');
 	  auth.signOut().then(() => {
-		window.location.href = "index.html";
+        if(logoutModal) logoutModal.style.display = 'none';
+		window.location.href = "/index.html";
 	  });
 	}
 
     function setupAdminModal() {
-		const adminDiv = document.querySelector('.admin-login');
-		const adminIcon = adminDiv.querySelector('i');
-		const modal = document.getElementById('admin-login-modal');
-		const closeBtn = modal.querySelector('.close-btn');
-		const loginBtn = modal.querySelector('#login-github-btn');
+        const adminDiv = document.querySelector('.admin-login');
+        const adminIcon = adminDiv.querySelector('i');
+        const loginModal = document.getElementById('admin-login-modal');
+        const logoutModal = document.getElementById('admin-logout-modal');
+        const navLinks = document.querySelector('.nav-links');
 
-		// Rimuovi eventuali onclick precedenti
-		adminDiv.onclick = null;
+        // --- Gestione Modale Login ---
+        const closeLoginBtn = loginModal?.querySelector('.close-btn');
+        const loginBtn = loginModal?.querySelector('#login-github-btn');
 
-		firebase.auth().onAuthStateChanged(user => {
-			if (user) {
-				// Utente loggato: icona check + logout
-				adminIcon.className = 'fas fa-user-check';
-				adminDiv.title = 'Logout';
-				adminDiv.onclick = () => firebase.auth().signOut();
-			} else {
-				// Utente non loggato: icona shield + apri modale
-				adminIcon.className = 'fas fa-user-shield';
-				adminDiv.title = 'Admin Login';
-				adminDiv.onclick = () => { modal.style.display = 'block'; };
-			}
-		});
+        if (closeLoginBtn) {
+            closeLoginBtn.addEventListener('click', () => { loginModal.style.display = 'none'; });
+        }
+        if (loginBtn) {
+            loginBtn.addEventListener('click', loginWithGitHub);
+        }
 
-		if (closeBtn) {
-			closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-			window.addEventListener('click', (event) => {
-				if (event.target === modal) modal.style.display = 'none';
-			});
-		}
+        // --- Gestione Modale Logout ---
+        const closeLogoutBtn = logoutModal?.querySelector('.close-btn');
+        const confirmLogoutBtn = logoutModal?.querySelector('#confirm-logout-btn');
+        const cancelLogoutBtn = logoutModal?.querySelector('#cancel-logout-btn');
 
-		if (loginBtn) loginBtn.addEventListener("click", loginWithGitHub);
-	}
+        if (closeLogoutBtn) {
+            closeLogoutBtn.addEventListener('click', () => { logoutModal.style.display = 'none'; });
+        }
+        if (confirmLogoutBtn) {
+            confirmLogoutBtn.addEventListener('click', logout);
+        }
+        if (cancelLogoutBtn) {
+            cancelLogoutBtn.addEventListener('click', () => { logoutModal.style.display = 'none'; });
+        }
+
+        // --- Logica Visibilità Link Admin e Icona Login/Logout ---
+        auth.onAuthStateChanged(user => {
+            // Rimuovi sempre il link admin esistente per evitare duplicati
+            const existingAdminLink = navLinks.querySelector('.admin-link');
+            if (existingAdminLink) {
+                existingAdminLink.remove();
+            }
+
+            if (user) {
+                // Utente loggato
+                adminIcon.className = 'fas fa-user-check';
+                adminDiv.title = 'Logout';
+                adminDiv.onclick = () => { if (logoutModal) logoutModal.style.display = 'block'; };
+
+                // Aggiungi link "Admin" al menu
+                const adminLi = document.createElement('li');
+                adminLi.className = 'admin-link';
+                adminLi.innerHTML = `<a href="/pages/admin.html"><i class="fas fa-cogs"></i> Admin</a>`;
+                navLinks.appendChild(adminLi);
+
+            } else {
+                // Utente non loggato
+                adminIcon.className = 'fas fa-user-shield';
+                adminDiv.title = 'Admin Login';
+                adminDiv.onclick = () => { if (loginModal) loginModal.style.display = 'block'; };
+            }
+            // Aggiorna tutti i link della pagina con il parametro della lingua
+            initializeLanguageHandler();
+        });
+
+        // Chiudi modali cliccando fuori
+        window.addEventListener('click', (event) => {
+            if (event.target === loginModal) loginModal.style.display = 'none';
+            if (event.target === logoutModal) logoutModal.style.display = 'none';
+        });
+    }
 
     function setupKonamiCode() {
         const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -308,8 +330,5 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(() => loadComponent('/assets/templates/footer.html', 'footer-placeholder'))
         .then(initializePage);
 
-	if (window.location.pathname.endsWith("admin.html")) {
-		protectPage("index.html");
-	}
     setupKonamiCode();
 });

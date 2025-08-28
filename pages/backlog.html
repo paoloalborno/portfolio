@@ -61,5 +61,50 @@
 
     <script src="../assets/js/translations.js"></script>
     <script src="../assets/js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backlogContainer = document.querySelector('.backlog-container');
+            const storedItems = JSON.parse(localStorage.getItem('backlogItems')) || [];
+
+            // Funzione per creare l'HTML di un item
+            function createBacklogItemHTML(item) {
+                const isFuture = item.status === 'future';
+                const progressHTML = isFuture ? '' : `
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: ${item.progress}%;"></div>
+                    </div>`;
+
+                // Aggiungi qui le icone corrette in base al tipo
+                let iconClass = 'fas fa-question-circle';
+                if (item.type === 'tech') iconClass = 'fas fa-laptop-code';
+                if (item.type === 'project') iconClass = 'fas fa-project-diagram';
+                if (item.type === 'course') iconClass = 'fas fa-book-open';
+
+                return `
+                    <div class="backlog-item ${isFuture ? 'future-goal' : ''}" data-status="${item.status}">
+                        <div class="item-main-info">
+                            <i class="${iconClass}"></i>
+                            <span class="item-title">${item.title}</span>
+                            <span class="item-type ${item.type}">${item.type}</span>
+                            <span class="item-status ${item.status}">${item.status}</span>
+                        </div>
+                        <div class="item-details">
+                            <span class="item-dates">${item.dates}</span>
+                            ${progressHTML}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Aggiungi gli item da localStorage
+            if (storedItems.length > 0) {
+                storedItems.forEach(item => {
+                    const itemHTML = createBacklogItemHTML(item);
+                    backlogContainer.insertAdjacentHTML('beforeend', itemHTML);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

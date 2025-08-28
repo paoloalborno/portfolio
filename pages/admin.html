@@ -28,12 +28,52 @@
     <main>
         <section class="admin" style="padding-top: 120px;">
             <div class="container">
-                <!-- Titolo e sottotitolo della sezione -->
-                <h2 class="section-title" data-translate-key="admin.h2"></h2>
-                <p class="section-subtitle" data-translate-key="admnin.section_subtitle"></p>
-                <div class="admin-grid">
-                    <div class="admin-item"> item 1</div>
-                    <div class="admin-item"> item 2</div>
+                <div id="admin-content" style="display: none;">
+                    <!-- Titolo e sottotitolo della sezione -->
+                    <h2 class="section-title" data-translate-key="admin.title"></h2>
+                    <p class="section-subtitle" data-translate-key="admin.section_subtitle"></p>
+
+                    <!-- Form per aggiungere un nuovo item al backlog -->
+                    <div class="admin-form-container">
+                        <h3>Add New Backlog Item</h3>
+                        <form id="backlog-form">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select id="type">
+                                    <option value="tech">Tech</option>
+                                    <option value="project">Project</option>
+                                    <option value="course">Course</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select id="status">
+                                    <option value="learning">Learning</option>
+                                    <option value="developing">Developing</option>
+                                    <option value="future">Future</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dates">Dates</label>
+                                <input type="text" id="dates" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="progress">Progress (0-100)</label>
+                                <input type="number" id="progress" min="0" max="100" value="0">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Item</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="auth-message" style="display: none; text-align: center; padding: 4rem 0;">
+                    <h2 data-translate-key="admin.auth_required_title"></h2>
+                    <p data-translate-key="admin.auth_required_desc"></p>
+                    <button id="login-button" class="btn btn-primary" data-translate-key="admin.login_button"></button>
                 </div>
             </div>
         </section>
@@ -47,5 +87,57 @@
 	<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
     <script src="../assets/js/translations.js"></script>
     <script src="../assets/js/main.js"></script>
+
+    <!-- Script specifici per la pagina Admin -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminContent = document.getElementById('admin-content');
+            const authMessage = document.getElementById('auth-message');
+            const loginButton = document.getElementById('login-button');
+
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    // Utente loggato: mostra il contenuto admin
+                    adminContent.style.display = 'block';
+                    authMessage.style.display = 'none';
+                } else {
+                    // Utente non loggato: mostra il messaggio di autenticazione
+                    adminContent.style.display = 'none';
+                    authMessage.style.display = 'block';
+                }
+            });
+
+            // Apri il modale di login quando si clicca il pulsante
+            loginButton.addEventListener('click', () => {
+                const loginModal = document.getElementById('admin-login-modal');
+                if (loginModal) {
+                    loginModal.style.display = 'block';
+                }
+            });
+
+            // Gestione del form di backlog
+            const backlogForm = document.getElementById('backlog-form');
+            backlogForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const newItem = {
+                    id: `item-${Date.now()}`, // ID unico
+                    title: document.getElementById('title').value,
+                    type: document.getElementById('type').value,
+                    status: document.getElementById('status').value,
+                    dates: document.getElementById('dates').value,
+                    progress: document.getElementById('progress').value,
+                };
+
+                // Salva il nuovo item in localStorage
+                const backlogItems = JSON.parse(localStorage.getItem('backlogItems')) || [];
+                backlogItems.push(newItem);
+                localStorage.setItem('backlogItems', JSON.stringify(backlogItems));
+
+                alert('Backlog item added successfully!');
+                backlogForm.reset();
+            });
+        });
+    </script>
 </body>
 </html>
