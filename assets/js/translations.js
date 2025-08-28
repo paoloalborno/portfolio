@@ -212,5 +212,22 @@ const translations = {
         "tech_cloudfront": { "en": "CloudFront", "it": "CloudFront", "fr": "CloudFront" },
         "tech_elasticache": { "en": "ElastiCache", "it": "ElastiCache", "fr": "ElastiCache" },
         "tech_cloudwatch": { "en": "CloudWatch", "it": "CloudWatch", "fr": "CloudWatch" }
+    },
+    "login": {
+        "title": { "en": "Admin Access", "it": "Accesso Admin", "fr": "Accès Admin" },
+        "description": { "en": "Please log in with your GitHub account to access the admin area.", "it": "Effettua il login con il tuo account GitHub per accedere all'area admin.", "fr": "Veuillez vous connecter avec votre compte GitHub pour accéder à l'espace admin." }
+    },
+    "logout": {
+        "title": { "en": "Confirm Logout", "it": "Conferma Logout", "fr": "Confirmer la déconnexion" },
+        "description": { "en": "Are you sure you want to log out?", "it": "Sei sicuro di voler uscire?", "fr": "Êtes-vous sûr de vouloir vous déconnecter ?" },
+        "confirm": { "en": "Logout", "it": "Logout", "fr": "Déconnexion" },
+        "cancel": { "en": "Cancel", "it": "Annulla", "fr": "Annuler" }
+    },
+    "admin": {
+        "title": { "en": "Admin Panel", "it": "Pannello Admin", "fr": "Panneau d'administration" },
+        "section_subtitle": { "en": "Manage site content from here.", "it": "Gestisci i contenuti del sito da qui.", "fr": "Gérez le contenu du site d'ici." },
+        "auth_required_title": { "en": "Authentication Required", "it": "Autenticazione Richiesta", "fr": "Authentification requise" },
+        "auth_required_desc": { "en": "You must be logged in to view this page.", "it": "Devi essere loggato per visualizzare questa pagina.", "fr": "Vous devez être connecté pour voir cette page." },
+        "login_button": { "en": "Login", "it": "Login", "fr": "Connexion" }
     }
 };
