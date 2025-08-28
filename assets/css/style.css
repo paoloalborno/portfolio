@@ -307,6 +307,17 @@ nav {
     transform: translateY(-2px);
 }
 
+.modal .btn-secondary {
+    background: #e2e8f0;
+    color: var(--text-light);
+    border-color: #e2e8f0;
+}
+
+.modal .btn-secondary:hover {
+    background: #cbd5e0;
+    color: var(--text);
+}
+
 .social-links-hero {
     display: flex;
     gap: 1rem;
