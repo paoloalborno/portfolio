@@ -33,40 +33,12 @@
                     <h2 class="section-title" data-translate-key="admin.title"></h2>
                     <p class="section-subtitle" data-translate-key="admin.section_subtitle"></p>
 
-                    <!-- Form per aggiungere un nuovo item al backlog -->
-                    <div class="admin-form-container">
-                        <h3>Add New Backlog Item</h3>
-                        <form id="backlog-form">
-                            <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" id="title" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="type">Type</label>
-                                <select id="type">
-                                    <option value="tech">Tech</option>
-                                    <option value="project">Project</option>
-                                    <option value="course">Course</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <select id="status">
-                                    <option value="learning">Learning</option>
-                                    <option value="developing">Developing</option>
-                                    <option value="future">Future</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="dates">Dates</label>
-                                <input type="text" id="dates" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="progress">Progress (0-100)</label>
-                                <input type="number" id="progress" min="0" max="100" value="0">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add Item</button>
-                        </form>
+                    <div class="admin-grid">
+                        <div class="admin-tile" id="add-backlog-tile">
+                            <div class="admin-tile-icon"><i class="fas fa-plus"></i></div>
+                            <h3 class="admin-tile-title">Add Backlog Item</h3>
+                        </div>
+                        <!-- Altri tile possono essere aggiunti qui -->
                     </div>
                 </div>
 
@@ -82,6 +54,49 @@
 	<!-- Placeholder per il Footer -->
 	<div id="footer-placeholder"></div>
 
+    <!-- Modale per il form di aggiunta al backlog -->
+    <div id="add-backlog-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2>Add New Backlog Item</h2>
+            </div>
+            <div class="modal-body">
+                <form id="backlog-form">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select id="type">
+                            <option value="tech">Tech</option>
+                            <option value="project">Project</option>
+                            <option value="course">Course</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status">
+                            <option value="learning">Learning</option>
+                            <option value="developing">Developing</option>
+                            <option value="future">Future</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dates">Dates</label>
+                        <input type="text" id="dates" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="progress">Progress (0-100)</label>
+                        <input type="number" id="progress" min="0" max="100" value="0">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Script necessari per la pagina -->
 	<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
@@ -94,48 +109,56 @@
             const adminContent = document.getElementById('admin-content');
             const authMessage = document.getElementById('auth-message');
             const loginButton = document.getElementById('login-button');
+            const addBacklogTile = document.getElementById('add-backlog-tile');
+            const addBacklogModal = document.getElementById('add-backlog-modal');
+            const closeBacklogModalBtn = addBacklogModal.querySelector('.close-btn');
 
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                    // Utente loggato: mostra il contenuto admin
                     adminContent.style.display = 'block';
                     authMessage.style.display = 'none';
                 } else {
-                    // Utente non loggato: mostra il messaggio di autenticazione
                     adminContent.style.display = 'none';
                     authMessage.style.display = 'block';
                 }
             });
 
-            // Apri il modale di login quando si clicca il pulsante
             loginButton.addEventListener('click', () => {
                 const loginModal = document.getElementById('admin-login-modal');
-                if (loginModal) {
-                    loginModal.style.display = 'block';
+                if (loginModal) loginModal.style.display = 'block';
+            });
+
+            addBacklogTile.addEventListener('click', () => {
+                addBacklogModal.style.display = 'block';
+            });
+
+            closeBacklogModalBtn.addEventListener('click', () => {
+                addBacklogModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == addBacklogModal) {
+                    addBacklogModal.style.display = 'none';
                 }
             });
 
-            // Gestione del form di backlog
             const backlogForm = document.getElementById('backlog-form');
             backlogForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-
                 const newItem = {
-                    id: `item-${Date.now()}`, // ID unico
+                    id: `item-${Date.now()}`,
                     title: document.getElementById('title').value,
                     type: document.getElementById('type').value,
                     status: document.getElementById('status').value,
                     dates: document.getElementById('dates').value,
                     progress: document.getElementById('progress').value,
                 };
-
-                // Salva il nuovo item in localStorage
                 const backlogItems = JSON.parse(localStorage.getItem('backlogItems')) || [];
                 backlogItems.push(newItem);
                 localStorage.setItem('backlogItems', JSON.stringify(backlogItems));
-
                 alert('Backlog item added successfully!');
                 backlogForm.reset();
+                addBacklogModal.style.display = 'none';
             });
         });
     </script>

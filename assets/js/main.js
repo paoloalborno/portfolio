@@ -241,41 +241,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function setupAdminModal() {
         const adminDiv = document.querySelector('.admin-login');
+        if (!adminDiv) return;
         const adminIcon = adminDiv.querySelector('i');
-        const loginModal = document.getElementById('admin-login-modal');
-        const logoutModal = document.getElementById('admin-logout-modal');
         const navLinks = document.querySelector('.nav-links');
 
-        // --- Gestione Modale Login ---
-        const closeLoginBtn = loginModal?.querySelector('.close-btn');
-        const loginBtn = loginModal?.querySelector('#login-github-btn');
-
-        if (closeLoginBtn) {
-            closeLoginBtn.addEventListener('click', () => { loginModal.style.display = 'none'; });
-        }
-        if (loginBtn) {
-            loginBtn.addEventListener('click', loginWithGitHub);
-        }
-
-        // --- Gestione Modale Logout ---
-        const closeLogoutBtn = logoutModal?.querySelector('.close-btn');
-        const confirmLogoutBtn = logoutModal?.querySelector('#confirm-logout-btn');
-        const cancelLogoutBtn = logoutModal?.querySelector('#cancel-logout-btn');
-
-        if (closeLogoutBtn) {
-            closeLogoutBtn.addEventListener('click', () => { logoutModal.style.display = 'none'; });
-        }
-        if (confirmLogoutBtn) {
-            confirmLogoutBtn.addEventListener('click', logout);
-        }
-        if (cancelLogoutBtn) {
-            cancelLogoutBtn.addEventListener('click', () => { logoutModal.style.display = 'none'; });
-        }
-
-        // --- Logica Visibilità Link Admin e Icona Login/Logout ---
         auth.onAuthStateChanged(user => {
             // Rimuovi sempre il link admin esistente per evitare duplicati
-            const existingAdminLink = navLinks.querySelector('.admin-link');
+            const existingAdminLink = navLinks?.querySelector('.admin-link');
             if (existingAdminLink) {
                 existingAdminLink.remove();
             }
@@ -284,23 +256,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Utente loggato
                 adminIcon.className = 'fas fa-user-check';
                 adminDiv.title = 'Logout';
-                adminDiv.onclick = () => { if (logoutModal) logoutModal.style.display = 'block'; };
+
+                const logoutModal = document.getElementById('admin-logout-modal');
+                adminDiv.onclick = () => {
+                    if (logoutModal) logoutModal.style.display = 'block';
+                };
 
                 // Aggiungi link "Admin" al menu
                 const adminLi = document.createElement('li');
                 adminLi.className = 'admin-link';
                 adminLi.innerHTML = `<a href="/pages/admin.html"><i class="fas fa-cogs"></i> Admin</a>`;
-                navLinks.appendChild(adminLi);
+                if (navLinks) navLinks.appendChild(adminLi);
 
             } else {
                 // Utente non loggato
                 adminIcon.className = 'fas fa-user-shield';
                 adminDiv.title = 'Admin Login';
-                adminDiv.onclick = () => { if (loginModal) loginModal.style.display = 'block'; };
+                const loginModal = document.getElementById('admin-login-modal');
+                adminDiv.onclick = () => {
+                    if (loginModal) loginModal.style.display = 'block';
+                };
             }
             // Aggiorna tutti i link della pagina con il parametro della lingua
             initializeLanguageHandler();
         });
+
+        // --- Gestione Modale Login (Spostato per essere indipendente) ---
+        const loginModal = document.getElementById('admin-login-modal');
+        if (loginModal) {
+            const closeLoginBtn = loginModal.querySelector('.close-btn');
+            const loginBtn = loginModal.querySelector('#login-github-btn');
+            if (closeLoginBtn) {
+                closeLoginBtn.addEventListener('click', () => { loginModal.style.display = 'none'; });
+            }
+            if (loginBtn) {
+                loginBtn.addEventListener('click', loginWithGitHub);
+            }
+        }
+
+        // --- Gestione Modale Logout (Spostato per essere indipendente) ---
+        const logoutModal = document.getElementById('admin-logout-modal');
+        if (logoutModal) {
+            const closeLogoutBtn = logoutModal.querySelector('.close-btn');
+            const confirmLogoutBtn = logoutModal.querySelector('#confirm-logout-btn');
+            const cancelLogoutBtn = logoutModal.querySelector('#cancel-logout-btn');
+            if (closeLogoutBtn) {
+                closeLogoutBtn.addEventListener('click', () => { logoutModal.style.display = 'none'; });
+            }
+            if (confirmLogoutBtn) {
+                confirmLogoutBtn.addEventListener('click', logout);
+            }
+            if (cancelLogoutBtn) {
+                cancelLogoutBtn.addEventListener('click', () => { logoutModal.style.display = 'none'; });
+            }
+        }
 
         // Chiudi modali cliccando fuori
         window.addEventListener('click', (event) => {

@@ -1607,17 +1607,39 @@ footer {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--bg-card);
     margin: 15% auto;
-    padding: 2rem;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
+    padding: 0; /* Rimosso padding per un controllo più fine */
+    width: 90%;
+    max-width: 450px;
     border-radius: 16px;
     box-shadow: var(--shadow-lg);
     position: relative;
     animation: slideUp 0.4s ease-out;
     text-align: center;
+    overflow: hidden; /* Nasconde il contenuto che sborda */
+    border-top: 5px solid var(--primary);
+}
+
+.modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+    font-size: 1.8rem;
+    color: var(--text);
+    margin: 0;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-body p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
 }
 
 .close-btn {
@@ -1637,19 +1659,27 @@ footer {
 }
 
 #login-github-btn {
-    background-color: #333;
+    background: var(--gradient-1);
     color: white;
-    padding: 12px 20px;
+    padding: 14px 28px;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 1rem;
+    transition: all 0.3s ease;
+    width: 100%; /* Pulsante a larghezza piena */
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
 #login-github-btn:hover {
-    background-color: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+#login-github-btn i {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
 }
 
 .modal-buttons {
@@ -1685,4 +1715,40 @@ footer {
 
 .admin-link a i {
     margin-right: 0.5rem;
+}
+
+/* Stili per la pagina Admin */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.admin-tile {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--secondary);
+}
+
+.admin-tile:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.admin-tile-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+}
+
+.admin-tile-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
 }
