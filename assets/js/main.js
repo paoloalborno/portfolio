@@ -26,6 +26,22 @@ document.addEventListener('DOMContentLoaded', function() {
       { href: "/pages/cv.html", key: "nav.cv" },
       { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
+	
+	function protectPage() {
+		// Nascondi il body finché non verifichiamo lo stato
+		document.body.style.display = "none";
+
+		firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+				// Utente loggato → mostra contenuto
+				document.body.style.display = "block";
+			} else {
+				// Utente non loggato → redirect
+				alert("Devi essere loggato per accedere a questa pagina.");
+				window.location.href = "../index.html";
+			}
+		});
+	}
 
     async function loadComponent(url, elementId) {
         try {
@@ -220,8 +236,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const user = result.user;
         const token = await user.getIdToken();
 
-        document.getElementById("tokenOutput").textContent = token;
-        console.log("Token JWT:", token);
+        //document.getElementById("tokenOutput").textContent = token;
+        //console.log("Token JWT:", token);
+		window.location.href = "/pages/admin.html";
 
 	  } catch (error) {
 		console.error("Errore login:", error);
@@ -229,35 +246,46 @@ document.addEventListener('DOMContentLoaded', function() {
 	  }
 	}
 
+	// Logout
+	function logout() {
+	  auth.signOut().then(() => {
+		window.location.href = "index.html";
+	  });
+	}
+
     function setupAdminModal() {
-        const adminIcon = document.querySelector('.admin-login');
+		const adminDiv = document.querySelector('.admin-login');
+		const adminIcon = adminDiv.querySelector('i');
 		const modal = document.getElementById('admin-login-modal');
 		const closeBtn = modal.querySelector('.close-btn');
 		const loginBtn = modal.querySelector('#login-github-btn');
 
-        if (adminIcon && modal && closeBtn) {
-			// Apri modale
-			adminIcon.addEventListener('click', () => {
-				modal.style.display = 'block';
-			});
+		// Rimuovi eventuali onclick precedenti
+		adminDiv.onclick = null;
 
-			// Chiudi modale con il bottone 'x'
-			closeBtn.addEventListener('click', () => {
-				modal.style.display = 'none';
-			});
+		firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+				// Utente loggato: icona check + logout
+				adminIcon.className = 'fas fa-user-check';
+				adminDiv.title = 'Logout';
+				adminDiv.onclick = () => firebase.auth().signOut();
+			} else {
+				// Utente non loggato: icona shield + apri modale
+				adminIcon.className = 'fas fa-user-shield';
+				adminDiv.title = 'Admin Login';
+				adminDiv.onclick = () => { modal.style.display = 'block'; };
+			}
+		});
 
-				// Chiudi modale cliccando fuori dal contenuto
+		if (closeBtn) {
+			closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
 			window.addEventListener('click', (event) => {
-				if (event.target === modal) {
-					modal.style.display = 'none';
-				}
+				if (event.target === modal) modal.style.display = 'none';
 			});
 		}
 
-		if (loginBtn) {
-			loginBtn.addEventListener("click", loginWithGitHub);
-		}
-    }
+		if (loginBtn) loginBtn.addEventListener("click", loginWithGitHub);
+	}
 
     function setupKonamiCode() {
         const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -280,5 +308,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(() => loadComponent('/assets/templates/footer.html', 'footer-placeholder'))
         .then(initializePage);
 
+	if (window.location.pathname.endsWith("admin.html")) {
+		protectPage("index.html");
+	}
     setupKonamiCode();
 });
