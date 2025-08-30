@@ -96,26 +96,23 @@
         Placeholder per gli script JS.
         Il file `templates/js-header.html` verrà caricato qui.
     -->
-    <div id="js-header-placeholder"></div>
+    <!--
+    =================================================================================
+    Scripts JS
+    =================================================================================
+    - D3.js: Libreria per la visualizzazione di dati, usata per il grafo in CV.
+    - Firebase: Piattaforma per l'autenticazione (login) e altri servizi backend.
+    - translations.js: File con le traduzioni del sito.
+    - main.js: Lo script principale che gestisce la logica del sito.
+      Viene caricato come "module" per poter usare le nuove funzionalità di
+      import/export di JavaScript.
+    =================================================================================
+    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
+    <script src="/assets/js/translations.js"></script>
+    <script type="module" src="/assets/js/main.js"></script>
 
-    <script>
-        fetch('/assets/templates/js-header.html')
-            .then(response => response.text())
-            .then(data => {
-                const placeholder = document.getElementById('js-header-placeholder');
-                const fragment = document.createRange().createContextualFragment(data);
-                const scripts = fragment.querySelectorAll('script');
-                scripts.forEach(script => {
-                    const newScript = document.createElement('script');
-                    newScript.src = script.src;
-                    if (script.type === 'module') {
-                        newScript.type = 'module';
-                    }
-                    document.head.appendChild(newScript);
-                });
-                placeholder.remove();
-            });
-    </script>
-    <script src="assets/js/main.js"></script>
 </body>
 </html>

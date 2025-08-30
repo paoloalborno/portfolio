@@ -70,26 +70,12 @@
     <!-- Placeholder per il Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Placeholder per gli script JS -->
-    <div id="js-header-placeholder"></div>
+    <!-- Scripts JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
+    <script src="../../assets/js/translations.js"></script>
+    <script type="module" src="../../assets/js/main.js"></script>
 
-    <script>
-        fetch('/assets/templates/js-header.html')
-            .then(response => response.text())
-            .then(data => {
-                const placeholder = document.getElementById('js-header-placeholder');
-                const fragment = document.createRange().createContextualFragment(data);
-                const scripts = fragment.querySelectorAll('script');
-                scripts.forEach(script => {
-                    const newScript = document.createElement('script');
-                    newScript.src = script.src;
-                    if (script.type === 'module') {
-                        newScript.type = 'module';
-                    }
-                    document.head.appendChild(newScript);
-                });
-                placeholder.remove();
-            });
-    </script>
 </body>
 </html>

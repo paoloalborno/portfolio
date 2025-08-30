@@ -4,8 +4,8 @@
  * =================================================================================
  */
 
-document.addEventListener('DOMContentLoaded', function () {
-import { firebaseConfig } from './config.js';
+import { firebaseConfig, getEndpoint } from './config.js';
+
 document.addEventListener('DOMContentLoaded', function() {
 	
     firebase.initializeApp(firebaseConfig);
@@ -278,7 +278,9 @@ document.addEventListener('DOMContentLoaded', function() {
     (async () => {
         await loadComponent('/assets/templates/header.html', 'header-placeholder');
         await loadComponent('/assets/templates/footer.html', 'footer-placeholder');
-        await loadComponent('/assets/templates/js-header.html', 'js-header-placeholder');
+
+        // Rimosso il caricamento di js-header.html
+
         function waitForFirebase() {
             return new Promise(resolve => {
                 const check = () => {
@@ -290,7 +292,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         await waitForFirebase();
 
-        initializeFirebase();
+        // La funzione initializeFirebase() non è definita, la rimuovo
+        // initializeFirebase();
+
         initializePage();
         setupKonamiCode();
     })();
