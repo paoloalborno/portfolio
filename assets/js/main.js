@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const provider = new firebase.auth.GithubAuthProvider();
-  
+
     const menuItems = [
         { href: "/index.html", key: "nav.home" },
         { href: "/pages/about.html", key: "nav.about" },
@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
     async function loginWithGitHub() {
         try {
             const result = await auth.signInWithPopup(provider);
-            const user = result.user;
-            const token = await user.getIdToken();
-
-            const response = await fetch(getEndpoint() + "/api/github-token/verify", {
+            
+            const endpoint = getEndpoint() + "/api/github-token/verify";
+            console.log("Verifica token con backend:", endpoint);
+            const response = await fetch(endpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ token })
+                body: JSON.stringify({ oauthAccessToken: result.credential.accessToken })
             });
 
             if (!response.ok) {
