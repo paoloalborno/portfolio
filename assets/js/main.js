@@ -6,14 +6,10 @@
  */
 
 
+import { firebaseConfig } from './config.js';
+
 document.addEventListener('DOMContentLoaded', function() {
 	
-	const firebaseConfig = {
-		apiKey: "AIzaSyBVkDmkQWWcZjLUsWOhzNpjs7AY1vAYqWI",
-		authDomain: "portfolio-backend-48826.firebaseapp.com",
-		projectId: "portfolio-backend-48826"
-	};
-
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const provider = new firebase.auth.GithubAuthProvider();
