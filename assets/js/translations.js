@@ -141,7 +141,7 @@ const translations = {
         "status_developing": { "en": "Developing", "it": "Developing", "fr": "En Développement" },
         "type_project": { "en": "Project", "it": "Project", "fr": "Projet" },
         "dates_jul_sep": { "en": "July 2025 - September 2025", "it": "Luglio 2025 - Settembre 2025", "fr": "Juillet 2025 - Septembre 2025" },
-        "react_title": { "en": "Advanced React Course", "it": "Corso Avanzato di React", "fr": "Cours Avancé de React" },
+        "portfolio_backend_title": { "en": "Portfolio Backend with OAuth", "it": "Portfolio Backend con OAuth", "fr": "Portfolio Backend avec OAuth" },
         "status_future": { "en": "Future Goal", "it": "Obiettivo Futuro", "fr": "Objectif Futur" },
         "type_course": { "en": "Course", "it": "Corso", "fr": "Cours" },
         "dates_eoy": { "en": "By end of year", "it": "Entro fine anno", "fr": "D'ici la fin de l'année" }
