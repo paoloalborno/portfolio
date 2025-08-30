@@ -1449,7 +1449,7 @@ footer {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    min-width: 300px;
+    min-width: 350px;
 }
 
 .item-dates {
@@ -1816,12 +1816,11 @@ footer {
 
 /* AI Banner */
 .ai-banner {
-    background-color: var(--bg-alt);
     color: var(--text-light);
-    text-align: center;
-    padding: 1rem;
+    text-align: left;
     font-size: 0.9rem;
-    border-top: 1px solid #e2e8f0;
+    margin-top: 2rem;
+    max-width: 800px;
 }
 
 .ai-banner i {
