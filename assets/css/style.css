@@ -576,6 +576,15 @@ nav {
     font-weight: 500;
 }
 
+.tech-icon {
+    width: 24px;      
+    height: 24px;     
+    object-fit: contain;
+    margin-right: 5px;   
+    vertical-align: middle;
+}
+
+
 .project-links {
     display: flex;
     gap: 1rem;
