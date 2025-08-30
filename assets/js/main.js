@@ -5,16 +5,13 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    // ======================================================
-    // --- Costanti e variabili globali ---
-    // ======================================================
-    const firebaseConfig = {
-        apiKey: "AIzaSyBVkDmkQWWcZjLUsWOhzNpjs7AY1vAYqWI",
-        authDomain: "portfolio-backend-48826.firebaseapp.com",
-        projectId: "portfolio-backend-48826"
-    };
-
+import { firebaseConfig } from './config.js';
+document.addEventListener('DOMContentLoaded', function() {
+	
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GithubAuthProvider();
+  
     const menuItems = [
         { href: "/index.html", key: "nav.home" },
         { href: "/pages/about.html", key: "nav.about" },
@@ -23,18 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
         { href: "/pages/cv.html", key: "nav.cv" },
         { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
-
-    let auth;
-    let provider;
-
-    // ======================================================
-    // --- Funzioni Firebase ---
-    // ======================================================
-    function initializeFirebase() {
-        firebase.initializeApp(firebaseConfig);
-        auth = firebase.auth();
-        provider = new firebase.auth.GithubAuthProvider();
-    }
 
     async function loginWithGitHub() {
         try {
