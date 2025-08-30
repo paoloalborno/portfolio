@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setupTabs();
         setupSubTabs();
         setupAdminModal();
+        setupBacklogExpand();
     }
 
     // La funzione ora accetta l'elemento navLinks come argomento.
@@ -210,6 +211,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 subTabContainer.querySelectorAll('.sub-tab-pane').forEach(pane => pane.classList.remove('active'));
                 button.classList.add('active');
                 subTabContainer.querySelector(`#${targetSubTab}`).classList.add('active');
+            });
+        });
+    }
+
+    function setupBacklogExpand() {
+        const expandIcons = document.querySelectorAll('.expand-icon');
+        expandIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const item = icon.closest('.backlog-item');
+                const content = item.querySelector('.item-expandable-content');
+
+                icon.classList.toggle('expanded');
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
+                }
             });
         });
     }

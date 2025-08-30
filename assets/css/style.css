@@ -1479,6 +1479,39 @@ footer {
     color: #581c87;
 }
 
+.expand-icon {
+    margin-left: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.expand-icon.expanded {
+    transform: rotate(180deg);
+}
+
+.item-expandable-content {
+    display: none;
+    flex-basis: 100%;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.item-description {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.project-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
 /* Hobbies Page - Tile Styles */
 .hobbies-grid {
     display: grid;

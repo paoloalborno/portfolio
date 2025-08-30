@@ -142,6 +142,9 @@ const translations = {
         "type_project": { "en": "Project", "it": "Project", "fr": "Projet" },
         "dates_jul_sep": { "en": "July 2025 - September 2025", "it": "Luglio 2025 - Settembre 2025", "fr": "Juillet 2025 - Septembre 2025" },
         "portfolio_backend_title": { "en": "Portfolio Backend with OAuth", "it": "Portfolio Backend con OAuth", "fr": "Portfolio Backend avec OAuth" },
+        "portfolio_backend_description": { "en": "A robust backend built with Spring Boot and Docker, featuring Firebase OAuth for authentication and PostgreSQL for data storage, deployed on Render.", "it": "Un backend robusto realizzato con Spring Boot e Docker, dotato di autenticazione OAuth tramite Firebase e archiviazione dati su PostgreSQL, deployato su Render.", "fr": "Un backend robuste construit avec Spring Boot et Docker, avec authentification Firebase OAuth et stockage de données PostgreSQL, déployé sur Render." },
+        "portfolio_description": { "en": "My personal portfolio website, the one you are currently browsing, built with vanilla JavaScript, HTML, and CSS.", "it": "Il mio sito portfolio personale, quello che stai attualmente navigando, costruito con JavaScript vanilla, HTML e CSS.", "fr": "Mon site portfolio personnel, celui que vous consultez actuellement, construit avec JavaScript vanilla, HTML et CSS." },
+        "project_link": { "en": "View Project", "it": "Vedi Progetto", "fr": "Voir le Projet" },
         "status_future": { "en": "Future Goal", "it": "Obiettivo Futuro", "fr": "Objectif Futur" },
         "type_course": { "en": "Course", "it": "Corso", "fr": "Cours" },
         "dates_eoy": { "en": "By end of year", "it": "Entro fine anno", "fr": "D'ici la fin de l'année" }
