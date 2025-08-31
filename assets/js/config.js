@@ -4,7 +4,8 @@ export const firebaseConfig = {
     projectId: "portfolio-backend-48826"
 };
 
-const ENV = "local"; // Cambia in "prod" quando fai il deploy
+//const ENV = "local"; // Cambia in "prod" quando fai il deploy
+const ENV = "prod";
 
 const ENDPOINTS = {
   local: {
