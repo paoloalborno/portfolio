@@ -68,25 +68,31 @@ const translations = {
     },
     "projects": {
         "title": { "en": "Projects - Paolo Alborno", "it": "Progetti - Paolo Alborno", "fr": "Projets - Paolo Alborno" },
-        "meta_description": { "en": "Explore Paolo Alborno's projects, including e-commerce infrastructure analysis and NLP.", "it": "Esplora i progetti di Paolo Alborno, includendo analisi di infrastrutture e-commerce e NLP.", "fr": "Découvrez les projets de Paolo Alborno, y compris l'analyse d'infrastructure e-commerce et le NLP." },
+        "meta_description": { "en": "Explore my projects", "it": "Esplora i miei progetti", "fr": "Découvrez mes projets" },    
         "h2": { "en": "My Projects", "it": "I Miei Progetti", "fr": "Mes Projets" },
         "section_subtitle": { "en": "A selection of projects that demonstrate my technical and management skills.", "it": "Una selezione di progetti che dimostrano le mie competenze tecniche e di gestione.", "fr": "Une sélection de projets qui démontrent mes compétences techniques et de gestion." },
+        
         "tab_ecommerce": { "en": "E-commerce Infrastructure Analysis", "it": "Analisi Infrastruttura E-commerce", "fr": "Analyse d'Infrastructure E-commerce" },
+        "tab_portfolio_backend": { "en": "Portfolio Backend Development", "it": "Sviluppo Backend del Portfolio", "fr": "Développement Backend du Portfolio" },
         "tab_nlp": { "en": "NLP with BERT", "it": "NLP con BERT", "fr": "NLP avec BERT" },
         "tab_python": { "en": "Python Projects", "it": "Progetti Python", "fr": "Projets Python" },
         "tab_game": { "en": "Snake Game", "it": "Gioco Snake", "fr": "Jeu du Serpent" },
+
         "ecommerce_h3": { "en": "E-commerce Cloud Infrastructure Analysis and Optimization", "it": "Analisi e Ottimizzazione di Infrastruttura Cloud per E-commerce", "fr": "Analyse et Optimisation d'Infrastructure Cloud pour E-commerce" },
         "ecommerce_p": { "en": "An in-depth analysis of an e-commerce infrastructure on AWS, aimed at improving performance, scalability, and costs. The project included reviewing the architecture, identifying bottlenecks, and proposing optimized solutions.", "it": "Un'analisi approfondita di un'infrastruttura e-commerce su AWS, finalizzata a migliorare performance, scalabilità e costi. Il progetto ha incluso la revisione dell'architettura, l'identificazione di colli di bottiglia e la proposta di soluzioni ottimizzate.", "fr": "Une analyse approfondie d'une infrastructure e-commerce sur AWS, visant à améliorer les performances, la scalabilité et les coûts. Le projet comprenait la revue de l'architecture, l'identification des goulots d'étranglement et la proposition de solutions optimisées." },
         "ecommerce_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" },
+        
         "nlp_h3": { "en": "Sentiment Analysis System with BERT", "it": "Sistema di Analisi del Sentimento con BERT", "fr": "Système d'Analyse de Sentiments avec BERT" },
         "nlp_p": { "en": "Development of a Natural Language Processing system for sentiment analysis of product reviews. The model, based on BERT, was trained and fine-tuned to classify text with high accuracy, supporting strategic business decisions.", "it": "Sviluppo di un sistema di Natural Language Processing per l'analisi del sentimento di recensioni di prodotti. Il modello, basato su BERT, è stato addestrato e fine-tuned per classificare il testo con alta precisione, supportando decisioni di business strategiche.", "fr": "Développement d'un système de Traitement du Langage Naturel pour l'analyse des sentiments des avis sur les produits. Le modèle, basé sur BERT, a été entraîné et affiné pour classer le texte avec une grande précision, soutenant les décisions commerciales stratégiques." },
         "nlp_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" },
+
         "py_subtab_tasklist": { "en": "Task List", "it": "Task List", "fr": "Liste de Tâches" },
         "py_subtab_ai_agent": { "en": "AI Agent", "it": "AI Agent", "fr": "Agent IA" },
         "py_tasklist_h3": { "en": "Task List Application", "it": "Applicazione Task List", "fr": "Application de Liste de Tâches" },
         "py_tasklist_p": { "en": "A simple Python application for managing tasks. This project is currently under development.", "it": "Una semplice applicazione in Python per la gestione delle attività. Questo progetto è attualmente in fase di sviluppo.", "fr": "Une simple application Python pour gérer les tâches. Ce projet est actuellement en cours de développement." },
         "py_ai_agent_h3": { "en": "AI Agent with OLLAMA and Langchain", "it": "AI Agent con OLLAMA e Langchain", "fr": "Agent IA avec OLLAMA et Langchain" },
         "py_ai_agent_p": { "en": "An AI agent scaffolding project using OLLAMA and Langchain for local model interaction. This project is currently under development.", "it": "Un progetto di scaffolding per un agente AI che utilizza OLLAMA e Langchain per l'interazione con modelli locali. Questo progetto è attualmente in fase di sviluppo.", "fr": "Un projet de base pour un agent IA utilisant OLLAMA et Langchain pour interagir avec des modèles locaux. Ce projet est en cours de développement." },
+        
         "game_h3": { "en": "Snake Game", "it": "Gioco Snake", "fr": "Jeu du Serpent" },
         "game_p": { "en": "A simple implementation of the classic Snake game, created with HTML5 Canvas and JavaScript. A small project for fun and to refresh the basics of game logic.", "it": "Una semplice implementazione del classico gioco Snake, realizzato con HTML5 Canvas e JavaScript. Un piccolo progetto per divertimento e per rinfrescare le basi della logica di gioco.", "fr": "Une implémentation simple du jeu classique Snake, créée avec HTML5 Canvas et JavaScript. Un petit projet pour s'amuser et rafraîchir les bases de la logique de jeu." },
         "game_btn": { "en": "Play Game", "it": "Gioca", "fr": "Jouer" }

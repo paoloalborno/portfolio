@@ -96,72 +96,10 @@
             </div>
         </div>
     </div>
-
-    <!-- Scripts JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
-    <script src="../assets/js/translations.js"></script>
-    <script type="module" src="../assets/js/main.js"></script>
-
-    <!-- Script specifici per la pagina Admin -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const adminContent = document.getElementById('admin-content');
-            const authMessage = document.getElementById('auth-message');
-            const loginButton = document.getElementById('login-button');
-            const addBacklogTile = document.getElementById('add-backlog-tile');
-            const addBacklogModal = document.getElementById('add-backlog-modal');
-            const closeBacklogModalBtn = addBacklogModal.querySelector('.close-btn');
-
-            firebase.auth().onAuthStateChanged(user => {
-                if (user) {
-                    adminContent.style.display = 'block';
-                    authMessage.style.display = 'none';
-                } else {
-                    adminContent.style.display = 'none';
-                    authMessage.style.display = 'block';
-                }
-            });
-
-            loginButton.addEventListener('click', () => {
-                const loginModal = document.getElementById('admin-login-modal');
-                if (loginModal) loginModal.style.display = 'block';
-            });
-
-            addBacklogTile.addEventListener('click', () => {
-                addBacklogModal.style.display = 'block';
-            });
-
-            closeBacklogModalBtn.addEventListener('click', () => {
-                addBacklogModal.style.display = 'none';
-            });
-
-            window.addEventListener('click', (event) => {
-                if (event.target == addBacklogModal) {
-                    addBacklogModal.style.display = 'none';
-                }
-            });
-
-            const backlogForm = document.getElementById('backlog-form');
-            backlogForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const newItem = {
-                    id: `item-${Date.now()}`,
-                    title: document.getElementById('title').value,
-                    type: document.getElementById('type').value,
-                    status: document.getElementById('status').value,
-                    dates: document.getElementById('dates').value,
-                    progress: document.getElementById('progress').value,
-                };
-                const backlogItems = JSON.parse(localStorage.getItem('backlogItems')) || [];
-                backlogItems.push(newItem);
-                localStorage.setItem('backlogItems', JSON.stringify(backlogItems));
-                alert('Backlog item added successfully!');
-                backlogForm.reset();
-                addBacklogModal.style.display = 'none';
-            });
-        });
-    </script>
+    <script src="/assets/js/translations.js"></script>
+    <script type="module" src="/assets/js/main.js"></script>
 </body>
 </html>

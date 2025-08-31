@@ -21,17 +21,79 @@ document.addEventListener('DOMContentLoaded', function() {
         { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
 
+    async function checkAdminAccess() {
+        try {
+            const endpoint = getEndpoint() + "/api/auth/check";
+            const response = await fetch(endpoint, {
+                method: "GET",
+                credentials: "include"
+            });
+            return response.ok;
+        } catch {
+            return false;
+        }
+    }
+
+    async function setupAdminModal() {
+        const adminDiv = document.querySelector('.admin-login');
+        if (!adminDiv) return;
+        const hasAccess = await checkAdminAccess();
+        const adminIcon = adminDiv.querySelector('i');
+        const navLinks = document.querySelector('.nav-links');
+
+        navLinks?.querySelector('.admin-link')?.remove();
+        
+        if (hasAccess) {
+            adminIcon.className = 'fas fa-user-check';
+            adminDiv.title = 'Logout';
+            adminDiv.onclick = () => {
+                const logoutModal = document.getElementById('admin-logout-modal');
+                logoutModal && (logoutModal.style.display = 'block');
+            };
+
+            const li = document.createElement('li');
+            li.className = 'admin-link';
+            li.innerHTML = `<a href="/pages/admin.html"><i class="fas fa-cogs"></i> Admin</a>`;
+            navLinks && navLinks.appendChild(li);
+
+        } else {
+            adminIcon.className = 'fas fa-user-shield';
+            adminDiv.title = 'Admin Login';
+            const loginModal = document.getElementById('admin-login-modal');
+            adminDiv.onclick = () => loginModal && (loginModal.style.display = 'block');
+        }
+
+        initializeLanguageHandler();
+        
+
+        // Modali Login/Logout
+        const loginModal = document.getElementById('admin-login-modal');
+        const logoutModal = document.getElementById('admin-logout-modal');
+        loginModal?.querySelector('.close-btn')?.addEventListener('click', () => loginModal.style.display = 'none');
+        loginModal?.querySelector('#login-github-btn')?.addEventListener('click', loginWithGitHub);
+        logoutModal?.querySelector('.close-btn')?.addEventListener('click', () => logoutModal.style.display = 'none');
+        logoutModal?.querySelector('#confirm-logout-btn')?.addEventListener('click', logout);
+        logoutModal?.querySelector('#cancel-logout-btn')?.addEventListener('click', () => logoutModal.style.display = 'none');
+
+        window.addEventListener('click', e => {
+            if (e.target === loginModal) loginModal.style.display = 'none';
+            if (e.target === logoutModal) logoutModal.style.display = 'none';
+        });
+    }
+
     async function loginWithGitHub() {
         try {
             const result = await auth.signInWithPopup(provider);
             
-            const endpoint = getEndpoint() + "/api/github-token/verify";
-            console.log("Verifica token con backend:", endpoint);
+            const endpoint = getEndpoint() + "/api/auth/verify";
+            console.log("Access token GitHub:", result.credential.accessToken);
             const response = await fetch(endpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include", // 🔑 salva i cookie HttpOnly
                 body: JSON.stringify({ oauthAccessToken: result.credential.accessToken })
             });
+            console.log("Backend response status:", response.status);
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
@@ -39,8 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const backendData = await response.json();
-            console.log("Login completato:", backendData);
-            window.location.href = "/pages/admin.html";
+            if (!backendData.jwt) {
+                throw new Error("Token JWT mancante dal backend");
+            }
+            setTimeout(() => {
+                window.location.href = "/pages/admin.html";
+            }, 100);
 
         } catch (error) {
             console.error("Errore login:", error);
@@ -48,12 +114,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function logout() {
-        const logoutModal = document.getElementById('admin-logout-modal');
-        auth.signOut().then(() => {
+    async function logout() {
+        try {
+            const logoutModal = document.getElementById('admin-logout-modal');
+            const endpoint = getEndpoint() + "/api/auth/logout";
+            const response = await fetch(endpoint, {
+                method: "POST",
+                credentials: "include" // 🔑 include il cookie JWT
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || "Logout backend fallito");
+            }
+
+            await auth.signOut();
+
             if (logoutModal) logoutModal.style.display = 'none';
             window.location.href = "/index.html";
-        });
+        } catch (error) {
+            console.error("Errore logout:", error);
+            alert("Logout fallito: " + error.message);
+        }
     }
 
     // ======================================================
@@ -210,50 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function setupAdminModal() {
-        const adminDiv = document.querySelector('.admin-login');
-        if (!adminDiv) return;
-        const adminIcon = adminDiv.querySelector('i');
-        const navLinks = document.querySelector('.nav-links');
-
-        auth.onAuthStateChanged(user => {
-            navLinks?.querySelector('.admin-link')?.remove();
-
-            if (user) {
-                adminIcon.className = 'fas fa-user-check';
-                adminDiv.title = 'Logout';
-                const logoutModal = document.getElementById('admin-logout-modal');
-                adminDiv.onclick = () => logoutModal && (logoutModal.style.display = 'block');
-
-                const li = document.createElement('li');
-                li.className = 'admin-link';
-                li.innerHTML = `<a href="/pages/admin.html"><i class="fas fa-cogs"></i> Admin</a>`;
-                navLinks && navLinks.appendChild(li);
-
-            } else {
-                adminIcon.className = 'fas fa-user-shield';
-                adminDiv.title = 'Admin Login';
-                const loginModal = document.getElementById('admin-login-modal');
-                adminDiv.onclick = () => loginModal && (loginModal.style.display = 'block');
-            }
-
-            initializeLanguageHandler();
-        });
-
-        // Modali Login/Logout
-        const loginModal = document.getElementById('admin-login-modal');
-        const logoutModal = document.getElementById('admin-logout-modal');
-        loginModal?.querySelector('.close-btn')?.addEventListener('click', () => loginModal.style.display = 'none');
-        loginModal?.querySelector('#login-github-btn')?.addEventListener('click', loginWithGitHub);
-        logoutModal?.querySelector('.close-btn')?.addEventListener('click', () => logoutModal.style.display = 'none');
-        logoutModal?.querySelector('#confirm-logout-btn')?.addEventListener('click', logout);
-        logoutModal?.querySelector('#cancel-logout-btn')?.addEventListener('click', () => logoutModal.style.display = 'none');
-
-        window.addEventListener('click', e => {
-            if (e.target === loginModal) loginModal.style.display = 'none';
-            if (e.target === logoutModal) logoutModal.style.display = 'none';
-        });
-    }
+    
 
     // ======================================================
     // --- Easter Egg ---
