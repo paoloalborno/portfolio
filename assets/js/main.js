@@ -28,18 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: "GET",
                 credentials: "include"
             });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error(`Admin access check failed. Status: ${response.status}. Response: ${errorText}`);
-                return false;
-            }
-
-            console.log("Admin access check successful: User is authorized.");
-            return true;
-
-        } catch (error) {
-            console.error("Network or fetch error during admin access check:", error);
+            return response.ok;
+        } catch {
             return false;
         }
     }
@@ -107,23 +97,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                console.error(`Backend login failed with status ${response.status}:`, errorData);
-                throw new Error(errorData.message || `Backend returned status ${response.status}`);
+                throw new Error(errorData.message || "Login backend fallito");
             }
 
             const backendData = await response.json();
             if (!backendData.jwt) {
-                console.error("Backend response is valid but missing JWT token.");
-                throw new Error("Token JWT non ricevuto dal backend.");
+                throw new Error("Token JWT mancante dal backend");
             }
-
-            console.log("Login with GitHub and backend verification successful. Redirecting to admin page...");
             setTimeout(() => {
                 window.location.href = "/pages/admin.html";
             }, 100);
 
         } catch (error) {
-            console.error("An error occurred during the full login process:", error);
+            console.error("Errore login:", error);
             alert("Login fallito: " + error.message);
         }
     }
@@ -139,17 +125,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                console.error(`Backend logout failed with status ${response.status}:`, errorData);
-                throw new Error(errorData.message || `Backend returned status ${response.status}`);
+                throw new Error(errorData.message || "Logout backend fallito");
             }
 
             await auth.signOut();
-            console.log("Firebase and backend logout successful. Redirecting to home page...");
 
             if (logoutModal) logoutModal.style.display = 'none';
             window.location.href = "/index.html";
         } catch (error) {
-            console.error("An error occurred during the logout process:", error);
+            console.error("Errore logout:", error);
             alert("Logout fallito: " + error.message);
         }
     }
