@@ -6,6 +6,20 @@
 
 import { firebaseConfig, getEndpoint } from './config.js';
 
+async function checkAdminAccess() {
+    try {
+        const endpoint = getEndpoint() + "/api/auth/check";
+        const response = await fetch(endpoint, {
+            method: "GET",
+            credentials: "include"
+        });
+        return response.ok;
+    } catch {
+        return false;
+    }
+}
+export { checkAdminAccess };
+
 document.addEventListener('DOMContentLoaded', function() {
 	
     firebase.initializeApp(firebaseConfig);
@@ -20,20 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { href: "/pages/cv.html", key: "nav.cv" },
         { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
-
-    async function checkAdminAccess() {
-        try {
-            const endpoint = getEndpoint() + "/api/auth/check";
-            const response = await fetch(endpoint, {
-                method: "GET",
-                credentials: "include"
-            });
-            return response.ok;
-        } catch {
-            return false;
-        }
-    }
-export { checkAdminAccess };
 
     async function setupAdminModal() {
         const adminDiv = document.querySelector('.admin-login');
