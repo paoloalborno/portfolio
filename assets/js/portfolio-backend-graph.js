@@ -9,15 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const width = 800;
-    const blockHeight = 80;
-    const blockWidth = 220;
+    const initialBlockWidth = 250;
     const arrowSpacing = 60;
-    const totalHeight = data.length * (blockHeight + arrowSpacing);
+    const padding = 20;
 
     const svg = d3.select('#d3-graph')
         .append('svg')
         .attr('width', width)
-        .attr('height', totalHeight)
         .style('display', 'block')
         .style('margin', 'auto');
 
@@ -30,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 line = [],
                 lineNumber = 0,
                 lineHeight = 1.1, // ems
-                x = text.attr("x"), // Keep the original x
+                x = text.attr("x"),
                 y = text.attr("y"),
                 dy = parseFloat(text.attr("dy") || 0),
                 tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
@@ -52,47 +50,64 @@ document.addEventListener('DOMContentLoaded', function() {
         .data(data)
         .enter()
         .append('g')
-        .attr('class', 'block')
-        .attr('transform', (d, i) => `translate(${ (width - blockWidth) / 2}, ${i * (blockHeight + arrowSpacing)})`);
+        .attr('class', 'block');
 
-    blocks.append('rect')
-        .attr('width', blockWidth)
-        .attr('height', blockHeight)
+    const rects = blocks.append('rect')
         .attr('fill', '#f0f0f0')
         .attr('stroke', '#007bff')
         .attr('stroke-width', 2)
         .attr('rx', 8)
         .attr('ry', 8);
 
-    const text = blocks.append('text')
-        .attr('x', blockWidth / 2)
-        .attr('y', blockHeight / 2 - 10)
+    const textLabels = blocks.append('text')
+        .attr('class', 'label')
+        .attr('x', initialBlockWidth / 2)
+        .attr('y', padding)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#333');
-
-    text.append('tspan')
-        .attr('x', blockWidth / 2)
+        .attr('fill', '#333')
         .style('font-size', '16px')
         .style('font-weight', 'bold')
         .text(d => d.label);
 
-    blocks.filter(d => d.icon)
-        .append('text')
-        .attr('x', blockWidth - 25)
-        .attr('y', 20)
-        .attr('font-family', 'FontAwesome')
-        .attr('font-size', '20px')
-        .text('\uf1c0'); // Placeholder for PostgreSQL icon
-
-    blocks.append('text')
-        .attr('x', blockWidth / 2)
-        .attr('y', blockHeight / 2 + 5)
+    const textDescriptions = blocks.append('text')
+        .attr('class', 'description')
+        .attr('x', initialBlockWidth / 2)
+        .attr('y', padding + 20)
         .attr('dy', 0)
         .attr('text-anchor', 'middle')
         .attr('fill', '#555')
         .style('font-size', '12px')
         .text(d => d.description)
-        .call(wrap, blockWidth - 20);
+        .call(wrap, initialBlockWidth - padding);
+
+    blocks.each(function(d) {
+        const block = d3.select(this);
+        const labelBBox = block.select('.label').node().getBBox();
+        const descriptionBBox = block.select('.description').node().getBBox();
+        const rect = block.select('rect');
+
+        const rectWidth = Math.max(labelBBox.width, descriptionBBox.width) + 2 * padding;
+        const rectHeight = labelBBox.height + descriptionBBox.height + 2 * padding;
+
+        rect.attr('width', rectWidth)
+            .attr('height', rectHeight);
+
+        block.attr('transform', (d, i) => `translate(${ (width - rectWidth) / 2}, 0)`);
+    });
+
+    let yOffset = 0;
+    blocks.each(function(d, i) {
+        const block = d3.select(this);
+        const rectHeight = block.select('rect').attr('height');
+        block.attr('transform', function() {
+            const currentTransform = d3.select(this).attr('transform');
+            const newTransform = currentTransform.replace(/, 0\)/, `, ${yOffset})`);
+            yOffset += parseFloat(rectHeight) + arrowSpacing;
+            return newTransform;
+        });
+    });
+
+    svg.attr('height', yOffset);
 
     // Add arrows and labels
     const arrows = svg.selectAll('g.arrow-group')
@@ -103,16 +118,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     arrows.append('line')
         .attr('x1', width / 2)
-        .attr('y1', (d, i) => (i * (blockHeight + arrowSpacing)) + blockHeight)
+        .attr('y1', (d, i) => {
+            const block = blocks.nodes()[i];
+            const y = parseFloat(d3.select(block).attr('transform').split(',')[1].replace(')', ''));
+            const h = parseFloat(d3.select(block).select('rect').attr('height'));
+            return y + h;
+        })
         .attr('x2', width / 2)
-        .attr('y2', (d, i) => (i * (blockHeight + arrowSpacing)) + blockHeight + arrowSpacing)
+        .attr('y2', (d, i) => {
+            const block = blocks.nodes()[i+1];
+            const y = parseFloat(d3.select(block).attr('transform').split(',')[1].replace(')', ''));
+            return y;
+        })
         .attr('stroke', '#007bff')
         .attr('stroke-width', 2)
         .attr('marker-end', 'url(#arrowhead)');
 
     arrows.append('text')
         .attr('x', width / 2 + 15)
-        .attr('y', (d, i) => (i * (blockHeight + arrowSpacing)) + blockHeight + arrowSpacing / 2)
+        .attr('y', (d, i) => {
+            const block1 = blocks.nodes()[i];
+            const y1 = parseFloat(d3.select(block1).attr('transform').split(',')[1].replace(')', ''));
+            const h1 = parseFloat(d3.select(block1).select('rect').attr('height'));
+            const block2 = blocks.nodes()[i+1];
+            const y2 = parseFloat(d3.select(block2).attr('transform').split(',')[1].replace(')', ''));
+            return (y1 + h1 + y2) / 2;
+        })
         .attr('text-anchor', 'start')
         .attr('fill', '#007bff')
         .style('font-size', '12px')

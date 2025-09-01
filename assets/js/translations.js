@@ -44,7 +44,8 @@ const translations = {
         "subtitle": { "en": "Software Engineer | AWS Certified | Scrum & PM", "it": "Software Engineer | AWS Certified | Scrum & PM", "fr": "Ingénieur Logiciel | Certifié AWS | Scrum & PM" },
         "p_hero": { "en": "Software engineer with experience in developing AWS cloud infrastructure, backend APIs, and NLP projects with BERT. I transform complex business needs into robust and scalable technology solutions.", "it": "Ingegnere del software con esperienza nello sviluppo di infrastrutture cloud AWS, API backend e progetti di NLP con BERT. Trasformo complesse esigenze di business in soluzioni tecnologiche robuste e scalabili.", "fr": "Ingénieur logiciel avec une expérience dans le développement d'infrastructures cloud AWS, d'API backend et de projets NLP avec BERT. Je transforme des besoins métiers complexes en solutions technologiques robustes et évolutives." },
         "btn_projects": { "en": "<i class=\"fas fa-code\"></i> View Projects", "it": "<i class=\"fas fa-code\"></i> Vedi i Progetti", "fr": "<i class=\"fas fa-code\"></i> Voir les Projets" },
-        "btn_contact": { "en": "<i class=\"fas fa-envelope\"></i> Contact Me", "it": "<i class=\"fas fa-envelope\"></i> Contattami", "fr": "<i class=\"fas fa-envelope\"></i> Contactez-moi" }
+        "btn_contact": { "en": "<i class=\"fas fa-envelope\"></i> Contact Me", "it": "<i class=\"fas fa-envelope\"></i> Contattami", "fr": "<i class=\"fas fa-envelope\"></i> Contactez-moi" },
+        "wip_message": { "en": "Site under continuous development", "it": "Sito in continuo aggiornamento", "fr": "Site en développement continu" }
     },
     "about": {
         "title": { "en": "About Me - Paolo Alborno", "it": "Chi Sono - Paolo Alborno", "fr": "À propos de moi - Paolo Alborно" },
