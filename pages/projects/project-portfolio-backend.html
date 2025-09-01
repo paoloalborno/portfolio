@@ -1,6 +1,52 @@
-Il progetto dimostra la mia padronanza nello sviluppo di un backend basato su Java Spring Boot, con particolare attenzione a autenticazione e autorizzazione di utenti in base al ruolo, ad esempio per contenuti avanzati o di amministrazione.
-Ho scelto di implementare un sistema basato su JWT multipli, seguendo lo standard OAuth 2.0, e utilizzando Firebase di Google come Identity Provider, registrando il progetto e abilitando il login tramite account GitHub.
-Sul frontend, l’utente effettua il login tramite Firebase Authentication. Al termine del flusso OAuth, Firebase restituisce un JWT firmato, che rappresenta l’identità verificata dell’utente. 
-Questo token viene inviato al backend (hostato su Render), che si occupa di verificarne la validità: controlla la firma digitale, la scadenza e che il token provenga effettivamente da Firebase. In questo modo il backend può confermare in modo sicuro che l’utente sia autenticato correttamente e che l’account GitHub associato corrisponda a quello registrato nel sistema.
-Il backend, dopo aver validato il token Firebase, interroga un database PostgreSQL (anche esso su Render) per recuperare le informazioni relative all’utente e verificare il ruolo. Se il ruolo è appropriato (ADMIN), il backend genera un JWT-custom leggero, contenente solo le informazioni necessarie per autorizzare le chiamate successive alle API, e lo restituisce al frontend tramite HTTPS cookie.
-Da quel momento, l’utente rimane autenticato e autorizzato fino al logout o alla scadenza del token, e il JWT-custom viene verificato ad ogni chiamata alle API protette. Questo approccio mantiene il sistema stateless (che non rompe REST), sicuro e facilmente estendibile, separando chiaramente autenticazione (identity provider) e autorizzazione (ruoli e accesso alle risorse).
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate-key="project_portfolio_backend.title"></title>
+    <meta name="description" content="" data-translate-key="project_portfolio_backend.meta_description">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="project-detail" style="padding-top: 120px;">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll" data-translate-key="project_portfolio_backend.h2"></h2>
+                <p class="section-subtitle animate-on-scroll" data-translate-key="project_portfolio_backend.section_subtitle"></p>
+
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3 data-translate-key="project_portfolio_backend.goal_h3"></h3>
+                        <p data-translate-key="project_portfolio_backend.goal_p"></p>
+
+                        <h3 data-translate-key="project_portfolio_backend.solution_h3"></h3>
+                        <p data-translate-key="project_portfolio_backend.solution_p1"></p>
+                        <p data-translate-key="project_portfolio_backend.solution_p2"></p>
+                        <p data-translate-key="project_portfolio_backend.solution_p3"></p>
+                        <p data-translate-key="project_portfolio_backend.solution_p4"></p>
+
+                        <h3 data-translate-key="project_portfolio_backend.results_h3"></h3>
+                        <div id="d3-graph"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
+    <script src="../../assets/js/translations.js"></script>
+    <script type="module" src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/portfolio-backend-graph.js"></script>
+</body>
+</html>
