@@ -74,7 +74,11 @@ const translations = {
         
         "portfolio_backend_h3": { "en": "Portfolio Backend Development", "it": "Sviluppo Backend del Portfolio", "fr": "Développement Backend du Portfolio" },
         "portfolio_backend_p": { "en": "Development of a secure and scalable backend for this portfolio, using Java Spring Boot, with a focus on authentication and authorization.", "it": "Sviluppo di un backend sicuro e scalabile per questo portfolio, utilizzando Java Spring Boot, con focus su autenticazione e autorizzazione.", "fr": "Développement d'un backend sécurisé et évolutif pour ce portfolio, en utilisant Java Spring Boot, avec un focus sur l'authentification et l'autorisation." },
-        "portfolio_backend_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" }
+        "portfolio_backend_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" },
+        "tag_spring": { "en": "Spring Boot", "it": "Spring Boot", "fr": "Spring Boot" },
+        "tag_postgresql": { "en": "PostgreSQL", "it": "PostgreSQL", "fr": "PostgreSQL" },
+        "tag_microservices": { "en": "Microservices", "it": "Microservizi", "fr": "Microservices" },
+        "tag_docker": { "en": "Docker", "it": "Docker", "fr": "Docker" }
         /*
         "tab_ecommerce": { "en": "E-commerce Infrastructure Analysis", "it": "Analisi Infrastruttura E-commerce", "fr": "Analyse d'Infrastructure E-commerce" },
         "tab_portfolio_backend": { "en": "Portfolio Backend Development", "it": "Sviluppo Backend del Portfolio", "fr": "Développement Backend du Portfolio" },

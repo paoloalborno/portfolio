@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const data = [
         { label: 'Frontend', description: 'User initiates login with GitHub account.', arrow_label: 'Sends OAuth Request' },
         { label: 'Firebase', description: 'Authenticates user and returns a signed JWT.', arrow_label: 'Sends Firebase JWT' },
-        { label: 'Backend', description: 'Receives and validates the Firebase JWT signature and expiration.', arrow_label: 'Queries for User Role' },
-        { label: 'Database', description: 'Returns the user role (e.g., ADMIN) to the backend.', arrow_label: 'Returns Role' },
-        { label: 'Backend', description: 'Generates a custom, lightweight JWT containing user roles and permissions.', arrow_label: 'Sends Custom JWT' },
-        { label: 'Frontend', description: 'Receives the custom JWT and stores it for subsequent authenticated API calls.', arrow_label: 'Session Authenticated' }
+        { label: 'Backend (Java Spring Boot on Render)', description: 'Receives and validates the Firebase JWT.', arrow_label: 'Queries for User Role' },
+        { label: 'Database (PostgreSQL)', description: 'Returns the user role to the backend.', arrow_label: 'Returns Role', icon: true },
+        { label: 'Backend (Java Spring Boot on Render)', description: 'Generates a custom JWT with user roles.', arrow_label: 'Sends Custom JWT' },
+        { label: 'Frontend', description: 'Receives and stores the custom JWT for authenticated API calls.', arrow_label: 'Session Authenticated' }
     ];
 
     const width = 800;
@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 line = [],
                 lineNumber = 0,
                 lineHeight = 1.1, // ems
+                x = text.attr("x"), // Keep the original x
                 y = text.attr("y"),
-                dy = 0, // Initial dy is 0
-                tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                dy = parseFloat(text.attr("dy") || 0),
+                tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
 
             while (word = words.pop()) {
                 line.push(word);
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     line.pop();
                     tspan.text(line.join(" "));
                     line = [word];
-                    tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + "em").text(word);
+                    tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
                 }
             }
         });
@@ -75,9 +76,18 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('font-weight', 'bold')
         .text(d => d.label);
 
+    blocks.filter(d => d.icon)
+        .append('text')
+        .attr('x', blockWidth - 25)
+        .attr('y', 20)
+        .attr('font-family', 'FontAwesome')
+        .attr('font-size', '20px')
+        .text('\uf1c0'); // Placeholder for PostgreSQL icon
+
     blocks.append('text')
         .attr('x', blockWidth / 2)
-        .attr('y', blockHeight / 2)
+        .attr('y', blockHeight / 2 + 5)
+        .attr('dy', 0)
         .attr('text-anchor', 'middle')
         .attr('fill', '#555')
         .style('font-size', '12px')
