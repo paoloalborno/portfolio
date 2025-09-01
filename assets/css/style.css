@@ -547,6 +547,10 @@ nav {
     padding: 2rem;
 }
 
+.text-justify {
+    text-align: justify;
+}
+
 .project-title {
     font-size: 1.4rem;
     font-weight: 600;
