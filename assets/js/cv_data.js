@@ -85,14 +85,14 @@ var cvDataIT = {
         }
     ],
     certifications: [
-        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', date: '2023', details: [] },
-        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', date: '2022', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', date: '2022', details: [] }
+        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
+        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
     ],
     skills: {
-        "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD", "Terraform (principiante)"],
+        "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
         "Backend": ["Python (FastAPI, Flask)", "Java", "Node.js (base)"],
-        "AI & Dati": ["NLP (BERT, Transformers)", "LangChain", "PyTorch", "Pandas", "SQL", "Vector Databases"],
+        "AI & Dati": ["NLP (BERT, Transformers, CoreNLP, Clustering)", "LangChain", "SQL", "Vector Databases"],
         "Altro": ["Metodologie Agili (Scrum)", "Project Management", "System Design", "Git"]
     }
 };
@@ -170,14 +170,14 @@ var cvDataEN = {
         }
     ],
     certifications: [
-        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', date: '2023', details: [] },
-        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', date: '2022', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', date: '2022', details: [] }
+        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
+        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
     ],
     skills: {
-        "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD", "Terraform (beginner)"],
+        "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
         "Backend": ["Python (FastAPI, Flask)", "Java", "Node.js (basic)"],
-        "AI & Data": ["NLP (BERT, Transformers)", "LangChain", "PyTorch", "Pandas", "SQL", "Vector Databases"],
+        "AI & Data": ["NLP (BERT, Transformers, CoreNLP, Clustering)", "LangChain", "SQL", "Vector Databases"],
         "Other": ["Agile Methodologies (Scrum)", "Project Management", "System Design", "Git"]
     }
 };
@@ -255,14 +255,14 @@ var cvDataFR = {
         }
     ],
     certifications: [
-        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', date: '2023', details: [] },
-        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', date: '2022', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', date: '2022', details: [] }
+        { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
+        { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
     ],
     skills: {
-        "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD", "Terraform (débutant)"],
+        "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
         "Backend": ["Python (FastAPI, Flask)", "Java", "Node.js (basique)"],
-        "AI & Données": ["NLP (BERT, Transformers)", "LangChain", "PyTorch", "Pandas", "SQL", "Bases de données vectorielles"],
+        "AI & Données": ["NLP (BERT, Transformers, CoreNLP, Clustering)", "LangChain", "SQL", "Bases de données vectorielles"],
         "Autre": ["Méthodologies Agiles (Scrum)", "Gestion de Projet", "Conception de Systèmes", "Git"]
     }
 };

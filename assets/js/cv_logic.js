@@ -8,11 +8,7 @@ class CVManager {
         this.lang = lang;
         this.cvData = this.getCvDataForLanguage(lang);
         this.graphRendered = false;
-
-        this.docViewContainer = document.getElementById('cv-text-container');
         this.graphViewContainer = document.getElementById('cv-graph');
-        this.tabButtons = document.querySelectorAll('.cv-tab-btn');
-        this.tabPanes = document.querySelectorAll('.cv-tab-pane');
         this.modal = document.getElementById('cv-modal');
         this.modalCloseBtn = document.querySelector('.cv-modal-close-btn');
     }
@@ -30,57 +26,14 @@ class CVManager {
     }
 
     init() {
-        this.renderDocumentView();
-        this.setupEventListeners();
+        this.renderGraphView();
+        this.graphRendered = true;
         this.setupModal();
-    }
+    }       
 
-    setupEventListeners() {
-        this.tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetPaneId = button.getAttribute('data-tab');
-                this.tabButtons.forEach(btn => btn.classList.remove('active'));
-                this.tabPanes.forEach(pane => pane.classList.remove('active'));
-                button.classList.add('active');
-                document.getElementById(targetPaneId)?.classList.add('active');
+    // setupEventListeners removed: tab logic not needed for single view
 
-                if (targetPaneId === 'graph-view' && !this.graphRendered) {
-                    this.renderGraphView();
-                    this.graphRendered = true;
-                }
-            });
-        });
-    }
-
-    renderDocumentView() {
-        this.docViewContainer.innerHTML = ''; // Pulisce il contenitore
-
-        // Ordine delle sezioni da visualizzare
-        const sectionOrder = ['summary', 'experience', 'education', 'certifications', 'skills'];
-
-        sectionOrder.forEach(sectionKey => {
-            if (this.cvData[sectionKey]) {
-                const sectionInfo = this.cvData.sections[sectionKey];
-                let sectionHTML = `
-                    <div class="cv-section" id="cv-${sectionKey}">
-                        <h2 class="cv-section-title">
-                            <i class="fas ${sectionInfo.icon}"></i> ${sectionInfo.title}
-                        </h2>
-                `;
-
-                if (sectionKey === 'summary') {
-                    sectionHTML += this.renderSummarySection();
-                } else if (sectionKey === 'skills') {
-                    sectionHTML += this.renderSkillsSection();
-                } else {
-                    sectionHTML += this.renderTimelineSection(sectionKey);
-                }
-
-                sectionHTML += `</div>`;
-                this.docViewContainer.innerHTML += sectionHTML;
-            }
-        });
-    }
+    // renderDocumentView removed: only Graph View needed
 
     renderSummarySection() {
         return `<div class="cv-summary"><p>${this.cvData.profile.summary}</p></div>`;
