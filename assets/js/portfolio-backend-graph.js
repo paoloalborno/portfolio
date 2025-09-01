@@ -12,18 +12,18 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
     const data = [
-        { label: 'Frontend', description: 'User initiates login with GitHub account.', arrow_label: 'Sends OAuth Request' },
-        { label: 'Firebase', description: 'Authenticates user and returns a signed JWT.', arrow_label: 'Sends Firebase JWT' },
-        { label: 'Backend (Java Spring Boot on Render)', description: 'Receives and validates the Firebase JWT.', arrow_label: 'Queries for User Role' },
-        { label: 'Database (PostgreSQL)', description: 'Returns the user role to the backend.', arrow_label: 'Returns Role', icon: true },
-        { label: 'Backend (Java Spring Boot on Render)', description: 'Generates a custom JWT with user roles.', arrow_label: 'Sends Custom JWT' },
-        { label: 'Frontend', description: 'Receives and stores the custom JWT for authenticated API calls.', arrow_label: 'Session Authenticated' }
+        { label: 'Frontend', description: 'User initiates login with GitHub account.', arrow_label: 'Sends OAuth Request', icon: '../../assets/images/icons/GitHub.png' },
+        { label: 'Firebase', description: 'Authenticates user and returns a signed JWT.', arrow_label: 'Sends Firebase JWT', icon: '../../assets/images/icons/Firebase.png' },
+        { label: 'Backend', description: 'Receives and validates the Firebase JWT.', arrow_label: 'Queries for User Role', icon: '../../assets/images/icons/Spring.png' },
+        { label: 'Database', description: 'Returns the user role to the backend.', arrow_label: 'Returns Role', icon: '../../assets/images/icons/PostgreSQL.png' },
+        { label: 'Backend', description: 'Generates a custom JWT with user roles.', arrow_label: 'Sends Custom JWT', icon: '../../assets/images/icons/Spring.png' },
+        { label: 'Frontend', description: 'Receives and stores the custom JWT for authenticated API calls.', arrow_label: 'Session Authenticated', icon: '../../assets/images/icons/HTML5.png' }
     ];
 
     const width = 800;
     const initialBlockWidth = 250;
     const arrowSpacing = 60;
-    const padding = 20;
+    const padding = 30; // Increased padding
 
     const svg = d3.select('#d3-graph')
         .append('svg')
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('display', 'block')
         .style('margin', 'auto');
 
-    // Function to wrap text within a given width.
     function wrap(text, width) {
         text.each(function() {
             var text = d3.select(this),
@@ -88,26 +87,35 @@ document.addEventListener('DOMContentLoaded', function() {
         .text(d => d.description)
         .call(wrap, initialBlockWidth - padding);
 
+    const icons = blocks.append('image')
+        .attr('xlink:href', d => d.icon)
+        .attr('width', 30)
+        .attr('height', 30);
+
     blocks.each(function(d) {
         const block = d3.select(this);
         const label = block.select('.label');
         const description = block.select('.description');
         const rect = block.select('rect');
+        const icon = block.select('image');
 
         const labelBBox = label.node().getBBox();
         const descriptionBBox = description.node().getBBox();
 
-        const rectWidth = Math.max(labelBBox.width, descriptionBBox.width) + 2 * padding;
-        const rectHeight = labelBBox.height + descriptionBBox.height + padding * 1.5;
+        const rectWidth = Math.max(labelBBox.width, descriptionBBox.width) + 2 * padding + 40; // Add space for icon
+        const rectHeight = Math.max(60, labelBBox.height + descriptionBBox.height + padding);
 
         rect.attr('width', rectWidth)
             .attr('height', rectHeight);
 
         label.attr('x', rectWidth / 2)
-             .attr('y', padding + labelBBox.height / 2);
+             .attr('y', rectHeight / 2 - 10);
 
         description.attr('x', rectWidth / 2)
-                   .attr('y', padding + labelBBox.height + 10);
+                   .attr('y', rectHeight / 2 + 10);
+
+        icon.attr('x', padding / 2)
+            .attr('y', (rectHeight - 30) / 2);
 
         block.attr('transform', `translate(${ (width - rectWidth) / 2}, 0)`);
     });
