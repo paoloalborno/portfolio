@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     }
+export { checkAdminAccess };
 
     async function setupAdminModal() {
         const adminDiv = document.querySelector('.admin-login');
