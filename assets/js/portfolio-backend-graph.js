@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 word,
                 line = [],
                 lineNumber = 0,
-                lineHeight = 1.2, // ems
-                x = text.attr("x"),
+                lineHeight = 1.1, // ems
                 y = text.attr("y"),
-                dy = parseFloat(text.attr("dy")),
-                tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+                dy = 0, // Initial dy is 0
+                tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+
             while (word = words.pop()) {
                 line.push(word);
                 tspan.text(line.join(" "));
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     line.pop();
                     tspan.text(line.join(" "));
                     line = [word];
-                    tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + "em").text(word);
                 }
             }
         });
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     blocks.append('text')
         .attr('x', blockWidth / 2)
-        .attr('y', blockHeight / 2 + 10)
+        .attr('y', blockHeight / 2)
         .attr('text-anchor', 'middle')
         .attr('fill', '#555')
         .style('font-size', '12px')
