@@ -225,7 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (navLinksElement) setupMobileMenu(navLinksElement);
         setupScrollAnimations();
-        setupTabs();
         setupSubTabs();
         setupAdminModal();
         setupBacklogExpand();
@@ -252,21 +251,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.animate-on-scroll').forEach(s => observer.observe(s));
     }
 
-    function setupTabs() {
-        document.querySelectorAll('.tabs-container, .cv-tabs').forEach(container => {
-            const tabBtns = container.querySelectorAll('.tab-btn, .cv-tab-btn');
-            const tabPanes = container.parentElement.querySelectorAll('.tab-pane, .cv-tab-pane');
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const target = btn.getAttribute('data-tab');
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    tabPanes.forEach(p => p.classList.remove('active'));
-                    btn.classList.add('active');
-                    document.getElementById(target)?.classList.add('active');
-                });
-            });
-        });
-    }
 
     function setupSubTabs() {
         document.querySelectorAll('.sub-tab-btn').forEach(btn => {

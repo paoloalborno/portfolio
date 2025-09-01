@@ -1,3 +1,15 @@
+/**
+ * =================================================================================
+ * portfolio-backend-graph.js - D3.js script for the architecture visualization
+ * =================================================================================
+ *
+ * This script uses D3.js to generate an SVG block diagram that visualizes the
+ * authentication flow of the portfolio's backend.
+ *
+ * It dynamically adjusts the size of the blocks to fit the text content and
+ * adds labels to the arrows to describe the actions at each step.
+ *
+ */
 document.addEventListener('DOMContentLoaded', function() {
     const data = [
         { label: 'Frontend', description: 'User initiates login with GitHub account.', arrow_label: 'Sends OAuth Request' },
@@ -19,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('display', 'block')
         .style('margin', 'auto');
 
-    // Function to wrap text
+    // Function to wrap text within a given width.
+    // This is a standard D3.js text wrapping function.
     function wrap(text, width) {
         text.each(function() {
             var text = d3.select(this),
@@ -46,12 +59,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Create a group for each block
     const blocks = svg.selectAll('g.block')
         .data(data)
         .enter()
         .append('g')
         .attr('class', 'block');
 
+    // Add rectangles for each block
     const rects = blocks.append('rect')
         .attr('fill', '#f0f0f0')
         .attr('stroke', '#007bff')
@@ -59,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('rx', 8)
         .attr('ry', 8);
 
+    // Add the main label for each block
     const textLabels = blocks.append('text')
         .attr('class', 'label')
         .attr('x', initialBlockWidth / 2)
@@ -69,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('font-weight', 'bold')
         .text(d => d.label);
 
+    // Add the description text for each block and wrap it
     const textDescriptions = blocks.append('text')
         .attr('class', 'description')
         .attr('x', initialBlockWidth / 2)
@@ -80,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .text(d => d.description)
         .call(wrap, initialBlockWidth - padding);
 
+    // Dynamically adjust the size of each block based on its text content
     blocks.each(function(d) {
         const block = d3.select(this);
         const labelBBox = block.select('.label').node().getBBox();
@@ -95,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         block.attr('transform', (d, i) => `translate(${ (width - rectWidth) / 2}, 0)`);
     });
 
+    // Position each block vertically
     let yOffset = 0;
     blocks.each(function(d, i) {
         const block = d3.select(this);
@@ -107,9 +126,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Set the final height of the SVG container
     svg.attr('height', yOffset);
 
-    // Add arrows and labels
+    // Add arrows and labels between the blocks
     const arrows = svg.selectAll('g.arrow-group')
         .data(data.slice(0, -1))
         .enter()
@@ -134,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('stroke-width', 2)
         .attr('marker-end', 'url(#arrowhead)');
 
+    // Add labels to the arrows
     arrows.append('text')
         .attr('x', width / 2 + 15)
         .attr('y', (d, i) => {
@@ -150,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('font-style', 'italic')
         .text(d => d.arrow_label);
 
+    // Define the arrowhead marker
     svg.append('defs').append('marker')
         .attr('id', 'arrowhead')
         .attr('viewBox', '-0 -5 10 10')
