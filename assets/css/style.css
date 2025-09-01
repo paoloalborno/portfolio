@@ -1839,3 +1839,7 @@ footer {
     color: var(--primary);
     margin: 0 0.25rem;
 }
+
+.d3-graph-container {
+    margin-top: 3rem;
+}
