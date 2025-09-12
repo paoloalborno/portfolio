@@ -32,15 +32,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             unauthorizedDesc.innerHTML = 'Non sei autorizzato a vedere questa pagina. <br> Effettua il login per continuare.';
         }
 
-        const memeImage = document.createElement('img');
-        memeImage.src = 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Pixel_Red_Stop_Sign_16x16.png';
-        memeImage.style.marginTop = '2rem';
-        memeImage.style.imageRendering = 'pixelated';
-        memeImage.style.width = '64px';
-        memeImage.style.height = '64px';
+        const memeContainer = document.createElement('div');
+        memeContainer.style.marginTop = '2rem';
+        memeContainer.style.fontSize = '64px';
 
+        const emoji1 = document.createElement('span');
+        emoji1.textContent = '🚫';
+        emoji1.setAttribute('role', 'img');
+        emoji1.setAttribute('aria-label', 'No Entry Sign');
 
-        authMessage.insertBefore(memeImage, unauthorizedDesc.nextSibling);
+        const emoji2 = document.createElement('span');
+        emoji2.textContent = '🤪';
+        emoji2.setAttribute('role', 'img');
+        emoji2.setAttribute('aria-label', 'Silly Face');
+
+        memeContainer.appendChild(emoji1);
+        memeContainer.appendChild(emoji2);
+
+        authMessage.insertBefore(memeContainer, unauthorizedDesc.nextSibling);
 
         if(loginButton){
             loginButton.style.display = 'none';
