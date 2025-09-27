@@ -198,21 +198,31 @@ const translations = {
     },
     "backlog": {
         "title": { "en": "My Backlog", "it": "Il Mio Backlog", "fr": "Mon Backlog" },
-        "langchain_title": { "en": "LangChain & LLMs", "it": "LangChain & LLMs", "fr": "LangChain & LLMs" },
         "status_learning": { "en": "Learning", "it": "Learning", "fr": "En Apprentissage" },
+        "status_in_progress": { "en": "In Progress", "it": "In Corso", "fr": "En Cours" },
+        "status_completed": { "en": "Completed", "it": "Completato", "fr": "Terminé" },
         "type_tech": { "en": "Tech", "it": "Tech", "fr": "Tech" },
-        "dates_aug_oct": { "en": "Aug 2025 - Oct 2025", "it": "Ago 2025 - Ott 2025", "fr": "Aoû 2025 - Oct 2025" },
-        "portfolio_title": { "en": "Portfolio Website", "it": "Portfolio Website", "fr": "Site Portfolio" },
-        "status_developing": { "en": "Developing", "it": "Developing", "fr": "En Développement" },
         "type_project": { "en": "Project", "it": "Project", "fr": "Projet" },
-        "dates_jul_sep": { "en": "Jul 2025 - Sep 2025", "it": "Lug 2025 - Set 2025", "fr": "Jui 2025 - Sep 2025" },
-        "portfolio_backend_title": { "en": "Portfolio Backend with OAuth", "it": "Portfolio Backend con OAuth", "fr": "Portfolio Backend avec OAuth" },
-        "portfolio_backend_description": { "en": "A robust backend built with Spring Boot and Docker, featuring Firebase OAuth for authentication and PostgreSQL for data storage, deployed on Render.", "it": "Un backend robusto realizzato con Spring Boot e Docker, dotato di autenticazione OAuth tramite Firebase e archiviazione dati su PostgreSQL, deployato su Render.", "fr": "Un backend robuste construit avec Spring Boot et Docker, avec authentification Firebase OAuth et stockage de données PostgreSQL, déployé sur Render." },
-        "portfolio_description": { "en": "My personal portfolio website, the one you are currently browsing, built with vanilla JavaScript, HTML, and CSS.", "it": "Il mio sito portfolio personale, quello che stai attualmente navigando, costruito con JavaScript vanilla, HTML e CSS.", "fr": "Mon site portfolio personnel, celui que vous consultez actuellement, construit avec JavaScript vanilla, HTML et CSS." },
-        "project_link": { "en": "View Project", "it": "Vedi Progetto", "fr": "Voir le Projet" },
-        "status_future": { "en": "Future Goal", "it": "Obiettivo Futuro", "fr": "Objectif Futur" },
         "type_course": { "en": "Course", "it": "Corso", "fr": "Cours" },
-        "dates_eoy": { "en": "By end of year", "it": "Entro fine anno", "fr": "D'ici la fin de l'année" }
+        "project_link": { "en": "View Project", "it": "Vedi Progetto", "fr": "Voir le Projet" },
+
+        "devops_essentials_title": { "en": "DevOps Essentials for Data Engineering", "it": "DevOps Essentials for Data Engineering", "fr": "DevOps Essentials for Data Engineering" },
+        "devops_essentials_desc": { "en": "A course by Databricks Academy.", "it": "Un corso di Databricks Academy.", "fr": "Un cours de Databricks Academy." },
+        "dates_sep_oct_2025": { "en": "Sep 2025 - Oct 2025", "it": "Set 2025 - Ott 2025", "fr": "Sep 2025 - Oct 2025" },
+
+        "langchain_title": { "en": "LangChain, Ollama & LLMs", "it": "LangChain, Ollama & LLMs", "fr": "LangChain, Ollama & LLMs" },
+        "dates_aug_oct": { "en": "Aug 2025 - Oct 2025", "it": "Ago 2025 - Ott 2025", "fr": "Aoû 2025 - Oct 2025" },
+
+        "sql_toolkit_title": { "en": "SQL Reverse Engineering Toolkit", "it": "SQL Reverse Engineering Toolkit", "fr": "SQL Reverse Engineering Toolkit" },
+        "sql_toolkit_description": { "en": "A command-line tool to analyze and visualize data lineage in a MySQL database.", "it": "Un tool a riga di comando per analizzare e visualizzare la data lineage in un database MySQL.", "fr": "Un outil en ligne de commande pour analyser et visualiser la lignée des données dans une base de données MySQL." },
+        "dates_sep_13_27": { "en": "Sep 2025", "it": "Set 2025", "fr": "Sep 2025" },
+
+        "portfolio_title": { "en": "Portfolio Website", "it": "Portfolio Website", "fr": "Site Portfolio" },
+        "portfolio_description": { "en": "My personal portfolio website, the one you are currently browsing, built with vanilla JavaScript, HTML, and CSS.", "it": "Il mio sito portfolio personale, quello che stai attualmente navigando, costruito con JavaScript vanilla, HTML e CSS.", "fr": "Mon site portfolio personnel, celui que vous consultez actuellement, construit avec JavaScript vanilla, HTML et CSS." },
+        "dates_jul_sep": { "en": "Jul 2025 - Sep 2025", "it": "Lug 2025 - Set 2025", "fr": "Jui 2025 - Sep 2025" },
+
+        "portfolio_backend_title": { "en": "Portfolio Backend with OAuth", "it": "Portfolio Backend con OAuth", "fr": "Portfolio Backend avec OAuth" },
+        "portfolio_backend_description": { "en": "A robust backend built with Spring Boot and Docker, featuring Firebase OAuth for authentication and PostgreSQL for data storage, deployed on Render.", "it": "Un backend robusto realizzato con Spring Boot e Docker, dotato di autenticazione OAuth tramite Firebase e archiviazione dati su PostgreSQL, deployato su Render.", "fr": "Un backend robuste construit avec Spring Boot et Docker, avec authentification Firebase OAuth et stockage de données PostgreSQL, déployé sur Render." }
     },
     "project_ecommerce": {
         "title": { "en": "Project: E-commerce Infrastructure Analysis - Paolo Alborno", "it": "Progetto: Analisi Infrastruttura E-commerce - Paolo Alborno", "fr": "Projet: Analyse d'Infrastructure E-commerce - Paolo Alborno" },
