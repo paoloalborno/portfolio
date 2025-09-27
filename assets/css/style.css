@@ -1573,10 +1573,9 @@ footer {
 /* Project Page - Tile Styles */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: 1fr; /* Only one tile per tab for now */
     gap: 2rem;
     padding: 1rem;
-    justify-content: center;
 }
 
 .project-tile {
@@ -1901,6 +1900,28 @@ footer {
     font-size: 0.95rem;
 }
 
+.sidebar-section ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.sidebar-section ul li {
+    background: var(--bg-card);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 0; /* Override default margin */
+}
+
+.sidebar-section ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
 .sidebar-section ul li strong {
     color: var(--text);
 }
@@ -1914,9 +1935,5 @@ footer {
     .project-sidebar {
         position: static; /* Remove sticky positioning on mobile */
         top: auto;
-    }
-
-    .project-grid {
-        grid-template-columns: 1fr;
     }
 }
