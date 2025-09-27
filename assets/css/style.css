@@ -1573,9 +1573,10 @@ footer {
 /* Project Page - Tile Styles */
 .project-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Only one tile per tab for now */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 2rem;
     padding: 1rem;
+    justify-content: center;
 }
 
 .project-tile {
@@ -1913,5 +1914,9 @@ footer {
     .project-sidebar {
         position: static; /* Remove sticky positioning on mobile */
         top: auto;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
     }
 }
