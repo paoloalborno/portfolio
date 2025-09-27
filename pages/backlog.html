@@ -14,89 +14,120 @@
         <section id="backlog" class="page-section animate-on-scroll">
             <h1 class="section-title" data-translate-key="backlog.title">Il Mio Backlog</h1>
             <div class="backlog-container">
-                <div class="backlog-item" data-status="future">
+                <!-- In Progress Section -->
+                <div class="backlog-item" data-status="learning">
                     <div class="item-main-info">
-                        <i class="fas fa-project-diagram"></i>
-                        <span class="item-title">Conversione MySQL Server Databricks</span>
+                        <i class="fas fa-book-open"></i>
+                        <span class="item-title" data-translate-key="backlog.devops_essentials_title"></span>
                         <div class="tech-icons">
-                            <img src="../assets/images/icons/MySQL.png" class="tech-icon small" alt="MySQL">
-                            <i class="fas fa-database tech-icon small" alt="Databricks"></i>
+                             <img src="../assets/images/icons/Docker.png" class="tech-icon small" alt="Docker">
+                             <i class="fas fa-database tech-icon small" alt="Databricks"></i>
                         </div>
-                        <span class="item-type project">Project</span>
-                        <span class="item-status future">Future</span>
+                        <span class="item-type course" data-translate-key="backlog.type_course"></span>
+                        <span class="item-status learning" data-translate-key="backlog.status_in_progress"></span>
                     </div>
                     <div class="item-details">
-                        <span class="item-dates"></span>
+                        <span class="item-dates" data-translate-key="backlog.dates_sep_oct_2025"></span>
                         <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: 0%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="backlog-item" data-status="developing">
-                    <div class="item-main-info">
-                        <i class="fas fa-project-diagram"></i>
-                        <span class="item-title" data-translate-key="backlog.langchain_title"></span>
-                        <div class="tech-icons">
-                            <img src="../assets/images/icons/Ollama.png" class="tech-icon small" alt="Ollama" class="tech-icon">
-                            <img src="../assets/images/icons/Python.png" class="tech-icon small" alt="Python" class="tech-icon">
-                        </div>
-                        <span class="item-type project" data-translate-key="backlog.type_project"></span>
-                        <span class="item-status developing" data-translate-key="backlog.status_developing"></span>
-                    </div>
-                    <div class="item-details">
-                        <span class="item-dates" data-translate-key="backlog.dates_aug_oct"></span>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: 90%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="backlog-item" data-status="developing">
-                    <div class="item-main-info">
-                        <i class="fas fa-project-diagram"></i>
-                        <span class="item-title" data-translate-key="backlog.portfolio_backend_title"></span>
-                        <div class="tech-icons">
-                            <img src="../assets/images/icons/Spring.png" class="tech-icon small" alt="Spring Boot" class="tech-icon">
-                            <img src="../assets/images/icons/Render.png" class="tech-icon small" alt="Render" class="tech-icon">
-                            <img src="../assets/images/icons/Docker.png" class="tech-icon small" alt="Docker" class="tech-icon">
-                            <img src="../assets/images/icons/Firebase.png" class="tech-icon small" alt="Firebase" class="tech-icon">
-                            <img src="../assets/images/icons/PostgresSQL.png" class="tech-icon small"  alt="PostgreSQL" class="tech-icon">
-                        </div>
-                        <span class="item-type project" data-translate-key="backlog.type_project"></span>
-                        <span class="item-status developing" data-translate-key="backlog.status_developing"></span>
-                    </div>
-                    <div class="item-details">
-                        <span class="item-dates" data-translate-key="backlog.dates_ago_sep"></span>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: 85%;"></div>
+                            <div class="progress-bar" style="width: 10%;"></div>
                         </div>
                         <i class="fas fa-chevron-down expand-icon"></i>
                     </div>
                     <div class="item-expandable-content">
-                        <p class="item-description" data-translate-key="backlog.portfolio_backend_description"></p>
+                        <p class="item-description" data-translate-key="backlog.devops_essentials_desc"></p>
                     </div>
                 </div>
-                 <div class="backlog-item" data-status="developing">
+
+                <div class="backlog-item" data-status="learning">
+                    <div class="item-main-info">
+                        <i class="fas fa-laptop-code"></i>
+                        <span class="item-title" data-translate-key="backlog.langchain_title"></span>
+                        <div class="tech-icons">
+                            <img src="../assets/images/icons/Ollama.png" class="tech-icon small" alt="Ollama">
+                            <img src="../assets/images/icons/Python.png" class="tech-icon small" alt="Python">
+                        </div>
+                        <span class="item-type tech" data-translate-key="backlog.type_tech"></span>
+                        <span class="item-status learning" data-translate-key="backlog.status_in_progress"></span>
+                    </div>
+                    <div class="item-details">
+                        <span class="item-dates" data-translate-key="backlog.dates_aug_oct"></span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Section -->
+                <div class="backlog-item" data-status="completed">
+                    <div class="item-main-info">
+                        <i class="fas fa-project-diagram"></i>
+                        <span class="item-title" data-translate-key="backlog.sql_toolkit_title"></span>
+                        <div class="tech-icons">
+                            <img src="../assets/images/icons/Python.png" class="tech-icon small" alt="Python">
+                            <img src="../assets/images/icons/MySQL.png" class="tech-icon small" alt="MySQL">
+                        </div>
+                        <span class="item-type project" data-translate-key="backlog.type_project"></span>
+                        <span class="item-status completed" data-translate-key="backlog.status_completed"></span>
+                    </div>
+                    <div class="item-details">
+                        <span class="item-dates" data-translate-key="backlog.dates_sep_13_27"></span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="item-expandable-content">
+                        <p class="item-description" data-translate-key="backlog.sql_toolkit_description"></p>
+                        <a href="projects/project-sql-toolkit.html" class="project-link" data-translate-key="backlog.project_link"></a>
+                    </div>
+                </div>
+
+                <div class="backlog-item" data-status="completed">
                     <div class="item-main-info">
                         <i class="fas fa-project-diagram"></i>
                         <span class="item-title" data-translate-key="backlog.portfolio_title"></span>
-                         <div class="tech-icons">
-                            <img src="../assets/images/icons/Jules.png" class="tech-icon small" alt="Jules" class="tech-icon">
-                            <img src="../assets/images/icons/JavaScript.png" class="tech-icon small" alt="JavaScript" class="tech-icon">
-                            <img src="../assets/images/icons/HTML5.png" class="tech-icon small" alt="HTML5" class="tech-icon">
+                        <div class="tech-icons">
+                            <img src="../assets/images/icons/Jules.png" class="tech-icon small" alt="Jules">
+                            <img src="../assets/images/icons/JavaScript.png" class="tech-icon small" alt="JavaScript">
+                            <img src="../assets/images/icons/HTML5.png" class="tech-icon small" alt="HTML5">
                         </div>
                         <span class="item-type project" data-translate-key="backlog.type_project"></span>
-                        <span class="item-status developing" data-translate-key="backlog.status_developing"></span>
+                        <span class="item-status completed" data-translate-key="backlog.status_completed"></span>
                     </div>
                     <div class="item-details">
-                        <span class="item-dates" data-translate-key="backlog.dates_ago_sep"></span>
+                        <span class="item-dates" data-translate-key="backlog.dates_jul_sep"></span>
                         <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: 80%;"></div>
+                            <div class="progress-bar" style="width: 100%;"></div>
                         </div>
                         <i class="fas fa-chevron-down expand-icon"></i>
                     </div>
                     <div class="item-expandable-content">
                         <p class="item-description" data-translate-key="backlog.portfolio_description"></p>
-                        <a href="projects.html" class="project-link" data-translate-key="backlog.project_link">View Project</a>
+                    </div>
+                </div>
+
+                <div class="backlog-item" data-status="completed">
+                    <div class="item-main-info">
+                        <i class="fas fa-project-diagram"></i>
+                        <span class="item-title" data-translate-key="backlog.portfolio_backend_title"></span>
+                        <div class="tech-icons">
+                            <img src="../assets/images/icons/Spring.png" class="tech-icon small" alt="Spring Boot">
+                            <img src="../assets/images/icons/Docker.png" class="tech-icon small" alt="Docker">
+                            <img src="../assets/images/icons/Firebase.png" class="tech-icon small" alt="Firebase">
+                            <img src="../assets/images/icons/PostgresSQL.png" class="tech-icon small" alt="PostgreSQL">
+                        </div>
+                        <span class="item-type project" data-translate-key="backlog.type_project"></span>
+                        <span class="item-status completed" data-translate-key="backlog.status_completed"></span>
+                    </div>
+                    <div class="item-details">
+                        <span class="item-dates" data-translate-key="backlog.dates_jul_sep"></span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="item-expandable-content">
+                        <p class="item-description" data-translate-key="backlog.portfolio_backend_description"></p>
                     </div>
                 </div>
             </div>
