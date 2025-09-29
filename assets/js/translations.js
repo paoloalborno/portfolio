@@ -138,10 +138,8 @@ const translations = {
         "tech_h3": { "en": "Technologies Used", "it": "Tecnologie Utilizzate", "fr": "Technologies Utilisées" },
         "tech_li_python": { "en": "Python", "it": "Python", "fr": "Python" },
         "tech_li_mysql": { "en": "MySQL", "it": "MySQL", "fr": "MySQL" },
-        "tech_li_mysql_conn": { "en": "mysql-connector-python", "it": "mysql-connector-python", "fr": "mysql-connector-python" },
         "tech_li_networkx": { "en": "NetworkX", "it": "NetworkX", "fr": "NetworkX" },
-        "tech_li_graphviz": { "en": "Graphviz", "it": "Graphviz", "fr": "Graphviz" },
-        "tech_li_dotenv": { "en": "python-dotenv", "it": "python-dotenv", "fr": "python-dotenv" }
+        "tech_li_graphviz": { "en": "Graphviz", "it": "Graphviz", "fr": "Graphviz" }
     },
     "contact": {
         "title": { "en": "Contact Me - Paolo Alborno", "it": "Contattami - Paolo Alborno", "fr": "Contactez-moi - Paolo Alborno" },
