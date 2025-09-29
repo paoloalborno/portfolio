@@ -2,27 +2,7 @@
  * =================================================================================
  * translations.js - Contenitore delle Traduzioni del Sito
  * =================================================================================
- *
- * Ciao! Questo file è molto semplice e non contiene logica di programmazione complessa.
- * È un grande "dizionario" (in programmazione si chiama "oggetto") che contiene
- * tutte le frasi del sito web in diverse lingue.
- *
- * COME FUNZIONA?
- *
- * La struttura è a livelli:
- *
- * 1.  Il primo livello è la **pagina** o la **sezione** del sito (es. "nav", "footer", "index").
- * 2.  Il secondo livello è una **chiave** che identifica una frase specifica (es. "home", "rights", "title").
- * 3.  Il terzo livello contiene le **traduzioni** vere e proprie, con un codice per ogni lingua
- *     (es. "en" per l'inglese, "it" per l'italiano).
- *
- * ESEMPIO:
- * Per trovare il testo del link "Home" del menu in italiano, lo script `main.js`
- * cercherà `translations.nav.home.it`, che corrisponde a "Home".
- *
- * Se devi aggiungere o modificare un testo, basta seguire questa struttura.
- *
- */
+**/
 const translations = {
     "nav": {
         "home": { "en": "Home", "it": "Home", "fr": "Accueil" },
@@ -89,37 +69,12 @@ const translations = {
         "tag_networkx": { "en": "NetworkX", "it": "NetworkX", "fr": "NetworkX" },
         "tag_graphviz": { "en": "Graphviz", "it": "Graphviz", "fr": "Graphviz" },
 
-        "ollama_agent_h3": { "en": "Local AI Agent with Ollama", "it": "Agente AI Locale con Ollama", "fr": "Agent IA Local avec Ollama" },
-        "ollama_agent_p": { "en": "A Q&A system for analyzing e-commerce product reviews using local LLMs.", "it": "Un sistema di Q&A per analizzare le recensioni di prodotti e-commerce utilizzando LLM locali.", "fr": "Un système de Q&R pour analyser les avis sur les produits e-commerce en utilisant des LLM locaux." },
+        "ollama_agent_h3": { "en": "A simple Local AI Agent with Ollama", "it": " Un semplice Agente AI Locale con Ollama", "fr": "Un Agent IA Local simple avec Ollama" },
+        "ollama_agent_p": { "en": "A Q&A system for analyzing product reviews using local LLMs.", "it": "Un sistema di Q&A per analizzare le recensioni di prodotti utilizzando LLM locali.", "fr": "Un système de Q&R pour analyser les avis sur les produits en utilisant des LLM locaux." },
         "ollama_agent_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" },
         "tag_ollama": { "en": "Ollama", "it": "Ollama", "fr": "Ollama" },
         "tag_langchain": { "en": "LangChain", "it": "LangChain", "fr": "LangChain" },
-        /*
-        "tab_ecommerce": { "en": "E-commerce Infrastructure Analysis", "it": "Analisi Infrastruttura E-commerce", "fr": "Analyse d'Infrastructure E-commerce" },
-        "tab_portfolio_backend": { "en": "Portfolio Backend Development", "it": "Sviluppo Backend del Portfolio", "fr": "Développement Backend du Portfolio" },
-        "tab_nlp": { "en": "NLP with BERT", "it": "NLP con BERT", "fr": "NLP avec BERT" },
-        "tab_python": { "en": "Python Projects", "it": "Progetti Python", "fr": "Projets Python" },
-        "tab_game": { "en": "Snake Game", "it": "Gioco Snake", "fr": "Jeu du Serpent" },
-
-        "ecommerce_h3": { "en": "E-commerce Cloud Infrastructure Analysis and Optimization", "it": "Analisi e Ottimizzazione di Infrastruttura Cloud per E-commerce", "fr": "Analyse et Optimisation d'Infrastructure Cloud pour E-commerce" },
-        "ecommerce_p": { "en": "An in-depth analysis of an e-commerce infrastructure on AWS, aimed at improving performance, scalability, and costs. The project included reviewing the architecture, identifying bottlenecks, and proposing optimized solutions.", "it": "Un'analisi approfondita di un'infrastruttura e-commerce su AWS, finalizzata a migliorare performance, scalabilità e costi. Il progetto ha incluso la revisione dell'architettura, l'identificazione di colli di bottiglia e la proposta di soluzioni ottimizzate.", "fr": "Une analyse approfondie d'une infrastructure e-commerce sur AWS, visant à améliorer les performances, la scalabilité et les coûts. Le projet comprenait la revue de l'architecture, l'identification des goulots d'étranglement et la proposition de solutions optimisées." },
-        "ecommerce_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" },
-        
-        "nlp_h3": { "en": "Sentiment Analysis System with BERT", "it": "Sistema di Analisi del Sentimento con BERT", "fr": "Système d'Analyse de Sentiments avec BERT" },
-        "nlp_p": { "en": "Development of a Natural Language Processing system for sentiment analysis of product reviews. The model, based on BERT, was trained and fine-tuned to classify text with high accuracy, supporting strategic business decisions.", "it": "Sviluppo di un sistema di Natural Language Processing per l'analisi del sentimento di recensioni di prodotti. Il modello, basato su BERT, è stato addestrato e fine-tuned per classificare il testo con alta precisione, supportando decisioni di business strategiche.", "fr": "Développement d'un système de Traitement du Langage Naturel pour l'analyse des sentiments des avis sur les produits. Le modèle, basé sur BERT, a été entraîné et affiné pour classer le texte avec une grande précision, soutenant les décisions commerciales stratégiques." },
-        "nlp_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" },
-
-        "py_subtab_tasklist": { "en": "Task List", "it": "Task List", "fr": "Liste de Tâches" },
-        "py_subtab_ai_agent": { "en": "AI Agent", "it": "AI Agent", "fr": "Agent IA" },
-        "py_tasklist_h3": { "en": "Task List Application", "it": "Applicazione Task List", "fr": "Application de Liste de Tâches" },
-        "py_tasklist_p": { "en": "A simple Python application for managing tasks. This project is currently under development.", "it": "Una semplice applicazione in Python per la gestione delle attività. Questo progetto è attualmente in fase di sviluppo.", "fr": "Une simple application Python pour gérer les tâches. Ce projet est actuellement en cours de développement." },
-        "py_ai_agent_h3": { "en": "AI Agent with OLLAMA and Langchain", "it": "AI Agent con OLLAMA e Langchain", "fr": "Agent IA avec OLLAMA et Langchain" },
-        "py_ai_agent_p": { "en": "An AI agent scaffolding project using OLLAMA and Langchain for local model interaction. This project is currently under development.", "it": "Un progetto di scaffolding per un agente AI che utilizza OLLAMA e Langchain per l'interazione con modelli locali. Questo progetto è attualmente in fase di sviluppo.", "fr": "Un projet de base pour un agent IA utilisant OLLAMA et Langchain pour interagir avec des modèles locaux. Ce projet est en cours de développement." },
-        
-        "game_h3": { "en": "Snake Game", "it": "Gioco Snake", "fr": "Jeu du Serpent" },
-        "game_p": { "en": "A simple implementation of the classic Snake game, created with HTML5 Canvas and JavaScript. A small project for fun and to refresh the basics of game logic.", "it": "Una semplice implementazione del classico gioco Snake, realizzato con HTML5 Canvas e JavaScript. Un piccolo progetto per divertimento e per rinfrescare le basi della logica di gioco.", "fr": "Une implémentation simple du jeu classique Snake, créée avec HTML5 Canvas et JavaScript. Un petit projet pour s'amuser et rafraîchir les bases de la logique de jeu." },
-        "game_btn": { "en": "Play Game", "it": "Gioca", "fr": "Jouer" }
-        */
+       
     },
     "project_portfolio_backend": {
         "title": { "en": "Project: Portfolio Backend - Paolo Alborno", "it": "Progetto: Backend del Portfolio - Paolo Alborno", "fr": "Projet: Backend du Portfolio - Paolo Alborno" },
@@ -217,18 +172,6 @@ const translations = {
         "h2": { "en": "Photo Gallery", "it": "Galleria Fotografica", "fr": "Galerie de Photos" },
         "section_subtitle": { "en": "A small collection of moments and places that have inspired me.", "it": "Una piccola collezione di momenti e luoghi che mi hanno ispirato.", "fr": "Une petite collection de moments et de lieux qui m'ont inspiré." }
     },
-    "game": {
-        "title": { "en": "Paolo - Game", "it": "Paolo - Gioco", "fr": "Paolo - Jeu" },
-        "h1": { "en": "Snake", "it": "Snake", "fr": "Serpent" },
-        "section_subtitle": { "en": "A little game to pass the time. Use the arrow keys to move.", "it": "Un piccolo gioco per passare il tempo. Usa i tasti freccia per muoverti.", "fr": "Un petit jeu pour passer le temps. Utilisez les touches fléchées pour vous déplacer." }
-    },
-    "python_projects": {
-        "title": { "en": "Python Snippets - Paolo Alborno", "it": "Python Snippets - Paolo Alborno", "fr": "Extraits Python - Paolo Alborno" },
-        "h2": { "en": "Python Code Snippets", "it": "Python Code Snippets", "fr": "Extraits de Code Python" },
-        "section_subtitle": { "en": "A collection of code examples and small scripts I have written.", "it": "Una raccolta di esempi di codice e piccoli script che ho scritto.", "fr": "Une collection d'exemples de code et de petits scripts que j'ai écrits." },
-        "example1_h3": { "en": "Example 1: Data Cleaning with Pandas", "it": "Esempio 1: Data Cleaning con Pandas", "fr": "Exemple 1: Nettoyage de Données avec Pandas" },
-        "example2_h3": { "en": "Example 2: Simple API Call", "it": "Esempio 2: Chiamata API Semplice", "fr": "Exemple 2: Appel API Simple" }
-    },
     "backlog": {
         "title": { "en": "My Backlog", "it": "Il Mio Backlog", "fr": "Mon Backlog" },
         "status_learning": { "en": "Learning", "it": "Learning", "fr": "En Apprentissage" },
@@ -257,39 +200,6 @@ const translations = {
 
         "portfolio_backend_title": { "en": "Portfolio Backend with OAuth", "it": "Portfolio Backend con OAuth", "fr": "Portfolio Backend avec OAuth" },
         "portfolio_backend_description": { "en": "A robust backend built with Spring Boot and Docker, featuring Firebase OAuth for authentication and PostgreSQL for data storage, deployed on Render.", "it": "Un backend robusto realizzato con Spring Boot e Docker, dotato di autenticazione OAuth tramite Firebase e archiviazione dati su PostgreSQL, deployato su Render.", "fr": "Un backend robuste construit avec Spring Boot et Docker, avec authentification Firebase OAuth et stockage de données PostgreSQL, déployé sur Render." }
-    },
-    "project_ecommerce": {
-        "title": { "en": "Project: E-commerce Infrastructure Analysis - Paolo Alborno", "it": "Progetto: Analisi Infrastruttura E-commerce - Paolo Alborno", "fr": "Projet: Analyse d'Infrastructure E-commerce - Paolo Alborno" },
-        "meta_description": { "en": "Details of the project for analyzing and optimizing an e-commerce cloud infrastructure on AWS.", "it": "Dettagli del progetto di analisi e ottimizzazione di un'infrastruttura cloud per e-commerce su AWS.", "fr": "Détails du projet d'analyse et d'optimisation d'une infrastructure cloud e-commerce sur AWS." },
-        "h2": { "en": "E-commerce Infrastructure Analysis", "it": "Analisi Infrastruttura E-commerce", "fr": "Analyse d'Infrastructure E-commerce" },
-        "section_subtitle": { "en": "Optimizing performance, scalability, and costs on AWS.", "it": "Ottimizzazione di performance, scalabilità e costi su AWS.", "fr": "Optimisation des performances, de la scalabilité et des coûts sur AWS." },
-        "goal_h3": { "en": "Project Goal", "it": "Obiettivo del Progetto", "fr": "Objectif du Projet" },
-        "goal_p": { "en": "The main objective was to analyze the cloud infrastructure of a medium-sized e-commerce platform to identify areas for improvement. The key metrics were page load time, the ability to handle traffic spikes during promotional campaigns, and the optimization of operational costs on AWS.", "it": "L'obiettivo principale era analizzare l'infrastruttura cloud di una piattaforma e-commerce di medie dimensioni per identificare aree di miglioramento. Le metriche chiave erano il tempo di caricamento delle pagine, la capacità di gestire picchi di traffico durante le campagne promozionali e l'ottimizzazione dei costi operativi su AWS.", "fr": "L'objectif principal était d'analyser l'infrastructure cloud d'une plateforme e-commerce de taille moyenne pour identifier les domaines d'amélioration. Les indicateurs clés étaient le temps de chargement des pages, la capacité à gérer les pics de trafic lors des campagnes promotionnelles et l'optimisation des coûts opérationnels sur AWS." },
-        "solution_h3": { "en": "My Solution", "it": "La Mia Soluzione", "fr": "Ma Solution" },
-        "solution_p": { "en": "I conducted a complete architectural analysis, using tools like AWS Cost Explorer, CloudWatch, and X-Ray. I identified that the database was a bottleneck and that the use of EC2 instances was not optimized. My proposal included:", "it": "Ho condotto un'analisi architetturale completa, utilizzando strumenti come AWS Cost Explorer, CloudWatch e X-Ray. Ho identificato che il database era un collo di bottiglia e che l'uso delle istanze EC2 non era ottimizzato. La mia proposta ha incluso:", "fr": "J'ai effectué une analyse architecturale complète, en utilisant des outils comme AWS Cost Explorer, CloudWatch et X-Ray. J'ai identifié que la base de données était un goulot d'étranglement et que l'utilisation des instances EC2 n'était pas optimisée. Ma proposition incluait :" },
-        "solution_li1": { "en": "Migration of the database to an Amazon Aurora instance with read replicas to improve read scalability.", "it": "Migrazione del database a un'istanza Amazon Aurora con read replicas per migliorare la scalabilità in lettura.", "fr": "Migration de la base de données vers une instance Amazon Aurora avec des réplicas en lecture pour améliorer la scalabilité en lecture." },
-        "solution_li2": { "en": "Implementation of an Auto Scaling strategy for EC2 instances to dynamically adapt to the load.", "it": "Implementazione di una strategia di Auto Scaling per le istanze EC2, per adattarsi dinamicamente al carico.", "fr": "Mise en œuvre d'une stratégie d'Auto Scaling pour les instances EC2 afin de s'adapter dynamiquement à la charge." },
-        "solution_li3": { "en": "Use of a CDN (Amazon CloudFront) to serve static content and reduce latency for end users.", "it": "Utilizzo di una CDN (Amazon CloudFront) per servire i contenuti statici e ridurre la latenza per gli utenti finali.", "fr": "Utilisation d'un CDN (Amazon CloudFront) pour servir le contenu statique et réduire la latence pour les utilisateurs finaux." },
-        "solution_li4": { "en": "Introduction of a caching system with ElastiCache (Redis) for the most frequent queries.", "it": "Introduzione di un sistema di caching con ElastiCache (Redis) per le query più frequenti.", "fr": "Introduction d'un système de mise en cache avec ElastiCache (Redis) pour les requêtes les plus fréquentes." },
-        "results_h3": { "en": "Results", "it": "Risultati", "fr": "Résultats" },
-        "results_p": { "en": "The implemented changes led to a 35% reduction in average page load time, a 200% increase in the capacity to handle concurrent users, and a 22% reduction in monthly AWS costs thanks to more efficient use of resources.", "it": "Le modifiche implementate hanno portato a una riduzione del 35% del tempo di caricamento medio delle pagine, a un aumento della capacità di gestire utenti concorrenti del 200% e a una riduzione dei costi mensili di AWS del 22% grazie a un uso più efficiente delle risorse.", "fr": "Les modifications mises en œuvre ont entraîné une réduction de 35% du temps de chargement moyen des pages, une augmentation de 200% de la capacité à gérer les utilisateurs simultanés et une réduction de 22% des coûts mensuels d'AWS grâce à une utilisation plus efficace des ressources." }
-    },
-    "project_nlp": {
-        "title": { "en": "Project: Sentiment Analysis System with BERT - Paolo Alborno", "it": "Progetto: Sistema di Analisi del Sentimento con BERT - Paolo Alborno", "fr": "Projet: Système d'Analyse de Sentiments avec BERT - Paolo Alborno" },
-        "meta_description": { "en": "Details of the project for developing an NLP system for sentiment analysis based on BERT.", "it": "Dettagli del progetto di sviluppo di un sistema di NLP per l'analisi del sentimento basato su BERT.", "fr": "Détails du projet de développement d'un système NLP pour l'analyse des sentiments basé sur BERT." },
-        "h2": { "en": "Sentiment Analysis System with BERT", "it": "Sistema di Analisi del Sentimento con BERT", "fr": "Système d'Analyse de Sentiments avec BERT" },
-        "section_subtitle": { "en": "Applying Natural Language Processing for business insights.", "it": "Applicazione del Natural Language Processing per insight di business.", "fr": "Application du Traitement du Langage Naturel pour des informations commerciales." },
-        "goal_h3": { "en": "Project Goal", "it": "Obiettivo del Progetto", "fr": "Objectif du Projet" },
-        "goal_p": { "en": "The goal was to develop a machine learning model capable of analyzing large volumes of product reviews and accurately classifying them as positive, negative, or neutral. This tool was intended to provide the marketing team with actionable insights to improve products and communication.", "it": "L'obiettivo era sviluppare un modello di machine learning capace di analizzare grandi volumi di recensioni di prodotti e classificarle accuratamente come positive, negative o neutre. Questo strumento doveva fornire al team di marketing insight azionabili per migliorare i prodotti e la comunicazione.", "fr": "L'objectif était de développer un modèle d'apprentissage automatique capable d'analyser de grands volumes d'avis sur les produits et de les classer avec précision comme positifs, négatifs ou neutres. Cet outil visait à fournir à l'équipe marketing des informations exploitables pour améliorer les produits et la communication." },
-        "solution_h3": { "en": "My Solution", "it": "La Mia Soluzione", "fr": "Ma Solution" },
-        "solution_p": { "en": "I designed and implemented a complete NLP pipeline. The core of the system is a model based on BERT (Bidirectional Encoder Representations from Transformers), which I fine-tuned on a specific dataset of reviews from the domain of interest. The solution included:", "it": "Ho progettato e implementato una pipeline di NLP completa. Il cuore del sistema è un modello basato su BERT (Bidirectional Encoder Representations from Transformers), che ho fine-tuned su un dataset specifico di recensioni del dominio di interesse. La soluzione includeva:", "fr": "J'ai conçu et mis en œuvre un pipeline NLP complet. Le cœur du système est un modèle basé sur BERT (Bidirectional Encoder Representations from Transformers), que j'ai affiné sur un ensemble de données spécifique d'avis du domaine d'intérêt. La solution comprenait :" },
-        "solution_li1": { "en": "Preprocessing of textual data to clean and normalize the text.", "it": "Preprocessing dei dati testuali per pulire e normalizzare il testo.", "fr": "Prétraitement des données textuelles pour nettoyer et normaliser le texte." },
-        "solution_li2": { "en": "Fine-tuning of the pre-trained BERT model for the sentiment classification task.", "it": "Fine-tuning del modello BERT pre-addestrato per il compito di classificazione del sentimento.", "fr": "Affinage du modèle BERT pré-entraîné pour la tâche de classification des sentiments." },
-        "solution_li3": { "en": "Development of a RESTful API with FastAPI to expose the model and allow real-time text analysis.", "it": "Sviluppo di un'API RESTful con FastAPI per esporre il modello e permettere l'analisi del testo in tempo reale.", "fr": "Développement d'une API RESTful avec FastAPI pour exposer le modèle et permettre l'analyse de texte en temps réel." },
-        "solution_li4": { "en": "Containerization of the application with Docker to ensure portability and easy deployment.", "it": "Containerizzazione dell'applicazione con Docker per garantire la portabilità e una facile messa in produzione.", "fr": "Conteneurisation de l'application avec Docker pour assurer la portabilité et un déploiement facile." },
-        "solution_li5": { "en": "Creation of an interactive dashboard to visualize the analysis results.", "it": "Creazione di una dashboard interattiva per visualizzare i risultati dell'analisi.", "fr": "Création d'un tableau de bord interactif pour visualiser les résultats de l'analyse." },
-        "results_h3": { "en": "Results", "it": "Risultati", "fr": "Résultats" },
-        "results_p": { "en": "The model achieved an accuracy of 92% on the test dataset, surpassing solutions based on more traditional approaches. The API made it possible to integrate sentiment analysis into other business systems, providing valuable data that helped guide two marketing campaigns and identify three areas for product improvement.", "it": "Il modello ha raggiunto un'accuratezza del 92% sul dataset di test, superando le soluzioni basate su approcci più tradizionali. L'API ha permesso di integrare l'analisi del sentimento in altri sistemi aziendali, fornendo dati preziosi che hanno contribuito a orientare due campagne di marketing e a identificare tre aree di miglioramento del prodotto.", "fr": "Le modèle a atteint une précision de 92% sur l'ensemble de données de test, dépassant les solutions basées sur des approches plus traditionnelles. L'API a permis d'intégrer l'analyse des sentiments dans d'autres systèmes d'entreprise, fournissant des données précieuses qui ont aidé à orienter deux campagnes marketing et à identifier trois domaines d'amélioration des produits." }
     },
     "cv": {
         "title": { "en": "CV - Paolo Alborno", "it": "CV - Paolo Alborno", "fr": "CV - Paolo Alborno" },

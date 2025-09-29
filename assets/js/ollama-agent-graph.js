@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     const data = [
-        { label: 'User', description: 'Provides a prompt to the agent.', arrow_label: 'Send Prompt', icon: '../../assets/images/icons/User.png' },
-        { label: 'Ollama Agent', description: 'Processes the prompt and interacts with the Ollama model.', arrow_label: 'Interact with Model', icon: '../../assets/images/icons/Ollama.png' },
-        { label: 'Ollama Model', description: 'Generates a response based on the input.', arrow_label: 'Generate Response', icon: '../../assets/images/icons/AI.png' },
-        { label: 'Ollama Agent', description: 'Formats the response and sends it back to the user.', arrow_label: 'Format Response', icon: '../../assets/images/icons/Ollama.png' },
-        { label: 'User', description: 'Receives the formatted response.', arrow_label: 'Receive Response', icon: '../../assets/images/icons/User.png' }
+        { label: 'User', description: 'Provides a prompt and send it to Agent', arrow_label: 'Send Prompt', icon: '../../assets/images/icons/User.png' },
+        { label: 'Agent Ollama', description: 'Prepare the prompt and send it to Ollama', arrow_label: 'Interact with Model', icon: '../../assets/images/icons/Ollama.png' },
+        { label: 'LLM Model', description: 'Receives prompt and generates a response.', arrow_label: 'Generate Response', icon: '../../assets/images/icons/AI.png' },
+        { label: 'Agent Ollama', description: 'Formats the response and sends it back to the user.', arrow_label: 'Format Response', icon: '../../assets/images/icons/Ollama.png' },
+        { label: 'User', description: 'Read response and continue the conversation.', arrow_label: 'Receive Response', icon: '../../assets/images/icons/User.png' }
     ];
 
     const svgWidth = 600;
@@ -85,6 +85,35 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('font-style', 'italic')
         .text(d => d.arrow_label);
 
+    // Add loop arrow from last box to first box
+    const lastBoxY = (data.length - 1) * (boxHeight + arrowSpacing) + boxHeight / 2;
+    const firstBoxY = boxHeight / 2;
+    const curveOffset = 100; // How far to the right the curve goes
+
+    const loopGroup = svg.append('g').attr('class', 'loop-arrow-group');
+
+    // Create curved path for the loop arrow
+    const pathData = `M ${svgWidth / 2 + boxWidth / 2} ${lastBoxY} 
+                      Q ${svgWidth / 2 + boxWidth / 2 + curveOffset} ${(lastBoxY + firstBoxY) / 2} 
+                      ${svgWidth / 2 + boxWidth / 2} ${firstBoxY}`;
+
+    loopGroup.append('path')
+        .attr('d', pathData)
+        .attr('fill', 'none')
+        .attr('stroke', '#28a745')
+        .attr('stroke-width', 2)
+        .attr('marker-end', 'url(#arrowhead-loop)');
+
+    // Add label for the loop arrow
+    loopGroup.append('text')
+        .attr('x', svgWidth / 2 + boxWidth / 2 + curveOffset + 10)
+        .attr('y', (lastBoxY + firstBoxY) / 2)
+        .attr('text-anchor', 'start')
+        .attr('fill', '#28a745')
+        .style('font-size', '12px')
+        .style('font-style', 'italic')
+        .text('Continue Loop');
+
     svg.append('defs').append('marker')
         .attr('id', 'arrowhead')
         .attr('viewBox', '-0 -5 10 10')
@@ -96,4 +125,17 @@ document.addEventListener('DOMContentLoaded', function() {
         .append('path')
         .attr('d', 'M0,-5L10,0L0,5')
         .attr('fill', '#007bff');
+
+    // Add arrowhead for loop arrow
+    svg.select('defs').append('marker')
+        .attr('id', 'arrowhead-loop')
+        .attr('viewBox', '-0 -5 10 10')
+        .attr('refX', 5)
+        .attr('refY', 0)
+        .attr('orient', 'auto')
+        .attr('markerWidth', 6)
+        .attr('markerHeight', 6)
+        .append('path')
+        .attr('d', 'M0,-5L10,0L0,5')
+        .attr('fill', '#28a745');
 });
