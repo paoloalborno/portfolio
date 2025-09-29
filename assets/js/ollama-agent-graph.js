@@ -1,10 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
     const data = [
-        { label: 'User', description: 'Provides a prompt and send it to Agent', arrow_label: 'Send Prompt', icon: '../../assets/images/icons/User.png' },
-        { label: 'Agent Ollama', description: 'Prepare the prompt and send it to Ollama', arrow_label: 'Interact with Model', icon: '../../assets/images/icons/Ollama.png' },
-        { label: 'LLM Model', description: 'Receives prompt and generates a response.', arrow_label: 'Generate Response', icon: '../../assets/images/icons/AI.png' },
-        { label: 'Agent Ollama', description: 'Formats the response and sends it back to the user.', arrow_label: 'Format Response', icon: '../../assets/images/icons/Ollama.png' },
-        { label: 'User', description: 'Read response and continue the conversation.', arrow_label: 'Receive Response', icon: '../../assets/images/icons/User.png' }
+        {
+            label: 'reviews.csv',
+            description: 'Script reads reviews from CSV and asks user to load database.',
+            arrow_label: 'Load & Process',
+            icon: '../../assets/images/icons/AI.png'
+        },
+        {
+            label: 'ChromaDB',
+            description: 'Embeddings are created and stored in the vector database.',
+            arrow_label: 'Store Embeddings',
+            icon: '../../assets/images/icons/Ollama.png'
+        },
+        {
+            label: 'User',
+            description: 'Asks a natural language question.',
+            arrow_label: 'Send Question',
+            icon: '../../assets/images/icons/User.png'
+        },
+        {
+            label: 'LangChain & Ollama',
+            description: 'Relevant reviews are retrieved to generate an answer.',
+            arrow_label: 'Generate Response',
+            icon: '../../assets/images/icons/AI.png'
+        },
+        {
+            label: 'User',
+            description: 'Receives the answer and can continue the conversation.',
+            arrow_label: 'Receive Answer',
+            icon: '../../assets/images/icons/User.png'
+        }
     ];
 
     const svgWidth = 600;
@@ -85,17 +110,16 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('font-style', 'italic')
         .text(d => d.arrow_label);
 
-    // Add loop arrow from last box to first box
+    // Add loop arrow from last box to the first "User" box (index 2)
     const lastBoxY = (data.length - 1) * (boxHeight + arrowSpacing) + boxHeight / 2;
-    const firstBoxY = boxHeight / 2;
-    const curveOffset = 100; // How far to the right the curve goes
+    const firstUserBoxY = 2 * (boxHeight + arrowSpacing) + boxHeight / 2;
+    const curveOffset = 100;
 
     const loopGroup = svg.append('g').attr('class', 'loop-arrow-group');
 
-    // Create curved path for the loop arrow
     const pathData = `M ${svgWidth / 2 + boxWidth / 2} ${lastBoxY} 
-                      Q ${svgWidth / 2 + boxWidth / 2 + curveOffset} ${(lastBoxY + firstBoxY) / 2} 
-                      ${svgWidth / 2 + boxWidth / 2} ${firstBoxY}`;
+                      Q ${svgWidth / 2 + boxWidth / 2 + curveOffset} ${(lastBoxY + firstUserBoxY) / 2}
+                      ${svgWidth / 2 + boxWidth / 2} ${firstUserBoxY}`;
 
     loopGroup.append('path')
         .attr('d', pathData)
@@ -104,15 +128,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('stroke-width', 2)
         .attr('marker-end', 'url(#arrowhead-loop)');
 
-    // Add label for the loop arrow
     loopGroup.append('text')
-        .attr('x', svgWidth / 2 + boxWidth / 2 + curveOffset + 10)
-        .attr('y', (lastBoxY + firstBoxY) / 2)
+        .attr('x', svgWidth / 2 + boxWidth / 2 + curveOffset - 50)
+        .attr('y', (lastBoxY + firstUserBoxY) / 2)
         .attr('text-anchor', 'start')
         .attr('fill', '#28a745')
         .style('font-size', '12px')
         .style('font-style', 'italic')
-        .text('Continue Loop');
+        .text('Continue Conversation');
 
     svg.append('defs').append('marker')
         .attr('id', 'arrowhead')
@@ -126,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('d', 'M0,-5L10,0L0,5')
         .attr('fill', '#007bff');
 
-    // Add arrowhead for loop arrow
     svg.select('defs').append('marker')
         .attr('id', 'arrowhead-loop')
         .attr('viewBox', '-0 -5 10 10')
