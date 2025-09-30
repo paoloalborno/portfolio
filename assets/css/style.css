@@ -712,7 +712,7 @@ footer {
 }
 
 .footer-social a {
-    color: rgba(255, 255, 255, 0.7);
+    color: #FFFFFF;
     font-size: 1.5rem;
     transition: all 0.3s ease;
 }
