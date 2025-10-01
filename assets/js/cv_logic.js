@@ -107,3 +107,15 @@ class CVManager {
         }
     }
 }
+
+// === Script Initialization ===
+// Use the 'load' event to ensure all resources, including stylesheets, are fully loaded.
+// This is the most robust way to prevent race conditions where the script executes
+// before the browser has calculated the final dimensions of the graph container.
+window.addEventListener('load', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentLang = urlParams.get('lang') || localStorage.getItem('language') || 'it';
+
+    const cvManager = new CVManager(currentLang);
+    cvManager.init();
+});
