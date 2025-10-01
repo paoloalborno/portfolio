@@ -1085,7 +1085,8 @@ footer {
 
 #cv-graph {
     width: 100%;
-    height: 100%;
+    height: 80vh;
+    min-height: 600px; /* Ensure visibility on most screens */
 }
 
 .cv-title {
@@ -1526,6 +1527,10 @@ footer {
     border-top: 1px solid #e2e8f0;
 }
 
+.item-expandable-content.is-visible {
+    display: block;
+}
+
 .item-description {
     color: var(--text-light);
     margin-bottom: 1rem;
@@ -1552,6 +1557,7 @@ footer {
 .backlog-badge-img {
     width: 80px;
     height: 80px;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
