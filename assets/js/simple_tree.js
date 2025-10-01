@@ -216,7 +216,7 @@ class SimpleTree {
      */
     _transformData(data) {
         const transformed = JSON.parse(JSON.stringify(data));
-        const root = { name: transformed.profile.name || "Paolo Alborno", category: "root", children: [] };
+        const root = { name: "Me", category: "root", children: [] };
 
         const sectionMap = {
             experience: "experience",
@@ -340,24 +340,29 @@ class SimpleTree {
         let link = this.g.selectAll('path.link')
             .data(links, d => d.id);
 
+        // Path generator for a straight line. This will replace the curved d3.linkVertical.
+        const lineGenerator = (sourcePoint, targetPoint) => {
+            return `M ${sourcePoint.x},${sourcePoint.y} L ${targetPoint.x},${targetPoint.y}`;
+        };
+
         let linkEnter = link.enter().insert('path', "g")
             .attr("class", "link")
             .attr('d', d => {
                 const o = {x: source.x0, y: source.y0};
-                return d3.linkVertical().x(d => d.x).y(d => d.y)({source: o, target: o});
+                return lineGenerator(o, o);
             });
 
         let linkUpdate = linkEnter.merge(link);
 
         linkUpdate.transition()
             .duration(this.options.duration)
-            .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
+            .attr('d', d => lineGenerator(d.source, d.target));
 
         link.exit().transition()
             .duration(this.options.duration)
             .attr('d', d => {
                 const o = {x: source.x, y: source.y};
-                return d3.linkVertical().x(d => d.x).y(d => d.y)({source: o, target: o});
+                return lineGenerator(o, o);
             })
             .remove();
 
