@@ -56,12 +56,23 @@ var cvDataIT = {
                 "Co-organizzazione della conferenza internazionale sulla computer-human interaction (MOCO 2018)."
             ],
             skills: ['Python', 'Java', 'Project Management', 'Ricerca']
+        },
+        {
+            id: 'exp_reply',
+            title: 'Ingegnere software junior',
+            graph_category: 'experience_item',
+            date: 'Mag 2014 - Lug 2014',
+            company: 'Reply | Milano, Italia',
+            details: [
+                "Sviluppo backend per la piattaforma di e-commerce di Euronics."
+            ],
+            skills: ['Java', 'SQL', 'Backend']
         }
     ],
     education: [
         {
             id: 'edu_phd',
-            title: 'Dottorato in Informatica',
+            title: 'Dottorato in Ingegneria dei Sistemi e Computer Science',
             graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'Università di Genova, Italia',
@@ -87,7 +98,9 @@ var cvDataIT = {
     certifications: [
         { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
         { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] },
+        { id: 'cert_db_fundamentals', title: 'Databricks Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/4e965d38-65b5-48e1-9301-9490569e6d5e/37b43e8b-88a4-46a5-bee6-9f5945661792_cached_image_20250930-31-cye863.png' },
+        { id: 'cert_genai_fundamentals', title: 'Generative AI Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/23451ae5-856e-4ac7-b128-c05d6d5d4e2b/2b731200-df11-4a89-a2e5-9a388608571f_cached_image_20250930-31-llmkx2.png' }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
@@ -141,12 +154,23 @@ var cvDataEN = {
                 "Co-organized the international conference on computer-human interaction (MOCO 2018)."
             ],
             skills: ['Python', 'Java', 'Project Management', 'Research']
+        },
+        {
+            id: 'exp_reply',
+            title: 'Junior Software Engineer',
+            graph_category: 'experience_item',
+            date: 'May 2014 - Jul 2014',
+            company: 'Reply | Milan, Italy',
+            details: [
+                "Backend development for the Euronics e-commerce platform."
+            ],
+            skills: ['Java', 'SQL', 'Backend']
         }
     ],
     education: [
         {
             id: 'edu_phd',
-            title: 'PhD in Computer Science',
+            title: 'PhD in Systems Engineering and Computer Science',
             graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'University of Genoa, Italy',
@@ -172,7 +196,9 @@ var cvDataEN = {
     certifications: [
         { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
         { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] },
+        { id: 'cert_db_fundamentals', title: 'Databricks Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/4e965d38-65b5-48e1-9301-9490569e6d5e/37b43e8b-88a4-46a5-bee6-9f5945661792_cached_image_20250930-31-cye863.png' },
+        { id: 'cert_genai_fundamentals', title: 'Generative AI Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/23451ae5-856e-4ac7-b128-c05d6d5d4e2b/2b731200-df11-4a89-a2e5-9a388608571f_cached_image_20250930-31-llmkx2.png' }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
@@ -226,12 +252,23 @@ var cvDataFR = {
                 "Co-organisation de la conférence internationale sur l'interaction homme-machine (MOCO 2018)."
             ],
             skills: ['Python', 'Java', 'Gestion de Projet', 'Recherche']
+        },
+        {
+            id: 'exp_reply',
+            title: 'Ingénieur Logiciel Junior',
+            graph_category: 'experience_item',
+            date: 'Mai 2014 - Juil 2014',
+            company: 'Reply | Milan, Italie',
+            details: [
+                "Développement backend pour la plateforme e-commerce d'Euronics."
+            ],
+            skills: ['Java', 'SQL', 'Backend']
         }
     ],
     education: [
         {
             id: 'edu_phd',
-            title: 'Doctorat en Informatique',
+            title: 'Doctorat en Ingénierie des Systèmes et Informatique',
             graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'Université de Gênes, Italie',
@@ -257,7 +294,9 @@ var cvDataFR = {
     certifications: [
         { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
         { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] },
+        { id: 'cert_db_fundamentals', title: 'Fondamentaux de Databricks', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/4e965d38-65b5-48e1-9301-9490569e6d5e/37b43e8b-88a4-46a5-bee6-9f5945661792_cached_image_20250930-31-cye863.png' },
+        { id: 'cert_genai_fundamentals', title: 'Fondamentaux de l\'IA Générative', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/23451ae5-856e-4ac7-b128-c05d6d5d4e2b/2b731200-df11-4a89-a2e5-9a388608571f_cached_image_20250930-31-llmkx2.png' }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],

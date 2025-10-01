@@ -34,7 +34,7 @@ class SimpleTree {
             nodeHeight: 180,
             colorScale: d3.scaleOrdinal()
                 .domain(["root", "section_experience", "experience_item", "section_education", "education_item", "section_certifications", "certification_item", "section_skills", "skill_area", "skill"])
-                .range(["#2d3748", "#E53E3E", "#C53030", "#D69E2E", "#805AD5", "#319795", "#2C7A7B", "#4A5568", "#2B6CB0", "#4299E1"])
+                .range(["#2d3748", "#E53E3E", "#C53030", "#D69E2E", "#D69E2E", "#319795", "#2C7A7B", "#4A5568", "#2B6CB0", "#4299E1"])
         };
 
         this.options = { ...defaults, ...options };
@@ -245,18 +245,18 @@ class SimpleTree {
             .attr("class", "link")
             .attr("d", d => {
                 const o = { x: source.x0, y: source.y0 };
-                return d3.linkVertical()({ source: o, target: o });
+                return `M ${o.x},${o.y} C ${o.x},${o.y} ${o.x},${o.y} ${o.x},${o.y}`;
             });
 
         linkEnter.merge(linkSelection).transition()
             .duration(duration)
-            .attr("d", d3.linkVertical().x(d => d.x).y(d => d.y));
+            .attr("d", d => `M ${d.source.x},${d.source.y} C ${d.source.x},${(d.source.y + d.target.y) / 2} ${d.target.x},${(d.source.y + d.target.y) / 2} ${d.target.x},${d.target.y}`);
 
         linkSelection.exit().transition()
             .duration(duration)
             .attr("d", d => {
                 const o = { x: source.x, y: source.y };
-                return d3.linkVertical()({ source: o, target: o });
+                return `M ${o.x},${o.y} C ${o.x},${o.y} ${o.x},${o.y} ${o.x},${o.y}`;
             })
             .remove();
 
@@ -306,7 +306,8 @@ class SimpleTree {
         const modal = document.getElementById('cv-modal');
         if (!modal) return;
 
-        if (!data.company && !data.date && (!data.details || data.details.length === 0) && !data.link) {
+        // Non aprire il modal se non ci sono contenuti significativi
+        if (!data.company && !data.date && (!data.details || data.details.length === 0) && !data.link && !data.badge) {
             return;
         }
 
@@ -324,6 +325,16 @@ class SimpleTree {
                 ul.appendChild(li);
             });
             detailsContainer.appendChild(ul);
+        }
+
+        const badgesContainer = document.getElementById('modal-badges-container');
+        badgesContainer.innerHTML = '';
+        if (data.badge) {
+            const badgeImg = document.createElement('img');
+            badgeImg.src = data.badge;
+            badgeImg.alt = data.name + " badge";
+            badgeImg.className = 'modal-badge-img';
+            badgesContainer.appendChild(badgeImg);
         }
 
         const linkContainer = document.getElementById('modal-link-container');
