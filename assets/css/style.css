@@ -1541,6 +1541,21 @@ footer {
     text-decoration: underline;
 }
 
+.backlog-badges {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.backlog-badge-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 /* Hobbies Page - Tile Styles */
 .hobbies-grid {
     display: grid;
