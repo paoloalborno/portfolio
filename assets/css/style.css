@@ -1152,6 +1152,22 @@ footer {
     margin-bottom: 0.5rem;
 }
 
+.modal-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.modal-badge-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 /* New CV Legend Styles */
 .cv-legend {
     position: absolute;
