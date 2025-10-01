@@ -55,9 +55,9 @@ class SimpleTree {
             .attr("height", this.height + this.margin.top + this.margin.bottom);
 
         this.g = this.svg.append("g")
-            .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
+            .attr("transform", `translate(${this.width / 2},${this.margin.top})`);
 
-        this.tree = d3.tree().size([this.width, this.height]);
+        this.tree = d3.tree().nodeSize([140, this.options.nodeSeparation]);
         this.root = null; // Will be initialized in render()
 
         // Use the color scale from options
@@ -273,8 +273,6 @@ class SimpleTree {
         const treeLayoutData = this.tree(this.root);
         let nodes = treeLayoutData.descendants();
         let links = treeLayoutData.links();
-
-        nodes.forEach(d => { d.y = d.depth * this.options.nodeSeparation; });
 
         let node = this.g.selectAll('g.node')
             .data(nodes, d => d.id || (d.id = ++this.nodeCounter));
