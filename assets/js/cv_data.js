@@ -56,12 +56,23 @@ var cvDataIT = {
                 "Co-organizzazione della conferenza internazionale sulla computer-human interaction (MOCO 2018)."
             ],
             skills: ['Python', 'Java', 'Project Management', 'Ricerca']
+        },
+        {
+            id: 'exp_reply',
+            title: 'Ingegnere software junior',
+            graph_category: 'experience_item',
+            date: 'Mag 2014 - Lug 2014',
+            company: 'Reply | Milano, Italia',
+            details: [
+                "Sviluppo backend per la piattaforma di e-commerce di Euronics."
+            ],
+            skills: ['Java', 'SQL', 'Backend']
         }
     ],
     education: [
         {
             id: 'edu_phd',
-            title: 'Dottorato in Informatica',
+            title: 'Dottorato in Ingegneria dei Sistemi e Computer Science',
             graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'Università di Genova, Italia',
@@ -141,12 +152,23 @@ var cvDataEN = {
                 "Co-organized the international conference on computer-human interaction (MOCO 2018)."
             ],
             skills: ['Python', 'Java', 'Project Management', 'Research']
+        },
+        {
+            id: 'exp_reply',
+            title: 'Junior Software Engineer',
+            graph_category: 'experience_item',
+            date: 'May 2014 - Jul 2014',
+            company: 'Reply | Milan, Italy',
+            details: [
+                "Backend development for the Euronics e-commerce platform."
+            ],
+            skills: ['Java', 'SQL', 'Backend']
         }
     ],
     education: [
         {
             id: 'edu_phd',
-            title: 'PhD in Computer Science',
+            title: 'PhD in Systems Engineering and Computer Science',
             graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'University of Genoa, Italy',
@@ -226,12 +248,23 @@ var cvDataFR = {
                 "Co-organisation de la conférence internationale sur l'interaction homme-machine (MOCO 2018)."
             ],
             skills: ['Python', 'Java', 'Gestion de Projet', 'Recherche']
+        },
+        {
+            id: 'exp_reply',
+            title: 'Ingénieur Logiciel Junior',
+            graph_category: 'experience_item',
+            date: 'Mai 2014 - Juil 2014',
+            company: 'Reply | Milan, Italie',
+            details: [
+                "Développement backend pour la plateforme e-commerce d'Euronics."
+            ],
+            skills: ['Java', 'SQL', 'Backend']
         }
     ],
     education: [
         {
             id: 'edu_phd',
-            title: 'Doctorat en Informatique',
+            title: 'Doctorat en Ingénierie des Systèmes et Informatique',
             graph_category: 'education_item',
             date: '2014 - 2018',
             company: 'Université de Gênes, Italie',
