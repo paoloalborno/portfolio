@@ -18,7 +18,6 @@ class SimpleTree {
         }
 
         this._setupProperties(container, initialData, options);
-        this._setupSvg();
         this._setupTreeLayout();
     }
 
@@ -42,8 +41,10 @@ class SimpleTree {
         this.rawData = initialData;
         this.nodeCounter = 0;
 
-        this.width = this.container.clientWidth;
-        this.height = this.container.clientHeight;
+        // Defer width and height calculation to the render() method to avoid race conditions
+        // where the script executes before the container's dimensions are finalized.
+        this.width = 0;
+        this.height = 0;
     }
 
     /**
@@ -136,6 +137,12 @@ class SimpleTree {
      * The root starts expanded, but its children start collapsed.
      */
     render() {
+        // Defer dimension calculation and SVG setup until render is called.
+        // This ensures the container is visible and has its final dimensions.
+        this.width = this.container.clientWidth;
+        this.height = this.container.clientHeight;
+        this._setupSvg();
+
         const hierarchicalData = this._transformData(this.rawData);
         this.root = d3.hierarchy(hierarchicalData, d => d.children);
         this.root.x0 = 0;
@@ -205,7 +212,6 @@ class SimpleTree {
             .attr("class", "node")
             .attr("data-category", d => d.data.category)
             .attr("transform", `translate(${source.x0},${source.y0})`)
-            .attr("opacity", 0)
             .on("click", (event, d) => this._handleNodeClick(event, d));
 
         nodeEnter.append("circle")

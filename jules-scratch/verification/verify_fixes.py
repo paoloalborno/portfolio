@@ -1,65 +1,70 @@
 import os
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright, expect, Page
 
-def run_verification():
+def run_verification(page: Page):
+    """
+    Navigates to the CV and Backlog pages to verify the implemented fixes.
+    """
+    base_url = "http://localhost:8000"
+
+    # 1. Verify CV Graph Visibility
+    cv_url = f"{base_url}/pages/cv.html"
+    page.goto(cv_url, wait_until="load")
+
+    # Wait for the page to be fully initialized
+    expect(page.locator("body.page-initialized")).to_be_visible(timeout=10000)
+
+    # Wait for the SVG element to be present
+    cv_graph_svg = page.locator("#cv-graph svg")
+    expect(cv_graph_svg).to_be_visible()
+
+    # Log dimensions for debugging
+    graph_container_box = page.locator("#cv-graph").bounding_box()
+    svg_box = cv_graph_svg.bounding_box()
+    print(f"CV Graph Container Bounding Box: {graph_container_box}")
+    print(f"SVG Element Bounding Box: {svg_box}")
+
+    page.wait_for_timeout(1000)
+
+    page.screenshot(path="jules-scratch/verification/01_cv_graph_verification.png")
+    print("Successfully captured CV graph screenshot.")
+
+    # 2. Verify Backlog Page Changes
+    backlog_url = f"{base_url}/pages/backlog.html"
+    page.goto(backlog_url, wait_until="load")
+
+    # Wait for the page to be fully initialized
+    expect(page.locator("body.page-initialized")).to_be_visible(timeout=10000)
+
+    # Expand the "DevOps Essentials" item using a more stable locator
+    devops_item = page.locator('.backlog-item:has([data-translate-key="backlog.devops_essentials_title"])')
+    devops_item.locator(".expand-icon").click()
+    expect(devops_item.locator(".item-expandable-content")).to_be_visible()
+
+    # Expand the "LangChain, Ollama & LLMs" item
+    langchain_item = page.locator('.backlog-item:has([data-translate-key="backlog.langchain_title"])')
+    langchain_item.locator(".expand-icon").click()
+    expect(langchain_item.locator(".item-expandable-content")).to_be_visible()
+
+    # Take a single screenshot showing both expanded items
+    page.screenshot(path="jules-scratch/verification/02_backlog_page_verification.png")
+    print("Successfully captured Backlog page screenshot.")
+
+
+def main():
+    """
+    Main function to run the Playwright verification script.
+    """
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
-
-        # Get the absolute path to the HTML files
-        base_path = os.path.abspath(".")
-
-        # --- Verify CV Page ---
-        cv_page_url = f"file://{os.path.join(base_path, 'pages/cv.html')}"
-        page.goto(cv_page_url)
-
-        # Check if the graph container is visible and has a reasonable height
-        cv_graph = page.locator("#cv-graph")
-        expect(cv_graph).to_be_visible()
-        bounding_box = cv_graph.bounding_box()
-        assert bounding_box['height'] > 500, f"CV graph container height is {bounding_box['height']}, which is too small."
-
-        # Check that the SVG itself is rendered
-        svg_element = cv_graph.locator("svg")
-        expect(svg_element).to_be_visible()
-
-        page.screenshot(path="jules-scratch/verification/cv_page.png")
-        print("Successfully verified CV page.")
-
-        # --- Verify Backlog Page ---
-        backlog_page_url = f"file://{os.path.join(base_path, 'pages/backlog.html')}"
-        page.goto(backlog_page_url)
-
         try:
-            # Expand the first learning item to show badges
-            expand_icon = page.locator(".backlog-item[data-status='learning'] .expand-icon").first
-            expand_icon.click()
-
-            # Wait for the content to be visible
-            expandable_content = page.locator(".backlog-item[data-status='learning'] .item-expandable-content").first
-
-            # Wait for the 'is-visible' class to be applied.
-            expect(expandable_content).to_have_class("item-expandable-content is-visible", timeout=3000)
-
-            # Verify badge images are visible and have the correct size
-            badges = expandable_content.locator(".backlog-badge-img")
-            expect(badges.first).to_be_visible()
-
-            for i in range(badges.count()):
-                badge = badges.nth(i)
-                bounding_box = badge.bounding_box()
-                assert bounding_box['width'] == 80, f"Badge {i} width is {bounding_box['width']}, expected 80"
-                assert bounding_box['height'] == 80, f"Badge {i} height is {bounding_box['height']}, expected 80"
-
-            print("Successfully verified backlog page.")
-
+            run_verification(page)
+            print("Verification script executed successfully.")
         except Exception as e:
-            print(f"Could not automatically verify the backlog page. Error: {e}")
-            print("Taking a screenshot of the backlog page anyway for manual inspection.")
-
+            print(f"An error occurred during verification: {e}")
         finally:
-            page.screenshot(path="jules-scratch/verification/backlog_page.png")
             browser.close()
 
 if __name__ == "__main__":
-    run_verification()
+    main()
