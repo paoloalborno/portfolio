@@ -684,9 +684,9 @@ const translations = {
     },
     "hobbies": {
         "title": {
-            "en": "Paolo - Hobbies",
-            "it": "Paolo - Hobby",
-            "fr": "Paolo - Loisirs"
+            "en": "Hobbies",
+            "it": "Hobby",
+            "fr": "Loisirs"
         },
         "h1": {
             "en": "My Hobbies",
@@ -872,7 +872,7 @@ const translations = {
         "meta_description": {
             "en": "CV of Paolo Alborno, Senior Software & Data Engineer.",
             "it": "CV di Paolo Alborno, Senior Software & Data Engineer.",
-            "fr": "CV de Paolo Alborno, Ingénieur Senior Logiciel & Données."
+            "fr": "CV de Paolo Alborno, Ingénieur Senior en Logiciel et Données."
         },
         "doc_view_btn": {
             "en": "Document View",
@@ -888,133 +888,6 @@ const translations = {
             "en": "Download CV (PDF)",
             "it": "Scarica CV (PDF)",
             "fr": "Télécharger le CV (PDF)"
-        }
-    },
-    "python_snippets": {
-        "title": {
-            "en": "Python Snippets - Paolo Alborno",
-            "it": "Python Snippets - Paolo Alborno",
-            "fr": "Extraits Python - Paolo Alborno"
-        },
-        "h2": {
-            "en": "Python Code Snippets",
-            "it": "Python Code Snippets",
-            "fr": "Extraits de Code Python"
-        },
-        "section_subtitle": {
-            "en": "A collection of code examples and small scripts I have written.",
-            "it": "Una raccolta di esempi di codice e piccoli script che ho scritto.",
-            "fr": "Une collection d'exemples de code et de petits scripts que j'ai écrits."
-        },
-        "example1_h3": {
-            "en": "Example 1: Data Cleaning with Pandas",
-            "it": "Esempio 1: Data Cleaning con Pandas",
-            "fr": "Exemple 1: Nettoyage de Données avec Pandas"
-        },
-        "example2_h3": {
-            "en": "Example 2: Simple API Call",
-            "it": "Esempio 2: Chiamata API Semplice",
-            "fr": "Exemple 2: Appel API Simple"
-        },
-        "tech_aws": {
-            "en": "AWS",
-            "it": "AWS",
-            "fr": "AWS"
-        },
-        "tech_cloud": {
-            "en": "Cloud Architecture",
-            "it": "Architettura Cloud",
-            "fr": "Architecture Cloud"
-        },
-        "tech_ecommerce": {
-            "en": "E-commerce",
-            "it": "E-commerce",
-            "fr": "E-commerce"
-        },
-        "tech_perf": {
-            "en": "Performance Tuning",
-            "it": "Ottimizzazione Performance",
-            "fr": "Optimisation des Performances"
-        },
-        "tech_nlp": {
-            "en": "NLP",
-            "it": "NLP",
-            "fr": "NLP"
-        },
-        "tech_bert": {
-            "en": "BERT",
-            "it": "BERT",
-            "fr": "BERT"
-        },
-        "tech_python": {
-            "en": "Python",
-            "it": "Python",
-            "fr": "Python"
-        },
-        "tech_pytorch": {
-            "en": "PyTorch",
-            "it": "PyTorch",
-            "fr": "PyTorch"
-        },
-        "tech_fastapi": {
-            "en": "FastAPI",
-            "it": "FastAPI",
-            "fr": "FastAPI"
-        },
-        "tech_docker": {
-            "en": "Docker",
-            "it": "Docker",
-            "fr": "Docker"
-        },
-        "tech_ml": {
-            "en": "Machine Learning",
-            "it": "Machine Learning",
-            "fr": "Apprentissage Automatique"
-        },
-        "tech_html": {
-            "en": "HTML5",
-            "it": "HTML5",
-            "fr": "HTML5"
-        },
-        "tech_css": {
-            "en": "CSS",
-            "it": "CSS",
-            "fr": "CSS"
-        },
-        "tech_js": {
-            "en": "JavaScript",
-            "it": "JavaScript",
-            "fr": "JavaScript"
-        },
-        "tech_canvas": {
-            "en": "Canvas",
-            "it": "Canvas",
-            "fr": "Canvas"
-        },
-        "tech_aurora": {
-            "en": "AWS Aurora",
-            "it": "AWS Aurora",
-            "fr": "AWS Aurora"
-        },
-        "tech_ec2": {
-            "en": "EC2 Auto Scaling",
-            "it": "EC2 Auto Scaling",
-            "fr": "EC2 Auto Scaling"
-        },
-        "tech_cloudfront": {
-            "en": "CloudFront",
-            "it": "CloudFront",
-            "fr": "CloudFront"
-        },
-        "tech_elasticache": {
-            "en": "ElastiCache",
-            "it": "ElastiCache",
-            "fr": "ElastiCache"
-        },
-        "tech_cloudwatch": {
-            "en": "CloudWatch",
-            "it": "CloudWatch",
-            "fr": "CloudWatch"
         }
     },
     "login": {

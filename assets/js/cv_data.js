@@ -1,20 +1,3 @@
-/**
- * =================================================================================
- * cv_data.js - Dati Strutturati del CV (Multilingua)
- * =================================================================================
- *
- * Questo file contiene i dati del CV in formato JavaScript, separati per lingua.
- * - cvDataIT: Contiene i dati in italiano.
- * - cvDataEN: Contiene i dati in inglese.
- *
- * La struttura è stata aggiornata per essere più completa e per facilitare
- * la generazione dinamica del CV.
- *
- */
-
-// ===========================================
-// --- DATI DEL CV IN ITALIANO ---
-// ===========================================
 var cvDataIT = {
     profile: {
         name: "Paolo Alborno",
@@ -147,7 +130,7 @@ var cvDataEN = {
             date: 'Sep 2014 - Feb 2019',
             company: 'UNIVERSITY OF GENOA - DIBRIS | Genoa, Italy',
             details: [
-                "Developed software modules for real-time data acquisition and analysis from sensors in European research projects (H2020).",
+                "Developed software modules for real-time data acquisition and analysis from sensors in the context of different European research projects (H2020).",
                 "Coordinated technical deliverables and drafted scientific and technical reports.",
                 "Co-organized the international conference on computer-human interaction (MOCO 2018)."
             ],
@@ -155,10 +138,10 @@ var cvDataEN = {
         },
         {
             id: 'exp_reply',
-            title: 'Junior Software Engineer',
+            title: 'Junior S/W Engineer',
             graph_category: 'experience_item',
             date: 'May 2014 - Jul 2014',
-            company: 'Reply | Milan, Italy',
+            company: 'Reply S.p.A | Milan, Italy',
             details: [
                 "Backend development for the Euronics e-commerce platform."
             ],
@@ -300,5 +283,4 @@ var cvDataFR = {
     }
 };
 
-// Per compatibilità con il vecchio sistema, si potrebbe esportare uno di default
 var cvData = cvDataIT;
