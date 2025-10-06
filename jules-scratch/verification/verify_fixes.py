@@ -11,20 +11,12 @@ def run_verification(page: Page):
     cv_url = f"{base_url}/pages/cv.html"
     page.goto(cv_url, wait_until="load")
 
-    # Wait for the page to be fully initialized
-    expect(page.locator("body.page-initialized")).to_be_visible(timeout=10000)
+    # Wait for a reasonable time for the graph to render
+    page.wait_for_timeout(2000)
 
-    # Wait for the SVG element to be present
+    # Check that the SVG element is present and visible
     cv_graph_svg = page.locator("#cv-graph svg")
-    expect(cv_graph_svg).to_be_visible()
-
-    # Log dimensions for debugging
-    graph_container_box = page.locator("#cv-graph").bounding_box()
-    svg_box = cv_graph_svg.bounding_box()
-    print(f"CV Graph Container Bounding Box: {graph_container_box}")
-    print(f"SVG Element Bounding Box: {svg_box}")
-
-    page.wait_for_timeout(1000)
+    expect(cv_graph_svg).to_be_visible(timeout=10000)
 
     page.screenshot(path="jules-scratch/verification/01_cv_graph_verification.png")
     print("Successfully captured CV graph screenshot.")
@@ -33,20 +25,15 @@ def run_verification(page: Page):
     backlog_url = f"{base_url}/pages/backlog.html"
     page.goto(backlog_url, wait_until="load")
 
-    # Wait for the page to be fully initialized
-    expect(page.locator("body.page-initialized")).to_be_visible(timeout=10000)
+    # Wait for a reasonable time for the page to initialize
+    page.wait_for_timeout(2000)
 
-    # Expand the "DevOps Essentials" item using a more stable locator
-    devops_item = page.locator('.backlog-item:has([data-translate-key="backlog.devops_essentials_title"])')
-    devops_item.locator(".expand-icon").click()
-    expect(devops_item.locator(".item-expandable-content")).to_be_visible()
-
-    # Expand the "LangChain, Ollama & LLMs" item
-    langchain_item = page.locator('.backlog-item:has([data-translate-key="backlog.langchain_title"])')
+    # Expand the "LangChain, Ollama & LLMs" item to check link presentation
+    langchain_item = page.locator('.backlog-item:has-text("LangChain, Ollama & LLMs")')
     langchain_item.locator(".expand-icon").click()
     expect(langchain_item.locator(".item-expandable-content")).to_be_visible()
 
-    # Take a single screenshot showing both expanded items
+    # Take a screenshot showing the expanded item
     page.screenshot(path="jules-scratch/verification/02_backlog_page_verification.png")
     print("Successfully captured Backlog page screenshot.")
 

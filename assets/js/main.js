@@ -243,9 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setupSubTabs();
         setupAdminModal();
         setupBacklogExpand();
-
-        // Add a class to the body to signal that the page is fully initialized
-        document.body.classList.add('page-initialized');
     }
 
     function setupMobileMenu(navLinks) {

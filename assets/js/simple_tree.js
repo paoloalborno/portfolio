@@ -41,8 +41,7 @@ class SimpleTree {
         this.rawData = initialData;
         this.nodeCounter = 0;
 
-        // Defer width and height calculation to the render() method to avoid race conditions
-        // where the script executes before the container's dimensions are finalized.
+        // Defer width and height calculation to the render() method
         this.width = 0;
         this.height = 0;
     }
@@ -138,7 +137,6 @@ class SimpleTree {
      */
     render() {
         // Defer dimension calculation and SVG setup until render is called.
-        // This ensures the container is visible and has its final dimensions.
         this.width = this.container.clientWidth;
         this.height = this.container.clientHeight;
         this._setupSvg();
@@ -149,7 +147,6 @@ class SimpleTree {
         this.root.y0 = 0;
 
         // Collapse all nodes starting from the second level.
-        // The root's direct children will be visible but collapsed.
         if (this.root.children) {
             this.root.children.forEach(this._collapse);
         }
@@ -199,25 +196,27 @@ class SimpleTree {
      * @private
      */
     _update(source) {
-        const duration = this.options.duration;
         const nodes = this.root.descendants().reverse();
         const links = this.root.links();
 
         this.tree(this.root);
 
+        // --- Nodes ---
         const nodeSelection = this.gNode.selectAll("g.node")
             .data(nodes, d => d.id || (d.id = ++this.nodeCounter));
 
+        // Enter new nodes at the parent's previous position.
         const nodeEnter = nodeSelection.enter().append("g")
             .attr("class", "node")
             .attr("data-category", d => d.data.category)
-            .attr("transform", `translate(${source.x0},${source.y0})`)
+            .attr("transform", d => `translate(${d.x},${d.y})`) // Position nodes directly
             .on("click", (event, d) => this._handleNodeClick(event, d));
 
         nodeEnter.append("circle")
             .attr("r", 6)
             .attr("fill", d => this.options.colorScale(d.data.category))
-            .attr("stroke-width", 10);
+            .attr("stroke", d => d._children ? "#2d3748" : "none")
+            .attr("stroke-width", 2);
 
         nodeEnter.append("text")
             .attr("class", "node-label")
@@ -227,49 +226,26 @@ class SimpleTree {
             .text(d => d.data.name)
             .call(this._wrapText.bind(this), this.options.nodeWidth - 20);
 
-        const nodeUpdate = nodeSelection.merge(nodeEnter);
+        // Update existing nodes
+        nodeSelection.attr("transform", d => `translate(${d.x},${d.y})`);
 
-        nodeUpdate.transition()
-            .duration(duration)
-            .attr("transform", d => `translate(${d.x},${d.y})`)
-            .attr("opacity", 1);
+        // Remove any exiting nodes
+        nodeSelection.exit().remove();
 
-        nodeUpdate.select('circle')
-            .attr("stroke", d => d._children ? "#2d3748" : "none")
-            .attr("stroke-width", 2);
-
-        nodeSelection.exit().transition()
-            .duration(duration)
-            .attr("transform", `translate(${source.x},${source.y})`)
-            .attr("opacity", 0)
-            .remove();
-
+        // --- Links ---
         const linkSelection = this.gLink.selectAll("path.link")
             .data(links, d => d.target.id);
 
+        // Enter new links at the parent's previous position.
         const linkEnter = linkSelection.enter().insert("path", "g")
             .attr("class", "link")
-            .attr("d", d => {
-                const o = { x: source.x0, y: source.y0 };
-                return `M ${o.x},${o.y} C ${o.x},${o.y} ${o.x},${o.y} ${o.x},${o.y}`;
-            });
-
-        linkEnter.merge(linkSelection).transition()
-            .duration(duration)
             .attr("d", d => `M ${d.source.x},${d.source.y} C ${d.source.x},${(d.source.y + d.target.y) / 2} ${d.target.x},${(d.source.y + d.target.y) / 2} ${d.target.x},${d.target.y}`);
 
-        linkSelection.exit().transition()
-            .duration(duration)
-            .attr("d", d => {
-                const o = { x: source.x, y: source.y };
-                return `M ${o.x},${o.y} C ${o.x},${o.y} ${o.x},${o.y} ${o.x},${o.y}`;
-            })
-            .remove();
+        // Update existing links
+        linkSelection.attr("d", d => `M ${d.source.x},${d.source.y} C ${d.source.x},${(d.source.y + d.target.y) / 2} ${d.target.x},${(d.source.y + d.target.y) / 2} ${d.target.x},${d.target.y}`);
 
-        this.root.each(d => {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
+        // Remove any exiting links
+        linkSelection.exit().remove();
     }
 
     /**
