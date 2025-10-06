@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuItems = [
         { href: "/index.html", key: "nav.home" },
         { href: "/pages/about.html", key: "nav.about" },
+        { href: "/pages/cv.html", key: "nav.cv" },
         { href: "/pages/backlog.html", key: "nav.backlog" },
         { href: "/pages/projects.html", key: "nav.projects" },
         { href: "/pages/research.html", key: "nav.research" },
-        { href: "/pages/cv.html", key: "nav.cv" },
         { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
 

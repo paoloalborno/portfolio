@@ -200,7 +200,7 @@ const translations = {
         "sql_toolkit_description": { "en": "A command-line tool to analyze and visualize data lineage in a MySQL database.", "it": "Un tool a riga di comando per analizzare e visualizzare la data lineage in un database MySQL.", "fr": "Un outil en ligne de commande pour analyser et visualiser la lignée des données dans une base de données MySQL." },
         "dates_sep_13_27": { "en": "Sep 2025", "it": "Set 2025", "fr": "Sep 2025" },
 
-        "portfolio_title": { "en": "Portfolio Website", "it": "Portfolio Website", "fr": "Site Portfolio" },
+        "portfolio_title": { "en": "Portfolio Frontend", "it": "Portfolio Frontend", "fr": "Portfolio Frontend" },
         "portfolio_description": { "en": "My personal portfolio website, the one you are currently browsing, built with vanilla JavaScript, HTML, and CSS.", "it": "Il mio sito portfolio personale, quello che stai attualmente navigando, costruito con JavaScript vanilla, HTML e CSS.", "fr": "Mon site portfolio personnel, celui que vous consultez actuellement, construit avec JavaScript vanilla, HTML et CSS." },
         "dates_jul_sep": { "en": "Jul 2025 - Sep 2025", "it": "Lug 2025 - Set 2025", "fr": "Jui 2025 - Sep 2025" },
 

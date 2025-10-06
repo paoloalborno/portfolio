@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const data = [
         {
-            label: 'reviews.csv',
-            description: 'Script reads reviews from CSV and asks user to load database.',
+            label: 'Load Reviews From File',
+            description: 'Reads reviews from CSV and populates internal db.',
             arrow_label: 'Load & Process',
-            icon: '../../assets/images/icons/AI.png'
+            icon: '../../assets/images/icons/csv.png'
         },
         {
             label: 'ChromaDB',
-            description: 'Embeddings are created and stored in the vector database.',
+            description: 'Embeddings are created and stored in the vector db.',
             arrow_label: 'Store Embeddings',
             icon: '../../assets/images/icons/Ollama.png'
         },
@@ -26,14 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             label: 'User',
-            description: 'Receives the answer and can continue the conversation.',
+            description: 'Receives the answer and continue the conversation.',
             arrow_label: 'Receive Answer',
             icon: '../../assets/images/icons/User.png'
         }
     ];
 
     const svgWidth = 600;
-    const boxWidth = 380;
+    const boxWidth = 400;
     const boxHeight = 80;
     const arrowSpacing = 50;
 
@@ -129,13 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('marker-end', 'url(#arrowhead-loop)');
 
     loopGroup.append('text')
-        .attr('x', svgWidth / 2 + boxWidth / 2 + curveOffset - 50)
+        .attr('x', svgWidth / 2 + boxWidth / 2 + curveOffset - 49)
         .attr('y', (lastBoxY + firstUserBoxY) / 2)
         .attr('text-anchor', 'start')
         .attr('fill', '#28a745')
         .style('font-size', '12px')
         .style('font-style', 'italic')
-        .text('Continue Conversation');
+        .text('Continue');
 
     svg.append('defs').append('marker')
         .attr('id', 'arrowhead')
