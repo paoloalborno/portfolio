@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { href: "/pages/about.html", key: "nav.about" },
         { href: "/pages/backlog.html", key: "nav.backlog" },
         { href: "/pages/projects.html", key: "nav.projects" },
+        { href: "/pages/research.html", key: "nav.research" },
         { href: "/pages/cv.html", key: "nav.cv" },
         { href: "/pages/hobbies.html", key: "nav.hobbies" },
     ];
@@ -280,13 +281,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setupBacklogExpand() {
-        document.querySelectorAll('.expand-icon').forEach(icon => {
-            icon.addEventListener('click', () => {
-                const item = icon.closest('.backlog-item');
-                const content = item.querySelector('.item-expandable-content');
-                icon.classList.toggle('expanded');
-                content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-            });
+        const container = document.querySelector('.backlog-container');
+        if (!container) return;
+
+        container.addEventListener('click', (event) => {
+            const icon = event.target.closest('.expand-icon');
+            if (!icon) return; // Exit if the click was not on an expand icon
+
+            const item = icon.closest('.backlog-item');
+            const content = item.querySelector('.item-expandable-content');
+
+            icon.classList.toggle('expanded');
+            content.classList.toggle('is-visible');
         });
     }
 

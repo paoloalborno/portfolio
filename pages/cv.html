@@ -64,6 +64,7 @@
             <p id="modal-company"></p>
             <p id="modal-date"></p>
             <div id="modal-details"></div>
+            <div id="modal-badges-container" class="modal-badges"></div>
             <div id="modal-link-container"></div>
         </div>
     </div>
@@ -83,18 +84,7 @@
     <!-- Logica specifica della pagina CV -->
     <script src="../assets/js/cv_logic.js"></script>
 
-    <!-- Script di Inizializzazione -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1. Ottieni la lingua corrente (stessa logica di main.js)
-            const urlParams = new URLSearchParams(window.location.search);
-            const currentLang = urlParams.get('lang') || localStorage.getItem('language') || 'it';
-
-            // 2. Crea un'istanza del gestore del CV e inizializzalo
-            const cvManager = new CVManager(currentLang);
-            cvManager.init();
-        });
-    </script>
+    <!-- L'inizializzazione è ora gestita direttamente in cv_logic.js -->
 
 </body>
 </html>

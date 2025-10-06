@@ -712,7 +712,7 @@ footer {
 }
 
 .footer-social a {
-    color: rgba(255, 255, 255, 0.7);
+    color: #FFFFFF;
     font-size: 1.5rem;
     transition: all 0.3s ease;
 }
@@ -1085,7 +1085,8 @@ footer {
 
 #cv-graph {
     width: 100%;
-    height: 100%;
+    height: 80vh;
+    min-height: 600px; /* Ensure visibility on most screens */
 }
 
 .cv-title {
@@ -1150,6 +1151,22 @@ footer {
 
 #modal-details li {
     margin-bottom: 0.5rem;
+}
+
+.modal-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.modal-badge-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 /* New CV Legend Styles */
@@ -1510,6 +1527,10 @@ footer {
     border-top: 1px solid #e2e8f0;
 }
 
+.item-expandable-content.is-visible {
+    display: block;
+}
+
 .item-description {
     color: var(--text-light);
     margin-bottom: 1rem;
@@ -1523,6 +1544,22 @@ footer {
 
 .project-link:hover {
     text-decoration: underline;
+}
+
+.backlog-badges {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.backlog-badge-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain; /* Ensures the entire image is visible */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 /* Hobbies Page - Tile Styles */
@@ -1936,4 +1973,98 @@ footer {
         position: static; /* Remove sticky positioning on mobile */
         top: auto;
     }
+}
+
+/* Research Page Specific Styles */
+.profile-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.profile-links .btn-social {
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--bg-card);
+    color: var(--text);
+    border: 1px solid #e2e8f0;
+    box-shadow: var(--shadow);
+}
+
+.profile-links .btn-social:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.profile-links .btn-social i {
+    font-size: 1.2rem;
+}
+
+.publications-list {
+    margin-top: 4rem;
+}
+
+.publications-list h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+}
+
+.publications-list ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 3rem;
+}
+
+.publications-list li {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--secondary);
+    line-height: 1.7;
+    color: var(--text-light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Project Logos Section */
+.project-logos {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.project-logos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    align-items: center;
+}
+
+.logo-placeholder {
+    height: 100px;
+    background-color: var(--bg-alt);
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
 }
