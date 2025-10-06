@@ -136,6 +136,15 @@ class SimpleTree {
     }
 
     /**
+     * Checks if a node has details that can be shown in a modal.
+     * @param {object} data - The node's data.
+     * @returns {boolean} True if the node has details to display.
+     */
+    _hasDetails(data) {
+        return data.company || data.date || (data.details && data.details.length > 0) || data.link || data.badge;
+    }
+
+    /**
      * Recursively collapses all children of a given node.
      * @param {object} d - The node to collapse.
      */
@@ -192,7 +201,24 @@ class SimpleTree {
         const nodeEnter = node.enter().append('g')
             .attr('class', 'node')
             .attr('transform', `translate(${source.x0},${source.y0})`)
-            .on('click', this._handleNodeClick.bind(this));
+            .style('cursor', d => this._hasDetails(d.data) ? 'pointer' : 'default')
+            .on('click', this._handleNodeClick.bind(this))
+            .on('mouseover', (event, d) => {
+                if (this._hasDetails(d.data)) {
+                    d3.select(event.currentTarget).select('circle:not(.halo)')
+                        .transition().duration(200)
+                        .attr('r', 10)
+                        .style('filter', 'brightness(1.1)');
+                }
+            })
+            .on('mouseout', (event, d) => {
+                if (this._hasDetails(d.data)) {
+                    d3.select(event.currentTarget).select('circle:not(.halo)')
+                        .transition().duration(200)
+                        .attr('r', 8)
+                        .style('filter', 'brightness(1)');
+                }
+            });
 
         // Add a halo for parent nodes to make them more visually distinct.
         nodeEnter.insert('circle', 'circle') // Insert before the main circle
@@ -207,8 +233,9 @@ class SimpleTree {
         nodeEnter.append('circle')
             .attr('r', 1e-6) // Start with a tiny radius for animation
             .style('fill', d => this.options.colorScale(d.data.category))
-            .attr("stroke", "#ccc") // Default stroke for all nodes
-            .attr("stroke-width", 1.5);
+            .style('fill-opacity', 0.7) // Make circles more transparent
+            .attr("stroke", "#ccc")
+            .attr("stroke-width", d => this._hasDetails(d.data) ? 2.5 : 1.5); // Thicker stroke for clickable nodes
 
         nodeEnter.append('text')
             .attr('dy', '.31em')
@@ -220,6 +247,24 @@ class SimpleTree {
             .clone(true).lower() // Create a clone for the "halo" effect
             .attr('stroke-linejoin', 'round')
             .attr('stroke-width', 3)
+            .attr('stroke', 'white');
+
+        // Add info icon for nodes with details
+        nodeEnter.append('text')
+            .attr('class', 'info-icon')
+            .attr('dy', '.31em')
+            .attr('x', 15)
+            .attr('y', -5)
+            .attr('text-anchor', 'middle')
+            .style('font-family', 'Arial, sans-serif')
+            .style('font-weight', 'bold')
+            .style('font-size', '10px')
+            .style('fill', '#020202ff')
+            .style('opacity', d => this._hasDetails(d.data) ? 1 : 0)
+            .text('i')
+            .clone(true).lower() // Create a clone for the "halo" effect
+            .attr('stroke-linejoin', 'round')
+            .attr('stroke-width', 2)
             .attr('stroke', 'white');
 
         // 3. UPDATE selection: Transition nodes to their new position.
@@ -235,9 +280,10 @@ class SimpleTree {
             .duration(duration)
             .attr('r', 8) // Increase radius for better visibility
             .style('fill', d => this.options.colorScale(d.data.category))
-            // Reset stroke to be consistent for all nodes
+            .style('fill-opacity', 0.7) // Make circles more transparent
+            // Different stroke for nodes with details
             .attr("stroke", "#ccc")
-            .attr("stroke-width", 1.5);
+            .attr("stroke-width", d => this._hasDetails(d.data) ? 2.5 : 1.5);
 
         // Update the halo for parent nodes
         nodeUpdate.select('circle.halo')

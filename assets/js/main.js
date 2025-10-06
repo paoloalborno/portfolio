@@ -343,3 +343,106 @@ document.addEventListener('DOMContentLoaded', function() {
     })();
 
 });
+
+/**
+ * Copia l'indirizzo email negli appunti quando si clicca sull'icona email
+ */
+window.copyEmailToClipboard = function(event) {
+    event.preventDefault();
+    const email = 'paolo.alborno@gmail.com';
+    
+    // Prova a usare l'API moderna degli appunti
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email).then(() => {
+            showEmailNotification('Email copiata negli appunti!');
+        }).catch(() => {
+            // Fallback se l'API moderna fallisce
+            fallbackCopyEmail(email);
+        });
+    } else {
+        // Fallback per browser più vecchi o contesti non sicuri
+        fallbackCopyEmail(email);
+    }
+}
+
+/**
+ * Metodo di fallback per copiare l'email negli appunti
+ */
+function fallbackCopyEmail(email) {
+    const textArea = document.createElement('textarea');
+    textArea.value = email;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showEmailNotification('Email copiata negli appunti!');
+    } catch (err) {
+        showEmailNotification('Impossibile copiare. Email: ' + email);
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+/**
+ * Mostra una notifica temporanea
+ */
+function showEmailNotification(message) {
+    // Rimuovi eventuali notifiche esistenti
+    const existingNotification = document.querySelector('.email-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Crea la notifica
+    const notification = document.createElement('div');
+    notification.className = 'email-notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4299E1;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        font-family: 'Lato', sans-serif;
+        font-size: 14px;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    // Aggiungi l'animazione CSS se non esiste già
+    if (!document.querySelector('#email-notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'email-notification-styles';
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Rimuovi la notifica dopo 3 secondi
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
+    }, 3000);
+}

@@ -289,9 +289,9 @@ const translations = {
             "fr": "CLI"
         },
         "ollama_agent_h3": {
-            "en": "A simple Local AI Agent with Ollama",
-            "it": " Un semplice Agente AI Locale con Ollama",
-            "fr": "Un Agent IA Local simple avec Ollama"
+            "en": "A simple local AI Agent with Ollama",
+            "it": " Un semplice Agente AI locale con Ollama",
+            "fr": "Un Agent IA local simple avec Ollama"
         },
         "ollama_agent_p": {
             "en": "A Q&A system for analyzing product reviews using local LLMs. It reads a CSV file, creates a local vector database, and lets you chat with your data.",
