@@ -1557,7 +1557,7 @@ footer {
 .backlog-badge-img {
     width: 80px;
     height: 80px;
-    object-fit: cover; /* Ensures the image covers the area without distortion */
+    object-fit: contain; /* Ensures the entire image is visible */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
