@@ -2046,7 +2046,7 @@ footer {
 .project-logos {
     margin-top: 4rem;
     padding-top: 3rem;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #ffffff;
 }
 
 .project-logos-grid {
@@ -2059,12 +2059,15 @@ footer {
 .logo-placeholder {
     height: 100px;
     background-color: var(--bg-alt);
-    border: 2px dashed #e2e8f0;
+    border: 2px dashed #ffffff;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 500;   
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
