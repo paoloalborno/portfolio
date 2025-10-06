@@ -185,14 +185,15 @@ class SimpleTree {
             .on('click', this._handleNodeClick.bind(this));
 
         nodeEnter.append('circle')
-            .attr('r', 1e-6) // Start with a tiny radius
+            .attr('r', 1e-6) // Start with a tiny radius for animation
             .style('fill', d => this.options.colorScale(d.data.category))
-            .attr("stroke", d => d._children ? "#2d3748" : "none")
-            .attr("stroke-width", 2);
+            .attr("stroke", "#ccc") // Default stroke for all nodes
+            .attr("stroke-width", 1.5);
 
         nodeEnter.append('text')
             .attr('dy', '.31em')
-            .attr('y', -14)
+            // Position label below for leaf nodes, above for others.
+            .attr('y', d => d.children || d._children ? -20 : 20)
             .attr('text-anchor', 'middle')
             .text(d => d.data.name)
             .call(this._wrapText.bind(this), this.options.nodeWidth - 20)
@@ -208,10 +209,21 @@ class SimpleTree {
             .duration(duration)
             .attr('transform', d => `translate(${d.x},${d.y})`);
 
+        // Update the circle attributes
         nodeUpdate.select('circle')
-            .attr('r', 6)
+            .transition()
+            .duration(duration)
+            .attr('r', 8) // Increase radius for better visibility
             .style('fill', d => this.options.colorScale(d.data.category))
-            .attr("stroke", d => d._children ? "#2d3748" : "none");
+            // Make border thicker and darker for collapsed nodes to indicate they are clickable.
+            .attr("stroke", d => d._children ? "#2d3748" : "#ccc")
+            .attr("stroke-width", d => d._children ? 3 : 1.5);
+
+        // Update the text position
+        nodeUpdate.select('text')
+            .transition()
+            .duration(duration)
+            .attr('y', d => d.children || d._children ? -20 : 20);
 
         // 4. EXIT selection: Transition exiting nodes to the parent's new position.
         const nodeExit = node.exit().transition()
