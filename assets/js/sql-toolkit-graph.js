@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     const data = [
-        { label: 'User', description: 'Executes a command via the CLI.', arrow_label: 'Input Command', icon: '../../assets/images/icons/CLI.png' },
+        { label: 'User via CLI', description: 'Executes a command via the CLI.', arrow_label: 'Input Command', icon: '../../assets/images/icons/cli.png' },
         { label: 'SQL Toolkit', description: 'Parses the command and generates a SQL query.', arrow_label: 'Generate SQL', icon: '../../assets/images/icons/Java.png' },
         { label: 'Database', description: 'Executes the SQL query and returns the result.', arrow_label: 'Return Result', icon: '../../assets/images/icons/PostgresSQL.png' },
         { label: 'SQL Toolkit', description: 'Formats the result into a table view.', arrow_label: 'Format Table', icon: '../../assets/images/icons/Java.png' },
-        { label: 'User', description: 'Views the formatted output in the console.', arrow_label: 'Display Output', icon: '../../assets/images/icons/CLI.png' }
+        { label: 'User via CLI', description: 'Views the formatted output in the console.', arrow_label: 'Display Output', icon: '../../assets/images/icons/cli.png' }
     ];
 
     const svgWidth = 600;
