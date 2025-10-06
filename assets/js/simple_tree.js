@@ -253,11 +253,13 @@ class SimpleTree {
 
         // 3. UPDATE selection: Transition links to their new position.
         linkEnter.merge(link).transition()
+            .delay(duration) // Add delay to wait for nodes to move
             .duration(duration)
             .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
 
         // 4. EXIT selection: Transition exiting links to the parent's new position.
         link.exit().transition()
+            .delay(duration) // Add delay to wait for nodes to move
             .duration(duration)
             .attr('d', d => {
                 const o = { x: source.x, y: source.y };
