@@ -1081,6 +1081,7 @@ footer {
     height: calc(100vh - 200px); /* Adjust height as needed */
     position: relative;
     background-color: var(--bg); /* White background */
+    overflow-x: auto !important; /* Enable horizontal scrolling for the graph */
 }
 
 #cv-graph {
