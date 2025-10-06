@@ -108,8 +108,18 @@ class SimpleTree {
             .style("user-select", "none");
 
         // Create a group element to hold the tree, and center it.
-        this.g = this.svg.append("g")
-            .attr("transform", `translate(${this.width / 2},${this.options.margin.top})`);
+        this.g = this.svg.append("g");
+
+        // Add zoom and pan behavior
+        const zoom = d3.zoom().on("zoom", (event) => {
+            this.g.attr("transform", event.transform);
+        });
+
+        this.svg.call(zoom);
+
+        // Set initial transform to center the graph
+        const initialTransform = d3.zoomIdentity.translate(this.width / 2, this.options.margin.top);
+        this.svg.call(zoom.transform, initialTransform);
 
         // Transform the raw data into a D3 hierarchy.
         const hierarchicalData = this._transformData(this.rawData);
@@ -184,6 +194,16 @@ class SimpleTree {
             .attr('transform', `translate(${source.x0},${source.y0})`)
             .on('click', this._handleNodeClick.bind(this));
 
+        // Add a halo for parent nodes to make them more visually distinct.
+        nodeEnter.insert('circle', 'circle') // Insert before the main circle
+            .attr('class', 'halo')
+            .attr('r', 1e-6)
+            .style('fill', d => this.options.colorScale(d.data.category))
+            .style('fill-opacity', 0.2)
+            .style('stroke', d => this.options.colorScale(d.data.category))
+            .style('stroke-width', 1)
+            .style('stroke-opacity', 0.5);
+
         nodeEnter.append('circle')
             .attr('r', 1e-6) // Start with a tiny radius for animation
             .style('fill', d => this.options.colorScale(d.data.category))
@@ -210,14 +230,20 @@ class SimpleTree {
             .attr('transform', d => `translate(${d.x},${d.y})`);
 
         // Update the circle attributes
-        nodeUpdate.select('circle')
+        nodeUpdate.select('circle:not(.halo)') // Select the main circle
             .transition()
             .duration(duration)
             .attr('r', 8) // Increase radius for better visibility
             .style('fill', d => this.options.colorScale(d.data.category))
-            // Make border thicker and darker for collapsed nodes to indicate they are clickable.
-            .attr("stroke", d => d._children ? "#2d3748" : "#ccc")
-            .attr("stroke-width", d => d._children ? 3 : 1.5);
+            // Reset stroke to be consistent for all nodes
+            .attr("stroke", "#ccc")
+            .attr("stroke-width", 1.5);
+
+        // Update the halo for parent nodes
+        nodeUpdate.select('circle.halo')
+            .transition()
+            .duration(duration)
+            .attr('r', d => d._children ? 13 : 0); // Halo is visible only for collapsed nodes
 
         // Update the text position
         nodeUpdate.select('text')
@@ -231,7 +257,8 @@ class SimpleTree {
             .attr('transform', `translate(${source.x},${source.y})`)
             .remove();
 
-        nodeExit.select('circle').attr('r', 1e-6);
+        nodeExit.select('circle').attr('r', 1e-6); // Main circle
+        nodeExit.select('circle.halo').attr('r', 1e-6); // Halo
         nodeExit.select('text').style('fill-opacity', 1e-6);
 
         // --- LINKS ---
