@@ -98,9 +98,7 @@ var cvDataIT = {
     certifications: [
         { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
         { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] },
-        { id: 'cert_db_fundamentals', title: 'Databricks Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/4e965d38-65b5-48e1-9301-9490569e6d5e/37b43e8b-88a4-46a5-bee6-9f5945661792_cached_image_20250930-31-cye863.png' },
-        { id: 'cert_genai_fundamentals', title: 'Generative AI Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/23451ae5-856e-4ac7-b128-c05d6d5d4e2b/2b731200-df11-4a89-a2e5-9a388608571f_cached_image_20250930-31-llmkx2.png' }
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
@@ -196,9 +194,7 @@ var cvDataEN = {
     certifications: [
         { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
         { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] },
-        { id: 'cert_db_fundamentals', title: 'Databricks Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/4e965d38-65b5-48e1-9301-9490569e6d5e/37b43e8b-88a4-46a5-bee6-9f5945661792_cached_image_20250930-31-cye863.png' },
-        { id: 'cert_genai_fundamentals', title: 'Generative AI Fundamentals', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/23451ae5-856e-4ac7-b128-c05d6d5d4e2b/2b731200-df11-4a89-a2e5-9a388608571f_cached_image_20250930-31-llmkx2.png' }
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
@@ -294,9 +290,7 @@ var cvDataFR = {
     certifications: [
         { id: 'cert_aws', title: 'Cert. AWS Solutions Architect', graph_category: 'certification_item', details: [] },
         { id: 'cert_psm', title: 'Cert. Scrum Master (PSM I)', graph_category: 'certification_item', details: [] },
-        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] },
-        { id: 'cert_db_fundamentals', title: 'Fondamentaux de Databricks', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/4e965d38-65b5-48e1-9301-9490569e6d5e/37b43e8b-88a4-46a5-bee6-9f5945661792_cached_image_20250930-31-cye863.png' },
-        { id: 'cert_genai_fundamentals', title: 'Fondamentaux de l\'IA Générative', graph_category: 'certification_item', details: [], badge: 'https://images.credly.com/size/80x80/images/23451ae5-856e-4ac7-b128-c05d6d5d4e2b/2b731200-df11-4a89-a2e5-9a388608571f_cached_image_20250930-31-llmkx2.png' }
+        { id: 'cert_google', title: 'Cert. Google Project Management', graph_category: 'certification_item', details: [] }
     ],
     skills: {
         "Cloud & DevOps": ["AWS (EC2, S3, Lambda, ECS, Aurora)", "Docker", "CI/CD"],
