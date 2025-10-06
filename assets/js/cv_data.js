@@ -42,10 +42,10 @@ var cvDataIT = {
         },
         {
             id: 'exp_reply',
-            title: 'Ingegnere software junior',
+            title: 'Ingegnere S/W junior',
             graph_category: 'experience_item',
             date: 'Mag 2014 - Lug 2014',
-            company: 'Reply | Milano, Italia',
+            company: 'Reply S.p.A. | Milano, Italia',
             details: [
                 "Sviluppo backend per la piattaforma di e-commerce di Euronics."
             ],
@@ -234,10 +234,10 @@ var cvDataFR = {
         },
         {
             id: 'exp_reply',
-            title: 'Ingénieur Logiciel Junior',
+            title: 'Ingénieur S/W Junior',
             graph_category: 'experience_item',
             date: 'Mai 2014 - Juil 2014',
-            company: 'Reply | Milan, Italie',
+            company: 'Reply S.p.A. | Milan, Italie',
             details: [
                 "Développement backend pour la plateforme e-commerce d'Euronics."
             ],
