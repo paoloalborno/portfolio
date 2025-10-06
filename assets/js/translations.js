@@ -59,7 +59,12 @@ const translations = {
         "section_subtitle": { "en": "A selection of projects that demonstrate my technical and management skills.", "it": "Una selezione di progetti che dimostrano le mie competenze tecniche e di gestione.", "fr": "Une sélection de projets qui démontrent mes compétences techniques et de gestion." },
         
         "portfolio_backend_h3": { "en": "Portfolio Backend Development", "it": "Sviluppo Backend del Portfolio", "fr": "Développement Backend du Portfolio" },
-        "portfolio_backend_p": { "en": "Development of a secure and scalable backend for this portfolio, using Java Spring Boot, with a focus on authentication and authorization.", "it": "Sviluppo di un backend sicuro e scalabile per questo portfolio, utilizzando Java Spring Boot, con focus su autenticazione e autorizzazione.", "fr": "Développement d'un backend sécurisé et évolutif pour ce portfolio, en utilisant Java Spring Boot, avec un focus sur l'authentification et l'autorisation." },
+        
+        "portfolio_backend_p": {
+            "en": "Development of a secure backend for this web portal, using Java Spring Boot, Firebase, and GitHub, with a focus on authentication and authorization.",
+            "it": "Sviluppo di un backend sicuro per questo portale web, utilizzando Java Spring Boot, Firebase e GitHub, con focus su autenticazione e autorizzazione.",
+            "fr": "Développement d’un backend sécurisé pour ce portail web, en utilisant Java Spring Boot, Firebase et GitHub, avec un focus sur l’authentification et l’autorisation."
+        },
         "portfolio_backend_btn": { "en": "Project Details", "it": "Dettagli del Progetto", "fr": "Détails du Projet" },
         "tag_spring": { "en": "Spring Boot", "it": "Spring Boot", "fr": "Spring Boot" },
         "tag_postgresql": { "en": "PostgreSQL", "it": "PostgreSQL", "fr": "PostgreSQL" },
