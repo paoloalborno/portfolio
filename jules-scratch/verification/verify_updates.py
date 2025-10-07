@@ -16,15 +16,14 @@ async def main():
         graph_element = page.locator('#d3-graph-ollama-container')
         await graph_element.screenshot(path='jules-scratch/verification/ollama_project_page.png')
 
-        # Verify Backlog Page
-        await page.goto(f'{base_url}/pages/backlog.html')
-        await page.wait_for_selector('.backlog-item', state='attached')
-        await page.screenshot(path='jules-scratch/verification/backlog_page.png', full_page=True)
-
         # Verify Riassunti Page
         await page.goto(f'{base_url}/pages/riassunti.html')
-        await expect(page.locator('h1')).to_have_text('Concetti Chiave dal Progetto Agente AI Locale')
-        await page.screenshot(path='jules-scratch/verification/riassunti_page.png')
+        await expect(page.locator('h1')).to_have_text('Riassunti dei Progetti')
+
+        # Expand the summary and take a screenshot
+        await page.locator('#ollama-summary-header').click()
+        await page.wait_for_timeout(500) # wait for animation
+        await page.screenshot(path='jules-scratch/verification/riassunti_page_expanded.png')
 
         await browser.close()
 
