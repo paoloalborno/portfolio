@@ -294,9 +294,9 @@ const translations = {
             "fr": "Agent IA Local avec Architecture MCP"
         },
         "ollama_agent_p": {
-            "en": "A Q&A system for analyzing product reviews using local LLMs and an MCP architecture.",
-            "it": "Un sistema di Q&A per analizzare le recensioni di prodotti utilizzando LLM locali e un'architettura MCP.",
-            "fr": "Un système de Q&R pour analyser les avis sur les produits en utilisant des LLM locaux et une architecture MCP."
+            "en": "A complete local artificial intelligence solution that implements the Model Context Protocol (MCP) for advanced analysis of gaming product reviews, using a cutting-edge technology ecosystem.",
+            "it": "Una soluzione completa di intelligenza artificiale locale che implementa il Model Context Protocol (MCP) per l'analisi avanzata delle recensioni di prodotti gaming, utilizzando un ecosistema tecnologico all'avanguardia.",
+            "fr": "Une solution d'intelligence artificielle locale complète qui implémente le Protocole de Contexte de Modèle (MCP) pour une analyse avancée des avis sur les produits de jeu, en utilisant un écosystème technologique de pointe."
         },
         "ollama_agent_btn": {
             "en": "Project Details",

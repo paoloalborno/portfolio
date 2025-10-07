@@ -5,52 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riassunti dei Progetti</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .summary-container {
+            margin-bottom: 2rem;
+        }
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 1rem;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+        .summary-content {
+            display: none;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .summary-content pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
     <div id="header-placeholder"></div>
 
     <main class="container" style="padding-top: 120px;">
         <section class="page-section">
-            <h1 class="section-title">Concetti Chiave dal Progetto Agente AI Locale</h1>
-            <div class="text-justify">
-                <p>
-                    Questo progetto ha esplorato la creazione di un'architettura di intelligenza artificiale interamente locale, eliminando la dipendenza da API esterne e garantendo privacy e bassa latenza. Il cuore del sistema è il <strong>Model Context Protocol (MCP)</strong>, un protocollo che standardizza la comunicazione tra un client e un server AI, permettendo di esporre strumenti di analisi come funzioni richiamabili via JSON-RPC.
-                </p>
-                <p>
-                    L'architettura si basa su <strong>Ollama</strong> per l'esecuzione di modelli linguistici di grandi dimensioni (LLM) in locale. Questo permette di avere un controllo completo sui modelli utilizzati, come <code>qwen2.5:7b</code> per la generazione di testo e <code>mxbai-embed-large</code> per la creazione di embedding vettoriali. Gli embedding sono fondamentali per la ricerca semantica, poiché trasformano il testo in vettori numerici che ne catturano il significato.
-                </p>
-                <p>
-                    La ricerca semantica è implementata con <strong>ChromaDB</strong>, un database vettoriale che memorizza gli embedding delle recensioni dei prodotti. Quando un utente pone una domanda, il sistema non cerca semplici corrispondenze di parole chiave, ma confronta il vettore della domanda con quelli delle recensioni, trovando i risultati più pertinenti a livello di significato.
-                </p>
-                <p>
-                    <strong>LangChain</strong> agisce come orchestratore, collegando i vari componenti. Ad esempio, l'agente principale utilizza una "catena" per prima estrarre le parole chiave da una domanda, poi usarle per recuperare le recensioni pertinenti da ChromaDB e infine passarle a un LLM per generare una sintesi. Questo approccio modulare, chiamato <strong>Retrieval-Augmented Generation (RAG)</strong>, migliora la qualità delle risposte basandole su dati concreti.
-                </p>
-                <p>
-                    Un concetto fondamentale è la separazione tra strumenti (tools) e agente. Ogni funzionalità, come l'estrazione di parole chiave o la sintesi, è un "tool" indipendente che può essere chiamato singolarmente tramite il server MCP. L'agente, a sua volta, è un tool più complesso che orchestra chiamate ad altri tool per rispondere a domande complesse.
-                </p>
-                <p>
-                    Il codice seguente mostra come un tool per estrarre parole chiave viene definito e reso disponibile tramite una "chain" di LangChain, utilizzando un prompt specifico e un modello Ollama.
-                </p>
-                <pre><code class="language-python">
-# Esempio di creazione di un tool con LangChain e Ollama
-from langchain_core.prompts import PromptTemplate
-from langchain_community.llms import Ollama
+            <h1 class="section-title">Riassunti dei Progetti</h1>
+            <div class="summary-container">
+                <div class="summary-header" id="ollama-summary-header">
+                    <h2>Agente AI Locale con Architettura MCP</h2>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="summary-content" id="ollama-summary-content">
+                    <div class="text-justify">
+                        <p>
+                            Questo progetto ha esplorato la creazione di un'architettura di intelligenza artificiale interamente locale, eliminando la dipendenza da API esterne e garantendo privacy e bassa latenza. Il cuore del sistema è il <strong>Model Context Protocol (MCP)</strong>, un protocollo che standardizza la comunicazione tra un client e un server AI, permettendo di esporre strumenti di analisi come funzioni richiamabili via JSON-RPC.
+                        </p>
+                        <p>
+                            L'architettura si basa su <strong>Ollama</strong> per l'esecuzione di modelli linguistici di grandi dimensioni (LLM) in locale. Questo permette di avere un controllo completo sui modelli utilizzati, come <code>qwen2.5:7b</code> per la generazione di testo e <code>mxbai-embed-large</code> per la creazione di embedding vettoriali. Gli embedding sono fondamentali per la ricerca semantica, poiché trasformano il testo in vettori numerici che ne catturano il significato.
+                        </p>
+                        <p>
+                            La ricerca semantica è implementata con <strong>ChromaDB</strong>, un database vettoriale che memorizza gli embedding delle recensioni dei prodotti. Quando un utente pone una domanda, il sistema non cerca semplici corrispondenze di parole chiave, ma confronta il vettore della domanda con quelli delle recensioni, trovando i risultati più pertinenti a livello di significato.
+                        </p>
+                        <h4>Client MCP (`mcp_client.py`)</h4>
+                        <pre><code class="language-python">
+async def call_tool(self, name, arguments):
+    timeout = 60.0 if name == "agent" else 10.0
 
-# Prompt per l'estrazione di keyword
-prompt_keywords = PromptTemplate.from_template(
-    "Estrai le parole chiave più importanti da questa query: {user_query}. "
-    "Restituisci solo una lista di parole chiave separate da virgola."
-)
+    response = await self._send_request("tools/call", name,{
+        "name": name,
+        "arguments": arguments
+    }, timeout)
+    if response and "result" in response:
+        return response["result"]
+    return None
+                        </code></pre>
+                        <h4>Server MCP (`mcp_server.py`)</h4>
+                        <pre><code class="language-python">
+@server.call_tool()
+async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> List[types.TextContent]:
+    try:
+        if not agent_tools:
+            return [types.TextContent(
+                type="text",
+                text=json.dumps({"error": "Agent tools not initialized"})
+            )]
+        # ... (tool execution logic)
+    except Exception as e:
+        # ... (error handling)
+                        </code></pre>
+                        <h4>Agente (`ollama_agent.py`)</h4>
+                        <pre><code class="language-python">
+def run_sequenced(self, user_query: str) -> str:
+    """Execute tools in a fixed sequence and return JSON result"""
+    try:
+        # Step 1: Extract keywords
+        keywords = self.agent_tools.extract_important_keywords(user_query)
+        # Step 2: Retrieve reviews
+        reviews = self.agent_tools.retrieve_useful_reviews(keywords)
+        # Step 3: Summarize reviews
+        summary = self.agent_tools.summarize_reviews(reviews)
+        # Step 4: Get statistics
+        statistics = self.agent_tools.get_reviews_statistics(reviews)
+        # Step 5: Generate final JSON result
+        # ...
+    except Exception as e:
+        # ...
+                        </code></pre>
+                        <h4>Tools (`tools.py`)</h4>
+                        <pre><code class="language-python">
+def extract_important_keywords(self, user_query: str) -> List[str]:
+    prompt = self.prompt_keywords.format(user_query=user_query)
+    try:
+        response = self.llm.invoke(prompt)
+        keywords = [k.strip() for k in response.split(',') if k.strip()]
+        return keywords[:5] if keywords else [user_query]
+    except Exception as e:
+        return [{"error": f"Extraction failed: {str(e)}"}]
+                        </code></pre>
+                        <h4>Vector Store (`vector.py`)</h4>
+                        <pre><code class="language-python">
+class ReviewsVectorStore:
+    def __init__(self, csv_file_path: str = "reviews.csv", db_location: str = "./chroma_db", embedding_model: str = "mxbai-embed-large", collection_name: str = "gaming_reviews"):
+        # ...
+        self.vector_store = Chroma(
+            client=chromadb.PersistentClient(path=db_location),
+            collection_name=collection_name,
+            embedding_function=self.embeddings
+        )
 
-# Modello LLM locale
-llm = Ollama(model="qwen2.5:7b")
-
-# Creazione della "chain" che collega prompt e modello
-keyword_extraction_chain = prompt_keywords | llm
-                </code></pre>
-                <p>
-                    Questo approccio non solo rende il sistema potente e flessibile, ma dimostra anche come le moderne tecniche di AI possano essere implementate in un ambiente locale, sicuro e controllato.
-                </p>
+    def get_retriever(self, k: int = 10):
+        k = max(1, min(50, int(k)))
+        return self.vector_store.as_retriever(search_kwargs={"k": k})
+                        </code></pre>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -59,6 +135,25 @@ keyword_extraction_chain = prompt_keywords | llm
     <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
     <script src="../assets/js/translations.js"></script>
-    <script type-="module" src="../assets/js/main.js"></script>
+    <script type="module" src="../assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('ollama-summary-header');
+            const content = document.getElementById('ollama-summary-content');
+            const icon = header.querySelector('i');
+
+            header.addEventListener('click', () => {
+                if (content.style.display === 'none' || content.style.display === '') {
+                    content.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    content.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
