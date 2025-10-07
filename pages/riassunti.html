@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riassunti dei Progetti</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="container" style="padding-top: 120px;">
+        <section class="page-section">
+            <h1 class="section-title">Concetti Chiave dal Progetto Agente AI Locale</h1>
+            <div class="text-justify">
+                <p>
+                    Questo progetto ha esplorato la creazione di un'architettura di intelligenza artificiale interamente locale, eliminando la dipendenza da API esterne e garantendo privacy e bassa latenza. Il cuore del sistema è il <strong>Model Context Protocol (MCP)</strong>, un protocollo che standardizza la comunicazione tra un client e un server AI, permettendo di esporre strumenti di analisi come funzioni richiamabili via JSON-RPC.
+                </p>
+                <p>
+                    L'architettura si basa su <strong>Ollama</strong> per l'esecuzione di modelli linguistici di grandi dimensioni (LLM) in locale. Questo permette di avere un controllo completo sui modelli utilizzati, come <code>qwen2.5:7b</code> per la generazione di testo e <code>mxbai-embed-large</code> per la creazione di embedding vettoriali. Gli embedding sono fondamentali per la ricerca semantica, poiché trasformano il testo in vettori numerici che ne catturano il significato.
+                </p>
+                <p>
+                    La ricerca semantica è implementata con <strong>ChromaDB</strong>, un database vettoriale che memorizza gli embedding delle recensioni dei prodotti. Quando un utente pone una domanda, il sistema non cerca semplici corrispondenze di parole chiave, ma confronta il vettore della domanda con quelli delle recensioni, trovando i risultati più pertinenti a livello di significato.
+                </p>
+                <p>
+                    <strong>LangChain</strong> agisce come orchestratore, collegando i vari componenti. Ad esempio, l'agente principale utilizza una "catena" per prima estrarre le parole chiave da una domanda, poi usarle per recuperare le recensioni pertinenti da ChromaDB e infine passarle a un LLM per generare una sintesi. Questo approccio modulare, chiamato <strong>Retrieval-Augmented Generation (RAG)</strong>, migliora la qualità delle risposte basandole su dati concreti.
+                </p>
+                <p>
+                    Un concetto fondamentale è la separazione tra strumenti (tools) e agente. Ogni funzionalità, come l'estrazione di parole chiave o la sintesi, è un "tool" indipendente che può essere chiamato singolarmente tramite il server MCP. L'agente, a sua volta, è un tool più complesso che orchestra chiamate ad altri tool per rispondere a domande complesse.
+                </p>
+                <p>
+                    Il codice seguente mostra come un tool per estrarre parole chiave viene definito e reso disponibile tramite una "chain" di LangChain, utilizzando un prompt specifico e un modello Ollama.
+                </p>
+                <pre><code class="language-python">
+# Esempio di creazione di un tool con LangChain e Ollama
+from langchain_core.prompts import PromptTemplate
+from langchain_community.llms import Ollama
+
+# Prompt per l'estrazione di keyword
+prompt_keywords = PromptTemplate.from_template(
+    "Estrai le parole chiave più importanti da questa query: {user_query}. "
+    "Restituisci solo una lista di parole chiave separate da virgola."
+)
+
+# Modello LLM locale
+llm = Ollama(model="qwen2.5:7b")
+
+# Creazione della "chain" che collega prompt e modello
+keyword_extraction_chain = prompt_keywords | llm
+                </code></pre>
+                <p>
+                    Questo approccio non solo rende il sistema potente e flessibile, ma dimostra anche come le moderne tecniche di AI possano essere implementate in un ambiente locale, sicuro e controllato.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
+    <script src="../assets/js/translations.js"></script>
+    <script type-="module" src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -289,14 +289,14 @@ const translations = {
             "fr": "CLI"
         },
         "ollama_agent_h3": {
-            "en": "A simple local AI Agent with Ollama",
-            "it": " Un semplice Agente AI locale con Ollama",
-            "fr": "Un Agent IA local simple avec Ollama"
+            "en": "Local AI Agent with MCP Architecture",
+            "it": "Agente AI Locale con Architettura MCP",
+            "fr": "Agent IA Local avec Architecture MCP"
         },
         "ollama_agent_p": {
-            "en": "A Q&A system for analyzing product reviews using local LLMs. It reads a CSV file, creates a local vector database, and lets you chat with your data.",
-            "it": "Un sistema di Q&A per analizzare le recensioni di prodotti utilizzando LLM locali. Legge un file CSV, crea un database vettoriale locale e ti permette di conversare con i tuoi dati.",
-            "fr": "Un système de Q&R pour analyser les avis sur les produits en utilisant des LLM locaux. Il lit un fichier CSV, crée une base de données vectorielle locale et vous permet de discuter avec vos données."
+            "en": "A Q&A system for analyzing product reviews using local LLMs and an MCP architecture.",
+            "it": "Un sistema di Q&A per analizzare le recensioni di prodotti utilizzando LLM locali e un'architettura MCP.",
+            "fr": "Un système de Q&R pour analyser les avis sur les produits en utilisant des LLM locaux et une architecture MCP."
         },
         "ollama_agent_btn": {
             "en": "Project Details",
@@ -500,24 +500,24 @@ const translations = {
     },
     "project_ollama_agent": {
         "title": {
-            "en": "Project: Local AI Agent with Ollama - Paolo Alborno",
-            "it": "Progetto: Agente AI Locale con Ollama - Paolo Alborno",
-            "fr": "Projet: Agent IA Local avec Ollama - Paolo Alborno"
+            "en": "Project: Local AI Agent with MCP Architecture - Paolo Alborno",
+            "it": "Progetto: Agente AI Locale con Architettura MCP - Paolo Alborno",
+            "fr": "Projet: Agent IA Local avec Architecture MCP - Paolo Alborno"
         },
         "meta_description": {
-            "en": "Details of the Local AI Agent project for Q&A on product reviews using Ollama and LangChain. The script reads a `reviews.csv` file to create a local ChromaDB database, enabling semantic search.",
-            "it": "Dettagli del progetto Agente AI Locale per Q&A su recensioni di prodotti con Ollama e LangChain. Lo script legge un file `reviews.csv` per creare un database locale con ChromaDB, abilitando la ricerca semantica.",
-            "fr": "Détails du projet d'Agent IA Local pour Q&R sur les avis produits avec Ollama et LangChain. Le script lit un fichier `reviews.csv` pour créer une base de données locale ChromaDB, permettant la recherche sémantique."
+            "en": "Details of the Local AI Agent project with MCP architecture for analyzing gaming reviews using Ollama, LangChain, and ChromaDB.",
+            "it": "Dettagli del progetto Agente AI Locale con architettura MCP per l'analisi di recensioni di prodotti gaming tramite Ollama, LangChain e ChromaDB.",
+            "fr": "Détails du projet d'Agent IA Local avec architecture MCP pour l'analyse des avis sur les jeux vidéo en utilisant Ollama, LangChain et ChromaDB."
         },
         "h2": {
-            "en": "Local AI Agent with Ollama",
-            "it": "Agente AI Locale con Ollama",
-            "fr": "Agent IA Local avec Ollama"
+            "en": "Local AI Agent with MCP Architecture",
+            "it": "Agente AI Locale con Architettura MCP",
+            "fr": "Agent IA Local avec Architecture MCP"
         },
         "section_subtitle": {
-            "en": "A Q&A system that reads a `reviews.csv` file to create a local vector database for analyzing e-commerce product reviews with local LLMs.",
-            "it": "Un sistema di Q&A che legge un file `reviews.csv` per creare un database vettoriale locale per analizzare le recensioni di prodotti e-commerce utilizzando LLM locali.",
-            "fr": "Un système de Q&R qui lit un fichier `reviews.csv` pour créer une base de données vectorielle locale afin d'analyser les avis sur les produits e-commerce en utilisant des LLM locaux."
+            "en": "A complete local AI solution that implements the Model Context Protocol (MCP) for advanced analysis of gaming product reviews.",
+            "it": "Una soluzione completa di intelligenza artificiale locale che implementa il Model Context Protocol (MCP) per l'analisi avanzata delle recensioni di prodotti gaming.",
+            "fr": "Une solution d'intelligence artificielle locale complète qui met en œuvre le Protocole de Contexte de Modèle (MCP) pour l'analyse avancée des avis sur les produits de jeu."
         },
         "goal_h3": {
             "en": "Project Goal",
@@ -525,114 +525,44 @@ const translations = {
             "fr": "Objectif du Projet"
         },
         "goal_p": {
-            "en": "This project implements an intelligent question-answering system to analyze e-commerce product reviews using local AI models via Ollama. The script first reads a `reviews.csv` file and asks the user if they want to create or reload a local vector database with the content. It then allows you to ask natural language questions about the reviews and get accurate answers based on the data, operating completely offline.",
-            "it": "Questo progetto implementa un sistema di domanda-risposta intelligente per analizzare le recensioni di prodotti e-commerce utilizzando modelli AI locali tramite Ollama. Lo script legge prima un file `reviews.csv` e chiede all'utente se desidera creare o ricaricare un database vettoriale locale con il contenuto. Successivamente, consente di porre domande in linguaggio naturale sulle recensioni e ottenere risposte accurate basate sui dati, operando completamente offline.",
-            "fr": "Ce projet met en œuvre un système de questions-réponses intelligent pour analyser les avis sur les produits de commerce électronique à l'aide de modèles d'IA locaux via Ollama. Le script lit d'abord un fichier `reviews.csv` et demande à l'utilisateur s'il souhaite créer ou recharger une base de données vectorielle locale avec le contenu. Il vous permet ensuite de poser des questions en langage naturel sur les avis et d'obtenir des réponses précises basées sur les données, en fonctionnant entièrement hors ligne."
-        },
-        "tech_h3": {
-            "en": "Core Technologies",
-            "it": "Tecnologie Chiave",
-            "fr": "Technologies Clés"
-        },
-        "tech_p": {
-            "en": "The system is built on a modern, local-first AI stack:",
-            "it": "Il sistema è costruito su uno stack AI moderno e orientato al locale:",
-            "fr": "Le système est construit sur une pile d'IA moderne et axée sur le local :"
-        },
-        "tech_tile1": {
-            "en": "<strong>Ollama:</strong> For running LLMs like Llama3.2 and Qwen3 locally.",
-            "it": "<strong>Ollama:</strong> Per eseguire LLM come Llama3.2 e Qwen3 in locale.",
-            "fr": "<strong>Ollama :</strong> Pour exécuter des LLM comme Llama3.2 et Qwen3 localement."
-        },
-        "tech_tile2": {
-            "en": "<strong>LangChain:</strong> As the core framework for building the Q&A pipeline.",
-            "it": "<strong>LangChain:</strong> Come framework principale per costruire la pipeline di Q&A.",
-            "fr": "<strong>LangChain :</strong> Comme framework principal pour construire le pipeline de Q&R."
-        },
-        "tech_tile3": {
-            "en": "<strong>ChromaDB:</strong> A vector database for efficient semantic search.",
-            "it": "<strong>ChromaDB:</strong> Un database vettoriale per una ricerca semantica efficiente.",
-            "fr": "<strong>ChromaDB :</strong> Une base de données vectorielle pour une recherche sémantique efficace."
-        },
-        "tech_tile4": {
-            "en": "<strong>Pandas & Python:</strong> For data processing and application logic.",
-            "it": "<strong>Pandas & Python:</strong> Per l'elaborazione dei dati e la logica dell'applicazione.",
-            "fr": "<strong>Pandas & Python :</strong> Pour le traitement des données et la logique de l'application."
-        },
-        "arch_h3": {
-            "en": "System Architecture",
-            "it": "Architettura del Sistema",
-            "fr": "Architecture du Système"
-        },
-        "arch_p": {
-            "en": "The data flows from the CSV file to the vector database, which is then queried by the LangChain-powered application to generate answers using a local LLM.",
-            "it": "I dati fluiscono dal file CSV al database vettoriale, che viene poi interrogato dall'applicazione basata su LangChain per generare risposte utilizzando un LLM locale.",
-            "fr": "Les données circulent du fichier CSV vers la base de données vectorielle, qui est ensuite interrogée par l'application alimentée par LangChain pour générer des réponses à l'aide d'un LLM local."
-        },
-        "arch_diagram": {
-            "en": "<pre>┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐\n│   reviews.csv   │────│   vector.py      │────│   ChromaDB      │\n│   (Input Data)  │    │   (Processing)   │    │   (Storage)     │\n└─────────────────┘    └──────────────────┘    └─────────────────┘\n                                │\n                                ▼\n┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐\n│     app.py      │────│    LangChain     │────│     Ollama      │\n│   (Interface)   │    │    (Pipeline)    │    │   (Local LLM)   │\n└─────────────────┘    └──────────────────┘    └─────────────────┘</pre>",
-            "it": "<pre>┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐\n│   reviews.csv   │────│   vector.py      │────│   ChromaDB      │\n│   (Dati Input)  │    │   (Elaborazione) │    │   (Storage)     │\n└─────────────────┘    └──────────────────┘    └─────────────────┘\n                                │\n                                ▼\n┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐\n│     app.py      │────│    LangChain     │────│     Ollama      │\n│   (Interfaccia) │    │    (Pipeline)    │    │   (LLM Locale)  │\n└─────────────────┘    └──────────────────┘    └─────────────────┘</pre>",
-            "fr": "<pre>┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐\n│   reviews.csv   │────│   vector.py      │────│   ChromaDB      │\n│ (Données d'entrée)│    │   (Traitement)   │    │   (Stockage)    │\n└─────────────────┘    └──────────────────┘    └─────────────────┘\n                                │\n                                ▼\n┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐\n│     app.py      │────│    LangChain     │────│     Ollama      │\n│   (Interface)   │    │    (Pipeline)    │    │    (LLM Local)  │\n└─────────────────┘    └──────────────────┘    └─────────────────┘</pre>"
-        },
-        "setup_h3": {
-            "en": "Installation and Usage",
-            "it": "Installazione e Utilizzo",
-            "fr": "Installation et Utilisation"
-        },
-        "setup_p": {
-            "en": "To run the system, first install Ollama and pull the required models (`qwen3:8b`, `llama3.2:latest`, `mxbai-embed-large`). Then, install the Python dependencies from `requirements.txt`. Place your `reviews.csv` file in the root directory and run `python app.py` to start the interactive Q&A session.",
-            "it": "Per eseguire il sistema, installa prima Ollama e scarica i modelli richiesti (`qwen3:8b`, `llama3.2:latest`, `mxbai-embed-large`). Successivamente, installa le dipendenze Python da `requirements.txt`. Posiziona il tuo file `reviews.csv` nella directory principale ed esegui `python app.py` per avviare la sessione interattiva di Q&A.",
-            "fr": "Pour exécuter le système, installez d'abord Ollama et téléchargez les modèles requis (`qwen3:8b`, `llama3.2:latest`, `mxbai-embed-large`). Ensuite, installez les dépendances Python à partir de `requirements.txt`. Placez votre fichier `reviews.csv` dans le répertoire racine et exécutez `python app.py` pour démarrer la session interactive de Q&R."
-        },
-        "extend_h3": {
-            "en": "Future Extensions",
-            "it": "Estensioni Future",
-            "fr": "Extensions Futures"
-        },
-        "extend_p": {
-            "en": "The project is designed to be extensible. Future work could include adding a web interface, sentiment analysis, trend identification, multi-language support, and much more.",
-            "it": "Il progetto è progettato per essere estensibile. Il lavoro futuro potrebbe includere l'aggiunta di un'interfaccia web, analisi del sentiment, identificazione di trend, supporto multilingue e molto altro.",
-            "fr": "Le projet est conçu pour être extensible. Les travaux futurs pourraient inclure l'ajout d'une interface web, l'analyse des sentiments, l'identification des tendances, le support multilingue et bien plus encore."
+            "en": "This project demonstrates advanced integration of multiple AI technologies, showcasing proficiency in modern AI development patterns and distributed system design. The architecture leverages the Model Context Protocol to create a seamless communication layer between client applications and AI-powered analysis tools.",
+            "it": "Questo progetto dimostra un'integrazione avanzata di molteplici tecnologie AI, evidenziando la competenza nei moderni pattern di sviluppo AI e nella progettazione di sistemi distribuiti. L'architettura sfrutta il Model Context Protocol per creare un livello di comunicazione trasparente tra le applicazioni client e gli strumenti di analisi basati su AI.",
+            "fr": "Ce projet démontre une intégration avancée de plusieurs technologies d'IA, mettant en valeur la maîtrise des modèles de développement d'IA modernes et de la conception de systèmes distribués. L'architecture exploite le Protocole de Contexte de Modèle pour créer une couche de communication transparente entre les applications clientes et les outils d'analyse alimentés par l'IA."
         },
         "solution_h3": {
-            "en": "My Solution",
-            "it": "La Mia Soluzione",
-            "fr": "Ma Solution"
+            "en": "System Functionality",
+            "it": "Funzionalità del Sistema",
+            "fr": "Fonctionnalité du système"
         },
         "solution_p1": {
-            "en": "The system is designed to be modular and scalable. It uses a pipeline of technologies to process and analyze the data.",
-            "it": "Il sistema è progettato per essere modulare e scalabile. Utilizza una pipeline di tecnologie per processare e analizzare i dati.",
-            "fr": "Le système est conçu pour être modulaire et évolutif. Il utilise un pipeline de technologies pour traiter et analyser les données."
+            "en": "<strong>Intelligent Keyword Extraction:</strong> The system analyzes the semantic intent of user queries to identify the most relevant search terms.",
+            "it": "<strong>Estrazione Intelligente di Keyword:</strong> Il sistema analizza l'intento semantico delle query utente per identificare i termini di ricerca più rilevanti.",
+            "fr": "<strong>Extraction intelligente de mots-clés :</strong> Le système analyse l'intention sémantique des requêtes des utilisateurs pour identifier les termes de recherche les plus pertinents."
         },
         "solution_p2": {
-            "en": "The data is first loaded from a CSV file. The user is then prompted to decide whether to create a new local database or use an existing one.",
-            "it": "I dati vengono prima caricati da un file CSV. All'utente viene quindi chiesto di decidere se creare un nuovo database locale o utilizzarne uno esistente.",
-            "fr": "Les données sont d'abord chargées à partir d'un fichier CSV. L'utilisateur est ensuite invité à décider s'il souhaite créer une nouvelle base de données locale ou en utiliser une existante."
+            "en": "<strong>Vector-Based Semantic Search:</strong> Retrieved keywords drive a semantic search through reviews, retrieving contextually relevant content.",
+            "it": "<strong>Ricerca Semantica Vettoriale:</strong> Le keyword estratte guidano una ricerca semantica tra le recensioni, recuperando contenuti contestualmente rilevanti.",
+            "fr": "<strong>Recherche sémantique vectorielle :</strong> les mots-clés récupérés conduisent une recherche sémantique à travers les avis, récupérant un contenu contextuellement pertinent."
         },
         "solution_p3": {
-            "en": "The vectorized data, with embeddings created via Ollama, is stored in a ChromaDB database, which allows for efficient semantic search.",
-            "it": "I dati vettorizzati, con embedding creati tramite Ollama, vengono archiviati in un database ChromaDB, che consente una ricerca semantica efficiente.",
-            "fr": "Les données vectorisées, avec des embeddings créés via Ollama, sont stockées dans une base de données ChromaDB, ce qui permet une recherche sémantique efficace."
+            "en": "<strong>Comprehensive Summaries:</strong> The system generates summaries highlighting key themes, pros, cons, and sentiment patterns.",
+            "it": "<strong>Sintesi Complete:</strong> Il sistema genera riassunti che evidenziano temi chiave, pro, contro e pattern di sentiment.",
+            "fr": "<strong>Résumés complets :</strong> Le système génère des résumés mettant en évidence les thèmes clés, les avantages, les inconvénients et les modèles de sentiment."
         },
         "solution_p4": {
-            "en": "The user can then ask questions in natural language, and the system will use the LangChain framework to find the most relevant answers.",
-            "it": "L'utente può quindi porre domande in linguaggio naturale e il sistema utilizzerà il framework LangChain per trovare le risposte più pertinenti.",
-            "fr": "L'utilisateur peut alors poser des questions en langage naturel, et le système utilisera le framework LangChain pour trouver les réponses les plus pertinentes."
+            "en": "<strong>Statistical Analysis:</strong> It calculates average ratings, rating ranges, and sentiment distribution from the review data.",
+            "it": "<strong>Analisi Statistica:</strong> Calcola valutazioni medie, range di valutazione e distribuzione del sentiment a partire dai dati delle recensioni.",
+            "fr": "<strong>Analyse statistique :</strong> il calcule les notes moyennes, les plages de notes et la répartition des sentiments à partir des données d'évaluation."
         },
-        "pipeline_step1": {
-            "en": "Local LLM Execution",
-            "it": "Esecuzione LLM Locale",
-            "fr": "Exécution LLM Locale"
+        "arch_diagram": {
+            "en": "<p>The architecture implements a flexible interaction model where users can engage with the system through multiple pathways. The MCP Client provides an interactive interface that communicates directly with the MCP Server using JSON-RPC protocol, invoking the available tools. The MCP Server exposes individual tools that can be called independently, allowing for granular control over the analysis pipeline. The Ollama Agent serves as an orchestrator that chains multiple tools together for complex queries, while the Vector Database provides the semantic search capabilities that power the entire system.</p>",
+            "it": "<p>L'architettura implementa un modello di interazione flessibile in cui gli utenti possono interagire con il sistema attraverso molteplici percorsi. Il Client MCP fornisce un'interfaccia interattiva che comunica direttamente con il Server MCP utilizzando il protocollo JSON-RPC, invocando gli strumenti disponibili. Il Server MCP espone strumenti individuali che possono essere chiamati in modo indipendente, consentendo un controllo granulare sulla pipeline di analisi. L'Agente Ollama funge da orchestratore che concatena più strumenti per query complesse, mentre il Database Vettoriale fornisce le capacità di ricerca semantica che alimentano l'intero sistema.</p>",
+            "fr": "<p>L'architecture met en œuvre un modèle d'interaction flexible où les utilisateurs peuvent interagir avec le système via plusieurs voies. Le client MCP fournit une interface interactive qui communique directement avec le serveur MCP à l'aide du protocole JSON-RPC, en invoquant les outils disponibles. Le serveur MCP expose des outils individuels qui peuvent être appelés indépendamment, permettant un contrôle granulaire du pipeline d'analyse. L'agent Ollama sert d'orchestrateur qui enchaîne plusieurs outils pour les requêtes complexes, tandis que la base de données vectorielle fournit les capacités de recherche sémantique qui alimentent l'ensemble du système.</p>"
         },
-        "pipeline_step2": {
-            "en": "Orchestration and Pipelines",
-            "it": "Orchestrazione e Pipeline",
-            "fr": "Orchestration et Pipelines"
-        },
-        "pipeline_step3": {
-            "en": "Application Logic",
-            "it": "Logica Applicativa",
-            "fr": "Logique Applicative"
+        "tech_h3": {
+            "en": "Technology Stack",
+            "it": "Stack Tecnologico",
+            "fr": "Stack Technologique"
         }
     },
     "contact": {
