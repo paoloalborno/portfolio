@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const graphData = {
         nodes: [
-            { id: 1, label: 'MCP Client', description: 'Interactive user interface', icon: '../../assets/images/icons/User.png', x: 300, y: 50 },
-            { id: 2, label: 'MCP Server', description: 'JSON-RPC entry point', icon: '../../assets/images/icons/Jules.png', x: 300, y: 200 },
-            { id: 3, label: 'Agent Tools', description: 'Individual analysis tools', icon: '../../assets/images/icons/cli.png', x: 100, y: 350 },
-            { id: 4, label: 'Ollama Agent', description: 'Orchestrates complex queries', icon: '../../assets/images/icons/AI.png', x: 500, y: 350 },
-            { id: 5, label: 'Vector Database', description: 'ChromaDB for semantic search', icon: '../../assets/images/icons/Database.png', x: 300, y: 500 }
+            { id: 1, label: 'MCP Client', description: 'Interactive user interface', icon: '../../assets/images/icons/MCP.png', x: 300, y: 50 },
+            { id: 2, label: 'MCP Server', description: 'JSON-RPC entry point', icon: '../../assets/images/icons/MCP.png', x: 300, y: 200 },
+            { id: 3, label: 'Tools', description: 'Individual tools', icon: '../../assets/images/icons/cli.png', x: 100, y: 350 },
+            { id: 4, label: 'Agent', description: 'Proccess the entire pipeline', icon: '../../assets/images/icons/AI.png', x: 500, y: 350 },
+            { id: 5, label: 'Vector Database', description: 'ChromaDB for semantic search', icon: '../../assets/images/icons/ChromaDB.png', x: 300, y: 500 }
         ],
         links: [
             { source: 1, target: 2, label: 'JSON-RPC' },
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const svgWidth = 600;
     const svgHeight = 600;
-    const boxWidth = 180;
+    const boxWidth = 260;
     const boxHeight = 80;
     const iconSize = 30;
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Draw link labels
     links.append('text')
         .attr('x', d => (graphData.nodes.find(n => n.id === d.source).x + graphData.nodes.find(n => n.id === d.target).x) / 2)
-        .attr('y', d => (graphData.nodes.find(n => n.id === d.source).y + graphData.nodes.find(n => n.id === d.target).y) / 2 - 5)
+        .attr('y', d => (graphData.nodes.find(n => n.id === d.source).y + graphData.nodes.find(n => n.id === d.target).y) / 2 - 20)
         .attr('text-anchor', 'middle')
         .attr('fill', '#007bff')
         .style('font-size', '12px')

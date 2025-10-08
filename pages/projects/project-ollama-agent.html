@@ -24,9 +24,10 @@
                 <div class="project-detail-layout">
                     <!-- Main Content Column -->
                     <div class="project-main-content text-justify">
-                        <h3 data-translate-key="project_ollama_agent.goal_h3"></h3>
+                           <h3 data-translate-key="project_ollama_agent.goal_h3"></h3>
                         <p data-translate-key="project_ollama_agent.goal_p"></p>
 
+                        <!-- FUNCTIONALITY -->
                         <h3 data-translate-key="project_ollama_agent.solution_h3"></h3>
                         <ul>
                             <li data-translate-key="project_ollama_agent.solution_p1"></li>
@@ -34,7 +35,23 @@
                             <li data-translate-key="project_ollama_agent.solution_p3"></li>
                             <li data-translate-key="project_ollama_agent.solution_p4"></li>
                         </ul>
-                        <br>
+
+                        <!-- ARCHITECTURE -->
+                        <h3 data-translate-key="project_ollama_agent.arch_h3"></h3>
+                        <div data-translate-key="project_ollama_agent.arch_diagram"></div>
+                        <div id="d3-graph-ollama-container" class="d3-graph-container"></div>
+
+
+                        <!-- MCP CLIENT COMMANDS -->
+                        <h3 data-translate-key="project_ollama_agent.commands_h3"></h3>
+                        <p data-translate-key="project_ollama_agent.commands_intro"></p>
+                        <ul class="command-list">
+                            <li><strong>test:</strong> <span data-translate-key="project_ollama_agent.cmd_test"></span></li>
+                            <li><strong>list:</strong> <span data-translate-key="project_ollama_agent.cmd_list"></span></li>
+                            <li><strong>extract:</strong> <span data-translate-key="project_ollama_agent.cmd_extract"></span></li>
+                            <li><strong>process:</strong> <span data-translate-key="project_ollama_agent.cmd_process"></span></li>
+                            <li><strong>agent:</strong> <span data-translate-key="project_ollama_agent.cmd_agent"></span></li>
+                        </ul>
                         <p data-translate-key="arch_diagram"></p>
                         <div id="d3-graph-ollama-container" class="d3-graph-container"></div>
                     </div>
@@ -45,6 +62,7 @@
                             <h3 data-translate-key="project_ollama_agent.tech_h3"></h3>
                             <ul>
                                 <li><strong data-translate-key="projects.tag_python"></strong></li>
+                                <li><strong data-translate-key="projects.tag_mcp"></strong></li>
                                 <li><strong data-translate-key="projects.tag_ollama"></strong></li>
                                 <li><strong data-translate-key="projects.tag_langchain"></strong></li>
                                 <li><strong data-translate-key="projects.tag_chromadb"></strong></li>

@@ -317,6 +317,11 @@ const translations = {
             "en": "ChromaDB",
             "it": "ChromaDB",
             "fr": "ChromaDB"
+        },
+        "tag_mcp": {
+            "en": "MCP Server / Client",
+            "it": "MCP Server / Client",
+            "fr": "MCP Server / Client"
         }
     },
     "project_portfolio_backend": {
@@ -554,15 +559,65 @@ const translations = {
             "it": "<strong>Analisi Statistica:</strong> Calcola valutazioni medie, range di valutazione e distribuzione del sentiment a partire dai dati delle recensioni.",
             "fr": "<strong>Analyse statistique :</strong> il calcule les notes moyennes, les plages de notes et la répartition des sentiments à partir des données d'évaluation."
         },
+        "arch_h3": {
+            "en": "System Architecture",
+            "it": "Architettura del Sistema",
+            "fr": "Architecture du Système"
+        },
         "arch_diagram": {
-            "en": "<p>The architecture implements a flexible interaction model where users can engage with the system through multiple pathways. The MCP Client provides an interactive interface that communicates directly with the MCP Server using JSON-RPC protocol, invoking the available tools. The MCP Server exposes individual tools that can be called independently, allowing for granular control over the analysis pipeline. The Ollama Agent serves as an orchestrator that chains multiple tools together for complex queries, while the Vector Database provides the semantic search capabilities that power the entire system.</p>",
-            "it": "<p>L'architettura implementa un modello di interazione flessibile in cui gli utenti possono interagire con il sistema attraverso molteplici percorsi. Il Client MCP fornisce un'interfaccia interattiva che comunica direttamente con il Server MCP utilizzando il protocollo JSON-RPC, invocando gli strumenti disponibili. Il Server MCP espone strumenti individuali che possono essere chiamati in modo indipendente, consentendo un controllo granulare sulla pipeline di analisi. L'Agente Ollama funge da orchestratore che concatena più strumenti per query complesse, mentre il Database Vettoriale fornisce le capacità di ricerca semantica che alimentano l'intero sistema.</p>",
-            "fr": "<p>L'architecture met en œuvre un modèle d'interaction flexible où les utilisateurs peuvent interagir avec le système via plusieurs voies. Le client MCP fournit une interface interactive qui communique directement avec le serveur MCP à l'aide du protocole JSON-RPC, en invoquant les outils disponibles. Le serveur MCP expose des outils individuels qui peuvent être appelés indépendamment, permettant un contrôle granulaire du pipeline d'analyse. L'agent Ollama sert d'orchestrateur qui enchaîne plusieurs outils pour les requêtes complexes, tandis que la base de données vectorielle fournit les capacités de recherche sémantique qui alimentent l'ensemble du système.</p>"
+            "en": "<p>Once the server and the LLM model are launched through Ollama, the application provides an MCP Client interface that communicates with the MCP Server via the JSON-RPC protocol, invoking the available tools. The MCP Server exposes several tools that can be called independently, allowing granular control over the analysis pipeline. A specific command allows delegating the entire pipeline to an Agent. ChromaDB is used as a local (vector) database that enables the Agent or the tools invoked from the interface to perform semantic searches, which are then used as input for textual analysis and statistical computation tools.</p>",
+            "it": "<p>Una volta lanciati il server e il modello LLM tramite Ollama, l'applicazione presenta un'interfaccia Client MCP che permette di comunicare inviando comandi al Server MCP via protocollo JSON-RPC. Il Server MCP espone diversi tools che possono essere chiamati in modo indipendente, consentendo un controllo granulare sulla pipeline di analisi. È presente un comando che permette di delegare l'intera pipeline a un Agente. ChromaDB è stato usato come database locale (vettoriale) che permette all'Agente o ai tools invocati da interfaccia di eseguire la ricerca semantica, che viene usata come input ai tools di analisi testuale e calcolo delle statistiche.</p>",
+            "fr": "<p>Une fois le serveur et le modèle LLM lancés via Ollama, l'application propose une interface Client MCP qui communique avec le serveur MCP à l'aide du protocole JSON-RPC, en invoquant les outils disponibles. Le serveur MCP expose plusieurs outils pouvant être appelés de manière indépendante, offrant un contrôle granulaire sur le pipeline d'analyse. Une commande permet de déléguer l'ensemble du pipeline à un agent. ChromaDB est utilisé comme base de données locale (vectorielle), permettant à l'Agent ou aux outils invoqués depuis l'interface d'effectuer des recherches sémantiques, utilisées ensuite comme entrée pour les outils d'analyse textuelle et de calcul statistique.</p>"
         },
         "tech_h3": {
             "en": "Technology Stack",
             "it": "Stack Tecnologico",
             "fr": "Stack Technologique"
+        },
+        "tech_p": {
+            "en": "<ul><li><strong>Python:</strong> Core language for backend and tool orchestration.</li><li><strong>Ollama:</strong> Local LLM engine for inference and contextual reasoning.</li><li><strong>LangChain:</strong> Framework for chaining AI tools and managing context.</li><li><strong>ChromaDB:</strong> Vector database for semantic similarity search.</li><li><strong>Model Context Protocol (MCP):</strong> Interface protocol for modular agent communication.</li></ul>",
+            "it": "<ul><li><strong>Python:</strong> Linguaggio principale per backend e orchestrazione degli strumenti.</li><li><strong>Ollama:</strong> Motore LLM locale per inferenza e ragionamento contestuale.</li><li><strong>LangChain:</strong> Framework per concatenare strumenti AI e gestire il contesto.</li><li><strong>ChromaDB:</strong> Database vettoriale per ricerche di similarità semantica.</li><li><strong>Model Context Protocol (MCP):</strong> Protocollo di interfaccia per la comunicazione modulare dell’agente.</li></ul>",
+            "fr": "<ul><li><strong>Python :</strong> Langage principal pour le backend et l’orchestration des outils.</li><li><strong>Ollama :</strong> Moteur LLM local pour l’inférence et le raisonnement contextuel.</li><li><strong>LangChain :</strong> Framework pour enchaîner les outils d’IA et gérer le contexte.</li><li><strong>ChromaDB :</strong> Base de données vectorielle pour la recherche de similarité sémantique.</li><li><strong>Model Context Protocol (MCP) :</strong> Protocole d’interface pour la communication modulaire des agents.</li></ul>"
+        },
+        "commands_h3": {
+            "en": "MCP Client Commands",
+            "it": "Comandi del Client MCP",
+            "fr": "Commandes du Client MCP"
+        },
+        "commands_intro": {
+            "en": "The following interactive commands are available to test and operate the MCP Client locally:",
+            "it": "I seguenti comandi interattivi sono disponibili per testare e utilizzare il Client MCP in locale:",
+            "fr": "Les commandes interactives suivantes sont disponibles pour tester et exécuter le client MCP localement :"
+        },
+        "cmd_test": {
+            "en": "Verifies the connection between the MCP Client and Server through JSON-RPC.",
+            "it": "Verifica la connessione tra il Client MCP e il Server tramite JSON-RPC.",
+            "fr": "Vérifie la connexion entre le client MCP et le serveur via JSON-RPC."
+        },
+        "cmd_list": {
+            "en": "Lists all available tools exposed by the MCP Server.",
+            "it": "Elenca tutti gli strumenti disponibili esposti dal Server MCP.",
+            "fr": "Liste tous les outils disponibles exposés par le serveur MCP."
+        },
+        "cmd_extract": {
+            "en": "Extracts important keywords from a user query for optimized semantic retrieval.",
+            "it": "Estrae le parole chiave importanti da una query utente per una ricerca semantica ottimizzata.",
+            "fr": "Extrait les mots-clés importants d'une requête utilisateur pour une recherche sémantique optimisée."
+        },
+        "cmd_process": {
+            "en": "Processes reviews through the full analysis pipeline: retrieval, summarization, and statistics.",
+            "it": "Elabora le recensioni attraverso l’intera pipeline di analisi: recupero, sintesi e statistiche.",
+            "fr": "Traite les avis à travers la chaîne complète d’analyse : récupération, synthèse et statistiques."
+        },
+        "cmd_agent": {
+            "en": "Runs the Ollama Agent to perform autonomous review understanding and reasoning.",
+            "it": "Esegue l’Agente Ollama per analizzare e comprendere autonomamente le recensioni.",
+            "fr": "Exécute l’Agent Ollama pour effectuer une compréhension et un raisonnement autonomes sur les avis."
+        },
+        "commands_outro": {
+            "en": "Each command is modular and communicates asynchronously with the MCP Server, ensuring high performance and a local, privacy-preserving AI workflow.",
+            "it": "Ogni comando è modulare e comunica in modo asincrono con il Server MCP, garantendo alte prestazioni e un flusso AI locale orientato alla privacy.",
+            "fr": "Chaque commande est modulaire et communique de manière asynchrone avec le serveur MCP, assurant des performances élevées et un flux d’IA local respectueux de la confidentialité."
         }
     },
     "contact": {
@@ -738,14 +793,14 @@ const translations = {
             "fr": "Sep 2025 - Oct 2025"
         },
         "langchain_title": {
-            "en": "LangChain, Ollama & LLMs",
-            "it": "LangChain, Ollama & LLMs",
-            "fr": "LangChain, Ollama & LLMs"
+            "en": "Local AI Agent with MCP Architecture",
+            "it": "Agente AI Locale con Architettura MCP",
+            "fr": "Agent IA Local avec Architecture MCP"
         },
         "langchain_desc": {
-            "en": "A Q&A system for analyzing e-commerce product reviews using local LLMs.",
-            "it": "Un sistema di Q&A per analizzare le recensioni di prodotti e-commerce utilizzando LLM locali.",
-            "fr": "Un système de Q&R pour analyser les avis sur les produits e-commerce en utilisant des LLM locaux."
+            "en": "A Q&A system for analyzing e-commerce product reviews using local LLMs, via MCP and a set of integrated tools.",
+            "it": "Un sistema di Q&A per analizzare le recensioni di prodotti e-commerce utilizzando LLM locali, tramite MCP e un set di tool integrati.",
+            "fr": "Un système de Q&R pour analyser les avis sur les produits e-commerce en utilisant des LLM locaux, via MCP et un ensemble d'outils intégrés."
         },
         "dates_aug_oct": {
             "en": "Aug 2025 - Oct 2025",
