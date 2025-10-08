@@ -565,9 +565,9 @@ const translations = {
             "fr": "Architecture du Système"
         },
         "arch_diagram": {
-            "en": "<p>Once the server and the LLM model are launched through Ollama, the application provides an MCP Client interface that communicates with the MCP Server via the JSON-RPC protocol, invoking the available tools. The MCP Server exposes several tools that can be called independently, allowing granular control over the analysis pipeline. A specific command allows delegating the entire pipeline to an Agent. ChromaDB is used as a local (vector) database that enables the Agent or the tools invoked from the interface to perform semantic searches, which are then used as input for textual analysis and statistical computation tools.</p>",
-            "it": "<p>Una volta lanciati il server e il modello LLM tramite Ollama, l'applicazione presenta un'interfaccia Client MCP che permette di comunicare inviando comandi al Server MCP via protocollo JSON-RPC. Il Server MCP espone diversi tools che possono essere chiamati in modo indipendente, consentendo un controllo granulare sulla pipeline di analisi. È presente un comando che permette di delegare l'intera pipeline a un Agente. ChromaDB è stato usato come database locale (vettoriale) che permette all'Agente o ai tools invocati da interfaccia di eseguire la ricerca semantica, che viene usata come input ai tools di analisi testuale e calcolo delle statistiche.</p>",
-            "fr": "<p>Une fois le serveur et le modèle LLM lancés via Ollama, l'application propose une interface Client MCP qui communique avec le serveur MCP à l'aide du protocole JSON-RPC, en invoquant les outils disponibles. Le serveur MCP expose plusieurs outils pouvant être appelés de manière indépendante, offrant un contrôle granulaire sur le pipeline d'analyse. Une commande permet de déléguer l'ensemble du pipeline à un agent. ChromaDB est utilisé comme base de données locale (vectorielle), permettant à l'Agent ou aux outils invoqués depuis l'interface d'effectuer des recherches sémantiques, utilisées ensuite comme entrée pour les outils d'analyse textuelle et de calcul statistique.</p>"
+            "en": "<p>The MCP Client communicates with the MCP Server, which routes requests to a central `handler.py`. This handler invokes the appropriate tool or delegates the entire pipeline to an Agent. ChromaDB is used as a local vector database for semantic search, providing the necessary context for analysis.</p>",
+            "it": "<p>Il Client MCP comunica con il Server MCP, che instrada le richieste a un `handler.py` centrale. Questo gestore invoca lo strumento appropriato o delega l'intera pipeline a un Agente. ChromaDB viene utilizzato come database vettoriale locale per la ricerca semantica, fornendo il contesto necessario per l'analisi.</p>",
+            "fr": "<p>Le Client MCP communique avec le Serveur MCP, qui achemine les requêtes vers un `handler.py` central. Ce gestionnaire invoque l'outil approprié ou délègue l'ensemble du pipeline à un Agent. ChromaDB est utilisé comme base de données vectorielle locale pour la recherche sémantique, fournissant le contexte nécessaire à l'analyse.</p>"
         },
         "tech_h3": {
             "en": "Technology Stack",
@@ -590,34 +590,39 @@ const translations = {
             "fr": "Les commandes interactives suivantes sont disponibles pour tester et exécuter le client MCP localement :"
         },
         "cmd_test": {
-            "en": "Verifies the connection between the MCP Client and Server through JSON-RPC.",
-            "it": "Verifica la connessione tra il Client MCP e il Server tramite JSON-RPC.",
-            "fr": "Vérifie la connexion entre le client MCP et le serveur via JSON-RPC."
+            "en": "Verifies the connection between the MCP Client and Server.",
+            "it": "Verifica la connessione tra il Client MCP e il Server.",
+            "fr": "Vérifie la connexion entre le client MCP et le serveur."
         },
         "cmd_list": {
-            "en": "Lists all available tools exposed by the MCP Server.",
-            "it": "Elenca tutti gli strumenti disponibili esposti dal Server MCP.",
-            "fr": "Liste tous les outils disponibles exposés par le serveur MCP."
+            "en": "Lists all available tools exposed by the handler.",
+            "it": "Elenca tutti gli strumenti disponibili esposti dall'handler.",
+            "fr": "Liste tous les outils disponibles exposés par le gestionnaire."
         },
         "cmd_extract": {
-            "en": "Extracts important keywords from a user query for optimized semantic retrieval.",
-            "it": "Estrae le parole chiave importanti da una query utente per una ricerca semantica ottimizzata.",
-            "fr": "Extrait les mots-clés importants d'une requête utilisateur pour une recherche sémantique optimisée."
+            "en": "Extracts keywords from a user query for semantic retrieval.",
+            "it": "Estrae le parole chiave da una query per la ricerca semantica.",
+            "fr": "Extrait les mots-clés d'une requête pour la recherche sémantique."
         },
         "cmd_process": {
-            "en": "Processes reviews through the full analysis pipeline: retrieval, summarization, and statistics.",
-            "it": "Elabora le recensioni attraverso l’intera pipeline di analisi: recupero, sintesi e statistiche.",
-            "fr": "Traite les avis à travers la chaîne complète d’analyse : récupération, synthèse et statistiques."
+            "en": "Processes reviews through the analysis pipeline (retrieval, summarization, statistics).",
+            "it": "Elabora le recensioni tramite la pipeline di analisi (recupero, sintesi, statistiche).",
+            "fr": "Traite les avis via le pipeline d'analyse (récupération, synthèse, statistiques)."
         },
         "cmd_agent": {
-            "en": "Runs the Ollama Agent to perform autonomous review understanding and reasoning.",
-            "it": "Esegue l’Agente Ollama per analizzare e comprendere autonomamente le recensioni.",
-            "fr": "Exécute l’Agent Ollama pour effectuer une compréhension et un raisonnement autonomes sur les avis."
+            "en": "Runs the agent to perform autonomous review analysis.",
+            "it": "Esegue l'agente per effettuare l'analisi autonoma delle recensioni.",
+            "fr": "Exécute l'agent pour effectuer une analyse autonome des avis."
         },
         "commands_outro": {
             "en": "Each command is modular and communicates asynchronously with the MCP Server, ensuring high performance and a local, privacy-preserving AI workflow.",
             "it": "Ogni comando è modulare e comunica in modo asincrono con il Server MCP, garantendo alte prestazioni e un flusso AI locale orientato alla privacy.",
             "fr": "Chaque commande est modulaire et communique de manière asynchrone avec le serveur MCP, assurant des performances élevées et un flux d’IA local respectueux de la confidentialité."
+        },
+        "demo_h3": {
+            "en": "Demo",
+            "it": "Demo",
+            "fr": "Démo"
         }
     },
     "contact": {
