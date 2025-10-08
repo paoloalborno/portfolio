@@ -29,6 +29,19 @@
         .summary-content pre {
             white-space: pre-wrap;
             word-wrap: break-word;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1em;
+            border-radius: 5px;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        h4 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -37,29 +50,80 @@
 
     <main class="container" style="padding-top: 120px;">
         <section class="page-section">
-            <h1 class="section-title">Riassunti dei Progetti</h1>
+            <h1 class="section-title">Analisi del Repository: Agente AI Locale</h1>
             <div class="summary-container">
                 <div class="summary-header" id="ollama-summary-header">
-                    <h2>Agente AI Locale con Architettura MCP</h2>
+                    <h2>Panoramica del Progetto e Architettura</h2>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="summary-content" id="ollama-summary-content">
                     <div class="text-justify">
                         <p>
-                            Questo progetto ha esplorato la creazione di un'architettura di intelligenza artificiale interamente locale, eliminando la dipendenza da API esterne e garantendo privacy e bassa latenza. Il cuore del sistema è il <strong>Model Context Protocol (MCP)</strong>, un protocollo che standardizza la comunicazione tra un client e un server AI, permettendo di esporre strumenti di analisi come funzioni richiamabili via JSON-RPC.
+                            Questo progetto implementa un agente di intelligenza artificiale interamente locale, progettato per analizzare le recensioni dei prodotti. L'architettura è costruita per eliminare la dipendenza da API di terze parti (OpenAI, Antrhopic etc.). Il sistema sfrutta <strong>Ollama</strong> per l'esecuzione di modelli linguistici di grandi dimensioni (LLM) e <strong>ChromaDB</strong> per la ricerca semantica basata su vettori.
                         </p>
                         <p>
-                            L'architettura si basa su <strong>Ollama</strong> per l'esecuzione di modelli linguistici di grandi dimensioni (LLM) in locale. Questo permette di avere un controllo completo sui modelli utilizzati, come <code>qwen2.5:7b</code> per la generazione di testo e <code>mxbai-embed-large</code> per la creazione di embedding vettoriali. Gli embedding sono fondamentali per la ricerca semantica, poiché trasformano il testo in vettori numerici che ne catturano il significato.
+                            Il protocollo di comunicazione personalizzato, <strong>Model Context Protocol (MCP)</strong>, standardizza l'interazione tra un client e un server, permettendo di esporre gli strumenti di analisi come funzioni richiamabili tramite JSON-RPC. Questo design modulare è una best practice che favorisce la manutenibilità e la scalabilità del sistema.
                         </p>
+                        <h4>Architettura Generale</h4>
                         <p>
-                            La ricerca semantica è implementata con <strong>ChromaDB</strong>, un database vettoriale che memorizza gli embedding delle recensioni dei prodotti. Quando un utente pone una domanda, il sistema non cerca semplici corrispondenze di parole chiave, ma confronta il vettore della domanda con quelli delle recensioni, trovando i risultati più pertinenti a livello di significato.
+                            Il sistema è diviso in componenti chiave:
+                            <ul>
+                                <li><strong>Server MCP (`mcp_server.py`):</strong> Il backend che espone gli strumenti AI tramite l'MCP.</li>
+                                <li><strong>Client MCP (`mcp_client.py`):</strong> Un'interfaccia a riga di comando per interagire con il server.</li>
+                                <li><strong>Agente (`ollama_agent.py`):</strong> L'orchestratore che esegue una sequenza di strumenti per rispondere a query complesse.</li>
+                                <li><strong>Strumenti (`tools.py`):</strong> Le singole funzioni che eseguono compiti specifici come l'estrazione di keyword o la sintesi di testi.</li>
+                                <li><strong>Vector Store (`vector.py`):</strong> Il gestore del database vettoriale che si occupa della memorizzazione e del recupero delle recensioni.</li>
+                            </ul>
                         </p>
-                        <h4>Client MCP (`mcp_client.py`)</h4>
+
+                        <h4>`mcp_server.py` - Il Cuore del Backend</h4>
+                        <p>
+                            Questo file è il punto di ingresso del server. Utilizza la libreria `mcp.server` per creare un server JSON-RPC. La funzione `initialize_system` è fondamentale perché carica il modello LLM, inizializza il database vettoriale e prepara gli strumenti per l'uso.
+                        </p>
                         <pre><code class="language-python">
+# mcp_server.py
+def initialize_system(model_name: str = "llama3.2:latest", k: int = 5) -> bool:
+    """Initialize all components needed for the MCP server"""
+    global llm, vector_store, retriever, agent_tools, ollama_agent
+    try:
+        # Load LLM
+        print(f"Loading model: {model_name}", file=sys.stderr)
+        llm = OllamaLLM(model=model_name)
+        # ... (initialization of vector_store, retriever, etc.)
+        return True
+    except Exception as e:
+        # ... (error handling)
+        return False
+                        </code></pre>
+                        <p>
+                            Il decoratore `@server.call_tool()` espone una funzione come uno strumento richiamabile dal client. Questo è un eccellente esempio di come creare un'API strutturata per un agente AI.
+                        </p>
+                        <pre><code class="language-python">
+# mcp_server.py
+@server.call_tool()
+async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> List[types.TextContent]:
+    try:
+        if not agent_tools:
+            return [types.TextContent(text=json.dumps({"error": "Agent tools not initialized"}))]
+
+        if name == "extract_important_keywords":
+            # ... logic to call the tool
+            result = agent_tools.extract_important_keywords(arguments["user_query"])
+            return [types.TextContent(text=json.dumps(result, ensure_ascii=False))]
+        # ... (other tools)
+    except Exception as e:
+        # ... (error handling)
+                        </code></pre>
+
+                        <h4>`mcp_client.py` - Interfaccia Utente</h4>
+                        <p>
+                            Il client è un'applicazione a riga di comando asincrona che comunica con il server MCP. Avvia il server come un sottoprocesso e invia richieste JSON-RPC per eseguire i comandi. La lezione qui è la separazione netta tra l'interfaccia utente e la logica del server, che permette di sviluppare e testare i due componenti in modo indipendente.
+                        </p>
+                        <pre><code class="language-python">
+# mcp_client.py
 async def call_tool(self, name, arguments):
     timeout = 60.0 if name == "agent" else 10.0
-
-    response = await self._send_request("tools/call", name,{
+    response = await self._send_request("tools/call", name, {
         "name": name,
         "arguments": arguments
     }, timeout)
@@ -67,22 +131,13 @@ async def call_tool(self, name, arguments):
         return response["result"]
     return None
                         </code></pre>
-                        <h4>Server MCP (`mcp_server.py`)</h4>
+
+                        <h4>`ollama_agent.py` - L'Orchestratore</h4>
+                        <p>
+                            Questo file definisce l'agente che orchestra l'esecuzione sequenziale degli strumenti. Il metodo `run_sequenced` è un chiaro esempio di "chain-of-thought" (catena di pensiero) implementata programmaticamente. L'agente esegue una serie di passaggi logici (estrazione, recupero, sintesi) per produrre un risultato completo.
+                        </p>
                         <pre><code class="language-python">
-@server.call_tool()
-async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> List[types.TextContent]:
-    try:
-        if not agent_tools:
-            return [types.TextContent(
-                type="text",
-                text=json.dumps({"error": "Agent tools not initialized"})
-            )]
-        # ... (tool execution logic)
-    except Exception as e:
-        # ... (error handling)
-                        </code></pre>
-                        <h4>Agente (`ollama_agent.py`)</h4>
-                        <pre><code class="language-python">
+# ollama_agent.py
 def run_sequenced(self, user_query: str) -> str:
     """Execute tools in a fixed sequence and return JSON result"""
     try:
@@ -92,28 +147,43 @@ def run_sequenced(self, user_query: str) -> str:
         reviews = self.agent_tools.retrieve_useful_reviews(keywords)
         # Step 3: Summarize reviews
         summary = self.agent_tools.summarize_reviews(reviews)
-        # Step 4: Get statistics
-        statistics = self.agent_tools.get_reviews_statistics(reviews)
-        # Step 5: Generate final JSON result
-        # ...
+        # ... (and so on)
+        result = { "query": user_query, "keywords": keywords, ... }
+        return json.dumps(result, indent=2, ensure_ascii=False)
     except Exception as e:
-        # ...
+        # ... (error handling)
                         </code></pre>
-                        <h4>Tools (`tools.py`)</h4>
+
+                        <h4>`tools.py` - Gli Strumenti Atomici</h4>
+                        <p>
+                            Qui risiede la logica di ogni singolo strumento. Una best practice fondamentale mostrata in questo file è l'uso di prompt ben definiti e specifici per guidare il modello LLM. Ogni prompt è una stringa formattabile che definisce chiaramente il compito che il modello deve eseguire, riducendo l'ambiguità e migliorando la qualità dei risultati.
+                        </p>
                         <pre><code class="language-python">
+# tools.py
+self.prompt_keywords = (
+    "Given the following user query your goal is to extract the most important keywords on order to retrieve related reviews via RAG.\\n"
+    "Add only very close synonyms. "
+    "User query: {user_query}\\n"
+    "Return ONLY a comma-separated list of keywords, no explanations."
+)
+# ...
 def extract_important_keywords(self, user_query: str) -> List[str]:
     prompt = self.prompt_keywords.format(user_query=user_query)
     try:
         response = self.llm.invoke(prompt)
-        keywords = [k.strip() for k in response.split(',') if k.strip()]
-        return keywords[:5] if keywords else [user_query]
+        # ... (parsing logic)
     except Exception as e:
-        return [{"error": f"Extraction failed: {str(e)}"}]
+        # ...
                         </code></pre>
-                        <h4>Vector Store (`vector.py`)</h4>
+
+                        <h4>`vector.py` - La Memoria Semantica</h4>
+                        <p>
+                            Questo file gestisce la creazione e l'interazione con il database vettoriale ChromaDB. La classe `ReviewsVectorStore` astrae la complessità del caricamento dei dati da un CSV, della creazione degli embedding e dell'inizializzazione del database. La funzione `get_retriever` è particolarmente importante perché fornisce un'interfaccia standard (un oggetto `BaseRetriever` di LangChain) per eseguire la ricerca semantica.
+                        </p>
                         <pre><code class="language-python">
+# vector.py
 class ReviewsVectorStore:
-    def __init__(self, csv_file_path: str = "reviews.csv", db_location: str = "./chroma_db", embedding_model: str = "mxbai-embed-large", collection_name: str = "gaming_reviews"):
+    def __init__(self, csv_file_path: str = "reviews.csv", ...):
         # ...
         self.vector_store = Chroma(
             client=chromadb.PersistentClient(path=db_location),
@@ -125,6 +195,196 @@ class ReviewsVectorStore:
         k = max(1, min(50, int(k)))
         return self.vector_store.as_retriever(search_kwargs={"k": k})
                         </code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+		<section class="page-section">
+            <h1 class="section-title">Analisi del Repository: SQL Reverse Engineering Toolkit</h1>
+			<div class="summary-container">
+				<div class="summary-header" id="reverse-summary-header">
+					<h2>Panoramica del Progetto e Architettura</h2>
+					<i class="fas fa-chevron-down"></i>
+				</div>
+				<div class="summary-content" id="reverse-summary-content">
+                    <div class="text-justify">
+                        <p>
+                            Questo repository contiene un "SQL Reverse Engineering Toolkit", un'applicazione a riga di comando progettata per analizzare e visualizzare la data lineage in un database MySQL. Lo strumento estrae le definizioni delle tabelle e delle stored procedure, le analizza per identificare le dipendenze (quali procedure leggono o scrivono su quali tabelle) e genera un grafo interattivo delle dipendenze. È uno strumento ideale per comprendere la logica di database complessi, effettuare il refactoring di codice legacy e documentare i flussi di dati.
+                        </p>
+
+                        <h4>Architettura Generale</h4>
+                        <p>
+                            Il sistema è suddiviso in componenti chiave, ognuno con una responsabilità specifica, seguendo il principio della separazione delle preoccupazioni (Separation of Concerns). Questa architettura modulare rende il codice più facile da comprendere, manutenere ed estendere.
+                            <ul>
+                                <li><strong>`parser.py`:</strong> Fornisce utilità leggere per analizzare istruzioni SQL (DDL/DML) ed estrarre una data lineage semplificata.</li>
+                                <li><strong>`extractor.py`:</strong> Un toolkit di sola lettura per estrarre lo schema del database (CREATE TABLE) e le definizioni delle stored procedure da un database MySQL e salvarle come file SQL.</li>
+                                <li><strong>`graph_utils.py`:</strong> Costruisce e visualizza il grafo delle dipendenze utilizzando `networkx` e `graphviz`.</li>
+                                <li><strong>`materializer.py`:</strong> Gestisce la creazione e la sostituzione di viste di database (materialized views) per riassumere dati.</li>
+                                <li><strong>`cli.py`:</strong> Fornisce un'interfaccia a riga di comando per orchestrare l'intero processo, collegando l'estrattore, il parser e il visualizzatore di grafi.</li>
+                            </ul>
+                        </p>
+
+                        <h4>Lezioni Apprese e Best Practice</h4>
+                        <p>
+                            Una delle principali lezioni di questo progetto è l'importanza della <strong>modularità</strong>. Suddividere l'applicazione in moduli con responsabilità chiare (`extractor`, `parser`, `graph_utils`) migliora notevolmente la manutenibilità. Un'altra best practice è la <strong>gestione della configurazione</strong> tramite variabili d'ambiente (file `.env`), che separa la configurazione dal codice e migliora la sicurezza.
+                        </p>
+
+                        <!-- Inizio Documentazione Moduli -->
+
+                        <h4>`parser.py` - Analisi e Parsing SQL</h4>
+                        <p>
+                            Il modulo `parser.py` è il cuore dell'analisi del lignaggio dei dati. La sua responsabilità è analizzare il testo delle istruzioni SQL (come `CREATE PROCEDURE`) per estrarre quali tabelle vengono lette e quali vengono scritte. Questo approccio è intenzionalmente leggero e non tenta di essere un parser SQL completo, ma è sufficiente per il reverse-engineering delle stored procedure.
+                        </p>
+                        <h5>Funzioni Chiave e Logica</h5>
+                        <p>
+                            La funzione principale è `parse_lineage`, che orchestra l'intero processo di analisi. Prima normalizza l'SQL per renderlo più facile da analizzare, poi estrae le tabelle di lettura e scrittura.
+                        </p>
+                        <pre><code class="language-python">
+# parser.py
+def parse_lineage(sql_text: str) -> Dict[str, List[str]]:
+    """
+        Objective: High-level API. Given raw SQL text (e.g., from SHOW CREATE PROCEDURE),
+        return a dictionary with:
+            {"reads": [...], "writes": [...]}
+    """
+    return {
+        "reads": extract_read_tables(sql_text),
+        "writes": extract_write_tables(sql_text)
+    }
+                        </code></pre>
+                        <p>
+                            Per l'estrazione vera e propria, il modulo si affida a espressioni regolari (regex). Questo è un ottimo esempio di come le regex possano essere utilizzate per estrarre informazioni strutturate da testo non strutturato.
+                        </p>
+                        <pre><code class="language-python">
+# parser.py
+# Constants for SQL pattern matching
+READ_TABLE_PATTERN = r"(?:from|join)\s+([a-zA-Z0-9_]+)"
+WRITE_TABLE_PATTERNS = [
+    r"insert\s+into\s+([a-zA-Z0-9_]+)",
+    r"update\s+([a-zA-Z0-9_]+)",
+    r"delete\s+from\s+([a-zA-Z0-9_]+)"
+]
+                        </code></pre>
+                        <h5>Lezioni Apprese e Best Practice</h5>
+                        <p>
+                            La lezione principale di questo modulo è che non sempre è necessaria una soluzione complessa per un problema apparentemente complesso. Invece di implementare un parser SQL completo, che sarebbe un'impresa enorme, il progetto utilizza espressioni regolari mirate per estrarre solo le informazioni necessarie. Questo è un ottimo esempio di pragmatismo ingegneristico.
+                        </p>
+
+                        <h4>`extractor.py` - Estrazione da Database</h4>
+                        <p>
+                            Il modulo `extractor.py` è responsabile della connessione al database MySQL e dell'estrazione delle informazioni grezze. Questo modulo è progettato per essere di sola lettura, garantendo che non modifichi mai i dati o lo schema del database. La sua responsabilità principale è interrogare i metadati del database (`information_schema`) e utilizzare comandi come `SHOW CREATE TABLE` per ottenere il DDL (Data Definition Language).
+                        </p>
+                        <h5>Classi e Metodi Chiave</h5>
+                        <p>
+                            La classe `DatabaseExtractor` orchestra il processo di estrazione. Utilizza un `DatabaseConnection` per gestire la connessione al database. Il metodo `dump_schema_and_routines` è il punto di ingresso principale, che coordina l'estrazione di tabelle e routine.
+                        </p>
+                        <pre><code class="language-python">
+# extractor.py
+def dump_schema_and_routines(cfg: dict, output_path: str) -> dict:
+    """
+        Objective: Orchestrate the extraction of table DDLs and routine definitions, save them to files,
+        and create a dump_meta.json describing what was saved.
+        The function is read-only and safe.
+        Returns a meta-dictionary with tables and routines.
+    """
+    cfg = cfg or get_db_cfg()
+    db_connection = DatabaseConnection(cfg)
+    extractor = DatabaseExtractor(db_connection)
+    # ... (omitted for brevity) ...
+                        </code></pre>
+                        <p>
+                            Una best practice importante qui è l'uso di un context manager per la connessione al database, che garantisce che la connessione venga sempre chiusa correttamente, anche in caso di errori.
+                        </p>
+                        <pre><code class="language-python">
+# extractor.py
+class DatabaseConnection:
+    @contextmanager
+    def get_connection(self):
+        """Context manager for database connections."""
+        conn = None
+        try:
+            conn = mysql.connector.connect(...)
+            yield conn
+        finally:
+            if conn:
+                conn.close()
+                        </code></pre>
+                        <h5>Lezioni Apprese e Best Practice</h5>
+                        <p>
+                            La lezione chiave di questo modulo è l'importanza di isolare le interazioni con il database in un unico componente. Questo rende il resto dell'applicazione indipendente dai dettagli specifici del database. Inoltre, l'approccio di sola lettura (`read-only`) è una best practice fondamentale per la sicurezza quando si lavora con sistemi di produzione.
+                        </p>
+
+                        <h4>`graph_utils.py` - Visualizzazione del Lineage</h4>
+                        <p>
+                            Il modulo `graph_utils.py` è responsabile della visualizzazione della data lineage. Prende i dati di lignaggio analizzati (dal `parser.py`) e li trasforma in un grafo di dipendenze visivo. Questo è fondamentale per rendere le complesse relazioni tra tabelle e procedure immediatamente comprensibili.
+                        </p>
+                        <h5>Funzioni Chiave e Logica</h5>
+                        <p>
+                            La funzione `build_graph` utilizza la libreria `networkx` per costruire un grafo diretto (`DiGraph`) dai dati di lignaggio. Ogni tabella e procedura diventa un nodo nel grafo, e le relazioni di lettura/scrittura diventano archi (edges).
+                        </p>
+                        <pre><code class="language-python">
+# graph_utils.py
+def build_graph(lineage: dict):
+    nx_graph = nx.DiGraph()
+    for procedure, procedure_data in lineage['procedures'].items():
+        nx_graph.add_node(procedure, type="procedure")
+        for table in procedure_data['writes']:
+            nx_graph.add_node(table, type='table')
+            nx_graph.add_edge(procedure, table, relation='writes', color="red", action="writes")
+        for table in procedure_data['reads']:
+            nx_graph.add_node(table, type='table')
+            nx_graph.add_edge(table, procedure, relation='reads', color="blue", action="read by")
+    return nx_graph
+                        </code></pre>
+                        <p>
+                            Una volta costruito il grafo, la funzione `export_graphviz` utilizza la libreria `graphviz` per renderlo in un formato di immagine (come PNG).
+                        </p>
+                        <h5>Lezioni Apprese e Best Practice</h5>
+                        <p>
+                            La lezione principale di questo modulo è il potere della visualizzazione. I dati di lignaggio grezzi sono difficili da interpretare. Trasformandoli in un grafo, le dipendenze diventano immediatamente evidenti.
+                        </p>
+
+                        <h4>`materializer.py` - Creazione di Viste Materializzate</h4>
+                        <p>
+                            Il modulo `materializer.py` è responsabile della creazione delle viste nel database. Le viste sono query SQL predefinite utilizzate per creare sommari di dati di alto livello.
+                        </p>
+                        <h5>Funzioni Chiave e Logica</h5>
+                        <p>
+                            Il modulo definisce le viste come stringhe SQL in un dizionario, `VIEW_DEFINITIONS`. La funzione `materialize_all` orchestra il processo.
+                        </p>
+                        <pre><code class="language-python">
+# materializer.py
+def materialize_all():
+    """Create or replace all materialized views."""
+    db_connection = DatabaseConnection(get_db_cfg())
+    create_views_from_definitions(db_connection, VIEW_DEFINITIONS)
+                        </code></pre>
+                        <h5>Lezioni Apprese e Best Practice</h5>
+                        <p>
+                            L'uso delle viste per semplificare query complesse e pre-aggregare i dati è un modello comune nel data warehousing. Centralizzare le definizioni in un dizionario è una best practice per la manutenibilità.
+                        </p>
+
+                        <h4>`cli.py` - Interfaccia a Riga di Comando</h4>
+                        <p>
+                            Il modulo `cli.py` è il punto di ingresso dell'applicazione. Fornisce un'interfaccia a riga di comando (CLI) che lega insieme tutti gli altri componenti.
+                        </p>
+                        <h5>Funzioni Chiave e Logica</h5>
+                        <p>
+                            La funzione `main` utilizza `argparse` per definire i comandi (`extract`, `parse`, `materialize`, `all`).
+                        </p>
+                        <pre><code class="language-python">
+# cli.py
+def main():
+    parser = argparse.ArgumentParser(description="Reverse Engineering Toolkit CLI")
+    parser.add_argument("command", choices=["extract", "parse", "materialize", "all"], help="Command to run...")
+    args = parser.parse_args()
+    # ...
+                        </code></pre>
+                        <h5>Lezioni Apprese e Best Practice</h5>
+                        <p>
+                            Costruire una CLI ben strutturata con `argparse`, una classe di configurazione (`CLIConfig`), e funzioni "runner" separate per ogni comando è una best practice che rende il codice facile da usare e da estendere.
+                        </p>
+
                     </div>
                 </div>
             </div>
@@ -143,15 +403,22 @@ class ReviewsVectorStore:
             const icon = header.querySelector('i');
 
             header.addEventListener('click', () => {
-                if (content.style.display === 'none' || content.style.display === '') {
-                    content.style.display = 'block';
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                } else {
-                    content.style.display = 'none';
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
+                const isHidden = content.style.display === 'none' || content.style.display === '';
+                content.style.display = isHidden ? 'block' : 'none';
+                icon.classList.toggle('fa-chevron-down', !isHidden);
+                icon.classList.toggle('fa-chevron-up', isHidden);
+            });
+        });
+		document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('reverse-summary-header');
+            const content = document.getElementById('reverse-summary-content');
+            const icon = header.querySelector('i');
+
+            header.addEventListener('click', () => {
+                const isHidden = content.style.display === 'none' || content.style.display === '';
+                content.style.display = isHidden ? 'block' : 'none';
+                icon.classList.toggle('fa-chevron-down', !isHidden);
+                icon.classList.toggle('fa-chevron-up', isHidden);
             });
         });
     </script>

@@ -618,11 +618,6 @@ const translations = {
             "en": "Each command is modular and communicates asynchronously with the MCP Server, ensuring high performance and a local, privacy-preserving AI workflow.",
             "it": "Ogni comando è modulare e comunica in modo asincrono con il Server MCP, garantendo alte prestazioni e un flusso AI locale orientato alla privacy.",
             "fr": "Chaque commande est modulaire et communique de manière asynchrone avec le serveur MCP, assurant des performances élevées et un flux d’IA local respectueux de la confidentialité."
-        },
-        "demo_h3": {
-            "en": "Demo",
-            "it": "Demo",
-            "fr": "Démo"
         }
     },
     "contact": {
