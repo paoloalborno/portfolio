@@ -2,22 +2,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const graphData = {
         nodes: [
             { id: 1, label: 'MCP Client', description: 'Interactive user interface', icon: '../../assets/images/icons/MCP.png', x: 300, y: 50 },
-            { id: 2, label: 'MCP Server', description: 'JSON-RPC entry point', icon: '../../assets/images/icons/MCP.png', x: 300, y: 200 },
-            { id: 3, label: 'Tools', description: 'Individual tools', icon: '../../assets/images/icons/cli.png', x: 100, y: 350 },
-            { id: 4, label: 'Agent', description: 'Proccess the entire pipeline', icon: '../../assets/images/icons/AI.png', x: 500, y: 350 },
-            { id: 5, label: 'Vector Database', description: 'ChromaDB for semantic search', icon: '../../assets/images/icons/ChromaDB.png', x: 300, y: 500 }
+            { id: 2, label: 'MCP Server', description: 'JSON-RPC entry point', icon: '../../assets/images/icons/MCP.png', x: 300, y: 175 },
+            { id: 3, label: 'Tools', description: 'Individual analysis tools', icon: '../../assets/images/icons/cli.png', x: 100, y: 425 },
+            { id: 4, label: 'Agent', description: 'Processes the entire pipeline', icon: '../../assets/images/icons/AI.png', x: 500, y: 425 },
+            { id: 5, label: 'Vector Database', description: 'ChromaDB for semantic search', icon: '../../assets/images/icons/ChromaDB.png', x: 300, y: 550 },
+            { id: 6, label: 'Handler.py', description: 'Routes calls to tools/agent', icon: '../../assets/images/icons/python.png', x: 300, y: 300 }
         ],
         links: [
             { source: 1, target: 2, label: 'JSON-RPC' },
-            { source: 2, target: 3, label: 'Invokes' },
-            { source: 2, target: 4, label: 'Invokes' },
+            { source: 2, target: 6, label: 'Routes to' },
+            { source: 6, target: 3, label: 'Invokes' },
+            { source: 6, target: 4, label: 'Invokes' },
             { source: 3, target: 5, label: 'Uses' },
             { source: 4, target: 5, label: 'Uses' }
         ]
     };
 
     const svgWidth = 600;
-    const svgHeight = 600;
+    const svgHeight = 620;
     const boxWidth = 260;
     const boxHeight = 80;
     const iconSize = 30;
